@@ -39,10 +39,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], fu
 
 });
 
-Route::resource('AssalaamPerpustakaan', PerpusController::class);
 
 
 
 Auth::routes();
+Route::get('AssalaamPerpustakaan', [PerpusController::class, 'index'])->name('assalaamPerpustakaan');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

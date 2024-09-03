@@ -55,7 +55,10 @@
                     </div>
                     <a href="contact.html" class="nav-item nav-link">Contact</a>
                 </div> --}}
-                <a href="" class="btn btn-primary px-4" style="margin-left: auto">Login Now</a>
+                <div style="margin-left: auto">
+                <a href="{{ route('login') }}" class="btn btn-primary px-4">Login</a>
+                <a href="{{ route('register') }}" class="btn btn-primary px-4">Register</a>
+                </div>
             </div>
         </nav>
     </div>
