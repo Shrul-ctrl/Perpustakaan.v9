@@ -40,6 +40,7 @@ class UserController extends Controller
     {
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
+            'alamat' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ],
@@ -51,6 +52,7 @@ class UserController extends Controller
 
         $user = new User();
         $user->name = $request->name;
+        $user->alamat = $request->alamat;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->is_admin = $request->is_admin;

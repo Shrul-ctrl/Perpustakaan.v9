@@ -1,10 +1,11 @@
 <aside class="sidebar-wrapper" data-simplebar="true">
-    <div class="sidebar-header">
+    <div class="sidebar-header mt-3">
         <div class="logo-icon">
-            {{-- <img src="{{asset('backend/assets/images/logo-icon.png')}}" class="logo-img" alt=""> --}}
+            <img src="{{asset('images/buku/smk.png')}}" alt="" width="50"/>
+
         </div>
         <div class="logo-name flex-grow-1">
-            <h5 class="mb-0">Perpustakaan</h5>
+            <h5 class="mt-0">Perpustakaan</h5>
         </div>
         <div class="sidebar-close">
             <span class="material-icons-outlined">close</span>
@@ -54,6 +55,22 @@
                     <div class="parent-icon"><i class="material-icons-outlined">apps</i>
                     </div>
                     <div class="menu-title">buku</div>
+                </a>
+            </li>
+
+            <li class="menu-label">List</li>
+            <li>
+                <a href="{{route('peminjaman.index')}}">
+                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i>
+                    </div>
+                    <div class="menu-title">peminjaman</div>
+                </a>
+            </li>
+            <li>
+                <a href="{{route('pengembalian.index')}}">
+                    <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i>
+                    </div>
+                    <div class="menu-title">pengembalian</div>
                 </a>
             </li>
         </ul>

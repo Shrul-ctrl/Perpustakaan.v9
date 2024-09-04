@@ -20,6 +20,13 @@
                 </div>
 
                 <div class="col-md-4x">
+                    <label for="input13" class="form-label">Deskripsi</label>
+                    <div class="position-relative">
+                        <textarea class="form-control mb-3" type="text" name="deskripsi" placeholder="Deskripsi" required></textarea>
+                    </div>
+                </div>
+
+                <div class="col-md-4x">
                     <label for="input13" class="form-label">Foto</label>
                     <div class="position-relative ">
                         <input class="form-control mb-3" type="file" name="foto" required>

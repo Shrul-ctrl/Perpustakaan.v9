@@ -10950,4 +10950,19 @@ body {
     border-top: 1px solid #ddd;
 }
 
+.btn-small {
+    padding: 0.25rem 0.5rem;
+    font-size: 0.80rem; 
+    line-height: 1;
+  }
+
+  .des p{
+	border: 1px solid black;
+	padding: 5px;
+	border-right: none;
+	border-top: none;
+	border-left: 1px solid black;
+	border-bottom: 1px solid black;
+	border-radius: 5%;
+  }
 /*# sourceMappingURL=bootstrap.min.css.map */

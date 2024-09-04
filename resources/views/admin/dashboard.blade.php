@@ -14,7 +14,7 @@
                             <h3 class="mb-0 text-indigo pb-3">{{$jumlahbuku}}</h3>
                             <a href="{{route('buku.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
                         </div>
-                        <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="150" alt="">
+                        <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">
                     </div>
                 </div>
             </div>
@@ -33,7 +33,7 @@
                             <h3 class="mb-0 text-indigo pb-3">{{$jumlahpenulis}}</h3>
                             <a href="{{route('penulis.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
                         </div>
-                        <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="150" alt="">
+                        <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">
                     </div>
                 </div>
             </div>
@@ -52,7 +52,7 @@
                             <h3 class="mb-0 text-indigo pb-3">{{$jumlahpenerbit}}</h3>
                             <a href="{{route('penerbit.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
                         </div>
-                        <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="150" alt="">
+                        <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">
                     </div>
                 </div>
             </div>
@@ -71,7 +71,7 @@
                             <h3 class="mb-0 text-indigo pb-3">{{$jumlahkategori}}</h3>
                             <a href="{{route('kategori.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
                         </div>
-                        <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="150" alt="">
+                        <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">
                     </div>
                 </div>
             </div>
@@ -80,7 +80,7 @@
 
 </div>
 <div class="row">
-    <div class="col-12 col-xxl-6 d-flex">
+    <div class="col-6 col-xxl-6 d-flex">
         <div class="card rounded-4 w-100">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between mb-3">
@@ -120,6 +120,9 @@
         <div class="card rounded-4">
           <div class="card-header py-3">
             <div class="d-flex align-items-center justify-content-between">
+                <div class="">
+                    <h5 class="mb-0">Jumlah Buku</h5>
+                </div>
             </div>
           </div>
           <div class="card-body">
@@ -132,6 +135,9 @@
         <div class="card rounded-4">
           <div class="card-header py-3">
             <div class="d-flex align-items-center justify-content-between">
+                <div class="">
+                    <h5 class="mb-0">Daftar Pinjaman Buku</h5>
+                </div>
             </div>
           </div>
           <div class="card-body">

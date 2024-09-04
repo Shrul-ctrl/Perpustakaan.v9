@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en" data-bs-theme=dark>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
@@ -54,16 +54,16 @@
                                     </span>
                                     @enderror
                                 </div>
-                                {{-- <div class="col-12">
+                                <div class="col-12">
                                     <label for="alamat" class="form-label">Alamat</label>
-                                    <input type="text" class="form-control  @error('alamat') is-invalid @enderror" id="alamat" alamat="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus placeholder="Enter alamat">
+                                    <input type="text" class="form-control  @error('alamat') is-invalid @enderror" id="alamat" name="alamat" value="{{ old('alamat') }}" required autocomplete="alamat" autofocus placeholder="Enter alamat">
                                     @error('alamat')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
                                     @enderror
                                 </div>
-                                <div class="col-12">
+                                {{--<div class="col-12">
                                     <label for="jenis_kelamin" class="form-label">jenis_kelamin</label>
                                     <input type="text" class="form-control  @error('jenis_kelamin') is-invalid @enderror" id="jenis_kelamin" jenis_kelamin="jenis_kelamin" value="{{ old('jenis_kelamin') }}" required autocomplete="jenis_kelamin" autofocus placeholder="Enter jenis_kelamin">
                                     @error('jenis_kelamin')
@@ -118,7 +118,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="text-start">
-                                        <p class="mb-0">Already have an account? <a href="auth-basic-login.html">Sign in here</a></p>
+                                        <p class="mb-0">Sudah punya akun? <a href="auth-basic-login.html">Login sekarang</a></p>
                                     </div>
                                 </div>
                             </form>

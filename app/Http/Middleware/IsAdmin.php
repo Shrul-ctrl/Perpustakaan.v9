@@ -18,7 +18,7 @@ class IsAdmin
      public function handle(Request $request, Closure $next): Response
     {
         if (Auth::user()->isAdmin != 1) {
-            return redirect('/');
+            return redirect('dashboard');
         }
         return $next($request);
     }
@@ -33,11 +33,11 @@ class IsAdmin
     // public function handle(Request $request, Closure $next)
     // {
     //     if(auth()->check()){
-    //         if(auth()->user()->is_admin == 1){
+    //         if(auth()->user()->is_admin != 1){
     //             return $next($request);
     //         }
     //         else {
-    //             return to_route('kasir');
+    //             return to_route('AssalaamPerpustakaan');
     //         }
     //     }
     // }

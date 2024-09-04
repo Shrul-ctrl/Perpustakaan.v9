@@ -18,7 +18,7 @@ class BukuController extends Controller
      */
     public function index()
     {
-        $buku = buku::orderBy('id', 'desc')->get();
+        $buku = buku::orderBy('id', 'asc')->get();
         return view('admin.buku.index', compact('buku'));
     }
 
@@ -55,6 +55,7 @@ class BukuController extends Controller
     
         $buku = new buku();
         $buku->judul = $request->judul;
+        $buku->deskripsi = $request->deskripsi;
         $buku->id_penulis = $request->id_penulis;
         $buku->id_penerbit = $request->id_penerbit;
         $buku->id_kategori= $request->id_kategori ;
@@ -110,7 +111,7 @@ class BukuController extends Controller
     public function update(Request $request, buku $buku)
     {
         $buku->judul = $request->judul;
-        $buku->foto = $request->foto;
+        $buku->deskripsi = $request->deskripsi;
         $buku->id_penulis = $request->id_penulis;
         $buku->id_penerbit = $request->id_penerbit;
         $buku->id_kategori= $request->id_kategori ;

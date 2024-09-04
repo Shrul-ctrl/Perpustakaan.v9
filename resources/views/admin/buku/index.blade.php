@@ -30,7 +30,7 @@
                     <th scope="row">{{ $loop->index+1 }}</th>
                     <td>{{ $data->judul }}</td>
                     <td>
-                        <img src="{{ asset('images/buku/' . $data->foto) }}" width="200" height="100" style="object-fit: cover;" alt="">
+                        <img src="{{ asset('images/buku/' . $data->foto) }}" width="150" height="50" style="object-fit: cover;" alt="">
                     </td>
                     <td>{{ $data->penuli->nama_penulis }}</td>
                     <td>{{ $data->penerbit->nama_penerbit }}</td>
@@ -42,8 +42,8 @@
                         <form action="{{ route('buku.destroy', $data->id) }}" method="POST">
                             @csrf
                             @method('DELETE')
-                            <a href="{{ route('buku.edit', $data->id) }}" class="btn btn-warning px-5">Edit</a>
-                            <button type="submit" class="btn btn-danger px-5" onclick="return confirm('Apakah anda yakin??')">Hapus</button>
+                            <a href="{{ route('buku.edit', $data->id) }}" class="btn btn-warning btn-small">Edit</a>
+                            <button type="submit" class="btn btn-danger btn-small" onclick="return confirm('Apakah anda yakin??')">Hapus</button>
                         </form>
                     </td>
                 </tr>

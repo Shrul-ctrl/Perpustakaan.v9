@@ -8,6 +8,8 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\PerpusController;
+use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\PengembalianController;
 
 
 use App\Http\Middleware\IsAdmin;
@@ -34,15 +36,21 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], fu
     Route::resource('kategori', KategoriController::class);
     Route::resource('penerbit', PenerbitController::class); 
     Route::resource('penulis', PenulisController::class);
+    Route::resource('peminjaman', PeminjamanController::class);
+    Route::resource('pengembalian', PengembalianController::class);
     Route::resource('buku', BukuController::class);
     Route::resource('user', UserController::class);
 
 });
 
+// Route::resource('AssalaamPerpustakaan', PerpusController::class);
+Route::get('', [PerpusController::class, 'index'])->name('AssalaamPerpustakaan');
+Route::get('show/{id}',[PerpusController::class,'show']);
+
 
 
 
 Auth::routes();
-Route::get('AssalaamPerpustakaan', [PerpusController::class, 'index'])->name('assalaamPerpustakaan');
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+

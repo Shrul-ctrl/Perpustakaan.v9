@@ -1,10 +1,10 @@
 <!doctype html>
-<html lang="en" data-bs-theme=dark>
+<html lang="en">
 
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>POS</title>
+    <title>Perpustakaan</title>
     <!--favicon-->
     {{-- <link rel="icon" href="{{ asset('backend/assets/images/favicon-32x32.png') }}" type="image/png"> --}}
     <!-- loader-->
@@ -62,17 +62,16 @@
                                             @enderror
                                         </div>
                                     </div>
-                                    {{-- <div class="col-md-6">
-                                        <div class="form-check form-switch">
-                                            <input class="form-check-input" type="checkbox" id="flexSwitchCheckChecked">
-                                            <input class="form-check-input" type="checkbox" name="remember" id="flexSwitchCheckChecked" {{ old('remember') ? 'checked' : '' }}>
-                                            <label class="form-check-label" for="flexSwitchCheckChecked">Remember Me</label>
-                                        </div>
-                                    </div> --}}
                                     <div class="col-12">
                                         <div class="d-grid">
                                             <button type="submit" class="btn btn-primary">Login</button>
                                         </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        {{-- <div class="form-check form-switch"> --}}
+                                            <a href="{{route('register')}}">Tidak punya akun? daftar sekarang</a>
+                                        {{-- </div> --}}
                                     </div>
                                 </form>
                             </div>
