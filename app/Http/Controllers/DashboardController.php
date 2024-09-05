@@ -8,6 +8,7 @@ use App\Models\Kategori;
 use App\Models\buku;
 use App\Models\penerbit;
 use App\Models\user;
+use App\chart\MonthlyUsersChart;
 
 class DashboardController extends Controller
 {
@@ -23,4 +24,9 @@ class DashboardController extends Controller
         return view('admin.dashboard', compact('jumlahbuku','jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori','user'));
     }
     
+    // public function chart(MonthlyUsersChart $chart)
+    // {
+    //     return view('admin.dashboard', ['chart' => $chart->build()]);
+    // } 
+
 }

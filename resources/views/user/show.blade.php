@@ -58,7 +58,7 @@
             <div class="row">
                 <div class="col-lg-12 col-md-12 pb-1">
                     <div class="d-flex bg-light shadow-sm border-top rounded mb-4">
-                        <div class="pl-4 mt-5">
+                        <div class="p-4 mt-5">
                             <h4>Buku {{$buku->judul}}</h4>
                             <p class="m-0'">
                                 Buku{{$buku->judul}} lengkap. Buku {{$buku->judul}} yang ditulis oleh {{$buku->penuli->nama_penulis}}. Informasi selengkapnya mengenai Buku {{$buku->judul}} ada bawah ini.
@@ -69,15 +69,46 @@
                                         <img src="{{ asset('images/buku/' . $buku->foto) }}" alt="" class="card-img-top" class="card-img-top" width="50" height="450">
                                     </div>
                                 </div>
-                                <div class="des col-lg-4 col-md-6 pb-1">
+                                <div class="des col-lg-8 col-md-6 pb-1">
                                     <p>Judul : {{$buku->judul}}</p>
                                     <p>Penulis : {{$buku->penuli->nama_penulis}}</p>
                                     <p>Penerbit : {{$buku->penerbit->nama_penerbit}}</p>
                                     <p>Kategori : {{$buku->kategori->nama_kategori}}</p>
+                                    <p>Jumlah : {{$buku->jumlah}}</p>
                                     <p>Sinopsis : {{$buku->deskripsi}}</p>
                                 </div>
                             </div>
+
+                            <a href="" type="button" class="btn btn-primary px-4 float-end mb-4 mr-5" data-bs-toggle="modal" data-bs-target="#ScrollableModal">Pinjam</a>
                         </div>
+
+
+                        <div class="modal fade" id="ScrollableModal" aria-hidden="true" style="display: none;">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header border-bottom-0 bg-grd-primary py-2">
+                                        <h5 class="modal-title">Buku {{$buku->judul}}</h5>
+                                        <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="modal">
+                                            <i class="material-icons-outlined"></i>
+                                        </a>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="des col-lg-8 col-md-6 pb-1">
+                                            <p>Judul : {{$buku->judul}}</p>
+                                            <p>Penulis : {{$buku->penuli->nama_penulis}}</p>
+                                            <p>Penerbit : {{$buku->penerbit->nama_penerbit}}</p>
+                                            <p>Kategori : {{$buku->kategori->nama_kategori}}</p>
+                                            <p>Jumlah : {{$buku->jumlah}}</p>
+                                            <p>Sinopsis : {{$buku->deskripsi}}</p>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer border-top-0">
+                                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
+                                        <button type="button" class="btn btn-primary">Pinjam buku</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>\
                     </div>
                 </div>
             </div>

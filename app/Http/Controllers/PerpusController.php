@@ -9,7 +9,7 @@ class PerpusController extends Controller
 {
     public function index(){
         $buku = Buku::all();
-        return view('layouts.frontend',compact('buku'));
+        return view('layouts.frontend.frontend',compact('buku'));
     }
 
     public function show($id){

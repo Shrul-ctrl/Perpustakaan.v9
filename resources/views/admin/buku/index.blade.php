@@ -15,7 +15,7 @@
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Judul</th>
-                    <th scope="col">Deskripsi</th>
+                    {{-- <th scope="col">Deskripsi</th> --}}
                     <th scope="col">Foto</th>
                     <th scope="col">Penulis</th>
                     <th scope="col">Penerbit</th>
@@ -30,9 +30,9 @@
                 <tr>
                     <th scope="row">{{ $loop->index+1 }}</th>
                     <td>{{ $data->judul }}</td>
-                    <td>{{ $data->deskripsi }}</td>
+                    {{-- <td><textarea style="border: none">{{ $data->deskripsi }}</textarea></td> --}}
                     <td>
-                        <img src="{{ asset('images/buku/' . $data->foto) }}" width="150" height="50" style="object-fit: cover;" alt="">
+                        <img src="{{ asset('images/buku/' . $data->foto) }}" width="80" style="object-fit: cover;" alt="">
                     </td>
                     <td>{{ $data->penuli->nama_penulis }}</td>
                     <td>{{ $data->penerbit->nama_penerbit }}</td>
@@ -45,6 +45,10 @@
                             @csrf
                             @method('DELETE')
                             <a href="{{ route('buku.edit', $data->id) }}" class="btn btn-warning btn-small">Edit</a>
+                            {{-- <a href="{{ route('buku.show', $data->id) }}"class="btn btn-success">Show</a> --}}
+
+                            <a href="{{ route('buku.show' , $data->id) }}" class="btn btn-primary btn-small">Lihat</a>
+
                             <button type="submit" class="btn btn-danger btn-small" onclick="return confirm('Apakah anda yakin??')">Hapus</button>
                         </form>
                     </td>
@@ -54,4 +58,7 @@
         </table>
     </div>
 </div>
-@endsection
+@endsection 
+
+
+            

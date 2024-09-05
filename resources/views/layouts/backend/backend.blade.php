@@ -97,6 +97,9 @@
         });
 
     </script>
+
+
+    
     {{-- <script src="{{asset('backend/assets/js/dashboard2.js')}}"></script> --}}
     <script src="{{asset('backend/assets/js/main.js')}}"></script>
 

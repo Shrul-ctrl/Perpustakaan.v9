@@ -32,7 +32,8 @@ use App\Http\Middleware\IsAdmin;
 
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], function () {
-    Route::get('', [DashboardController::class, 'index'])->name('dashboard');
+    Route::get('home', [DashboardController::class, 'index'])->name('dashboard');
+    // Route::get('home', [DashboardController::class, 'chart']);
     Route::resource('kategori', KategoriController::class);
     Route::resource('penerbit', PenerbitController::class); 
     Route::resource('penulis', PenulisController::class);
@@ -52,5 +53,5 @@ Route::get('show/{id}',[PerpusController::class,'show']);
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 

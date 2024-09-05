@@ -19,7 +19,8 @@ class BukuController extends Controller
     public function index()
     {
         $buku = buku::orderBy('id', 'asc')->get();
-        return view('admin.buku.index', compact('buku'));
+        $bukus = Buku::all();
+        return view('admin.buku.index', compact('buku','bukus'));
     }
 
     /**
@@ -52,15 +53,20 @@ class BukuController extends Controller
             'judul.unique' => 'buku dengan nama tersebut sudah ada sebelumnya.',
         ]
     );
+
     
-        $buku = new buku();
-        $buku->judul = $request->judul;
-        $buku->deskripsi = $request->deskripsi;
-        $buku->id_penulis = $request->id_penulis;
-        $buku->id_penerbit = $request->id_penerbit;
-        $buku->id_kategori= $request->id_kategori ;
-        $buku->tahun_terbit= $request->tahun_terbit ;
-        $buku->jumlah= $request->jumlah ;
+    $buku = new buku();
+    $buku->judul = $request->judul;
+    $buku->deskripsi = $request->deskripsi;
+    $buku->id_penulis = $request->id_penulis;
+    $buku->id_penerbit = $request->id_penerbit;
+    $buku->id_kategori= $request->id_kategori ;
+    $buku->tahun_terbit= $request->tahun_terbit ;
+    $buku->jumlah= $request->jumlah ;
+    
+    // Tambahkan jumlah buku baru dengan jumlah yang sudah ada
+    $oldJumlah = $buku->jumlah;
+    $buku->jumlah = $oldJumlah + $request->jumlah;
 
         // update img
         if ($request->hasFile('foto')) {
@@ -81,10 +87,9 @@ class BukuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(buku $buku)
-    {
-        return view('admin.buku.show', compact('buku'));
-
+    public function show($id){
+        $buku = Buku::findOrFail($id);
+        return view('admin.buku.show',compact('buku'));
     }
 
     /**
