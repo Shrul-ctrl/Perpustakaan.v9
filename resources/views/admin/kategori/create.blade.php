@@ -1,4 +1,4 @@
-@extends('layouts.backend')
+@extends('layouts.backend.backend')
 @section('content')
 <div class="col-12 col-xl-12">
     <div class="card">

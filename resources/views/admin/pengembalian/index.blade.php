@@ -1,4 +1,4 @@
-@extends('layouts.backend')
+@extends('layouts.backend.backend')
 @section('content')
 @section('styles')
     <link rel="stylesheet" href="https://cdn.datatables.net/2.0.8/css/dataTables.dataTables.css">

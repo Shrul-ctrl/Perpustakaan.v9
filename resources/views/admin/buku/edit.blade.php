@@ -1,4 +1,4 @@
-@extends('layouts.backend')
+@extends('layouts.backend.backend')
 @section('content')
 <div class="col-12 col-xl-12">
     <div class="card">
@@ -12,6 +12,13 @@
                     <label for="input13" class="form-label">Nama buku</label>
                     <div class="position-relative">
                         <input class="form-control mb-3" type="text" name="judul" placeholder="Nama buku" value="{{$buku->judul}}" required>
+                    </div>
+                </div>
+
+                <div class="col-md-4x">
+                    <label for="input13" class="form-label">Deskripsi</label>
+                    <div class="position-relative">
+                        <textarea class="form-control mb-3" type="text" name="deskripsi" placeholder="deskripsi" value="{{$buku->deskripsi}}" required></textarea>
                     </div>
                 </div>
 

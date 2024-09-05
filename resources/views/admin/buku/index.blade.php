@@ -1,4 +1,4 @@
-@extends('layouts.backend')
+@extends('layouts.backend.backend')
 @section('content')
 <h3 class="mb-0 text-uppercase pb-3">TABEL BUKU</h3>
 <hr>
@@ -15,6 +15,7 @@
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Judul</th>
+                    <th scope="col">Deskripsi</th>
                     <th scope="col">Foto</th>
                     <th scope="col">Penulis</th>
                     <th scope="col">Penerbit</th>
@@ -29,6 +30,7 @@
                 <tr>
                     <th scope="row">{{ $loop->index+1 }}</th>
                     <td>{{ $data->judul }}</td>
+                    <td>{{ $data->deskripsi }}</td>
                     <td>
                         <img src="{{ asset('images/buku/' . $data->foto) }}" width="150" height="50" style="object-fit: cover;" alt="">
                     </td>

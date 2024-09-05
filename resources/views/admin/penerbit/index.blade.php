@@ -1,4 +1,5 @@
-@extends('layouts.backend')
+@extends('layouts.backend.backend')
+
 @section('content')
 <h3 class="mb-0 text-uppercase pb-3">TABEL PENERBIT</h3>
 <hr>
