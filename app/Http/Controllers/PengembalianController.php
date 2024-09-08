@@ -24,7 +24,7 @@ class PengembalianController extends Controller
             $data->formatted_tanggal = Carbon::parse($data->tanggal)->translatedForamt('l, d F Y');
         }
 
-        return view('admin.pengembalian.index', compact('pengembalian'));
+        return view('user.pengembalian.index', compact('pengembalian'));
     }
 
     /**

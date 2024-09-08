@@ -29,7 +29,7 @@
                     <th scope="row">{{ $loop->index+1 }}</th>
                     <td>{{$data->name}}</td>
                     <td>{{$data->email}}</td>
-                    <td>{{$data ->is_admin ? 'User' : 'Admin'}}</td>
+                    <td>{{$data ->isAdmin ? 'Peminjam' : 'Admin'}}</td>
                     <td>
                         <form action="{{ route('user.destroy', $data->id) }}" method="POST">
                             @csrf

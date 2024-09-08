@@ -35,20 +35,27 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], fu
     Route::get('home', [DashboardController::class, 'index'])->name('dashboard');
     // Route::get('home', [DashboardController::class, 'chart']);
     Route::resource('kategori', KategoriController::class);
-    Route::resource('penerbit', PenerbitController::class); 
+    Route::resource('penerbit', PenerbitController::class);
     Route::resource('penulis', PenulisController::class);
-    Route::resource('peminjaman', PeminjamanController::class);
-    Route::resource('pengembalian', PengembalianController::class);
     Route::resource('buku', BukuController::class);
     Route::resource('user', UserController::class);
-
 });
 
-// Route::resource('AssalaamPerpustakaan', PerpusController::class);
 Route::get('', [PerpusController::class, 'index'])->name('AssalaamPerpustakaan');
-Route::get('show/{id}',[PerpusController::class,'show']);
+
+Route::group(['prefix' => 'user'], function () {
+    Route::get('listbuku', [PerpusController::class, 'listbuku'])->name('listbuku');
+    Route::get('show/{id}', [PerpusController::class, 'show']);
+    Route::get('profile', [PerpusController::class, 'profile'])->name('profile');
+    Route::get('dashboarduser', [PerpusController::class, 'dashboard'])->name('dashboarduser');
+    
+    Route::group(['middleware' => ['auth', IsAdmin::class]], function () {
+    Route::resource('peminjaman', PeminjamanController::class);
+    Route::resource('pengembalian', PengembalianController::class);
+    });
 
 
+});
 
 
 Auth::routes();

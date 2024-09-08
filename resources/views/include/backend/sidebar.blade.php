@@ -58,7 +58,7 @@
                 </a>
             </li>
 
-            <li class="menu-label">List</li>
+            {{-- <li class="menu-label">List</li>
             <li>
                 <a href="{{route('peminjaman.index')}}">
                     <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i>
@@ -72,7 +72,7 @@
                     </div>
                     <div class="menu-title">pengembalian</div>
                 </a>
-            </li>
+            </li> --}}
         </ul>
         <!--end navigation-->
     </div>

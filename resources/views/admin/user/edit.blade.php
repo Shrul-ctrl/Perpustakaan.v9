@@ -19,6 +19,13 @@
                     </div>
                 </div>
 
+                <div class="col-md-4x">
+                    <label for="input13" class="form-label">Alamat</label>
+                    <div class="position-relative">
+                        <input class="form-control mb-3" type="text" name="alamat" placeholder="Nama Alamat" value="{{$user->alamat}}" required>
+                    </div>
+                </div>
+
                 <div class="col-md-12">
                     <label for="input16" class="form-label">Email</label>
                     <div class="position-relative">
@@ -33,7 +40,7 @@
                 
                 <div class="col-md-12">
                     <label for="input19" class="form-label">level</label>
-                    <select id="input19" name="is_admin" class="form-select">
+                    <select id="input19" name="isAdmin" class="form-select">
                         <option value="0" {{ $user->is_admin == 0 ? 'selected' : '' }}>User</option>
                         <option value="1" {{ $user->is_admin ? 'selected' : '' }}>Admin</option>
                     </select>

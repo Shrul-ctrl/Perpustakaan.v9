@@ -55,7 +55,7 @@ class UserController extends Controller
         $user->alamat = $request->alamat;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
-        $user->is_admin = $request->is_admin;
+        $user->isAdmin = $request->isAdmin;
         $user->save();
 
         return redirect()->route('user.index')->with('success', 'berhasil didaftarkan');
@@ -93,7 +93,7 @@ class UserController extends Controller
 
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->is_admin = $request->is_admin;
+        $user->isAdmin = $request->isAdmin;
         $user->save();
         return redirect()->route('user.index')->with('success', 'Data berhasil diubah');
     }

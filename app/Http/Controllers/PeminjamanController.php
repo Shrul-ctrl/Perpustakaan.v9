@@ -17,7 +17,7 @@ class PeminjamanController extends Controller
     {
         {
             $peminjaman = Peminjaman::latest()->paginate(5);
-            return view('admin.peminjaman.index', compact('peminjaman'));
+            return view('user.peminjaman.index', compact('peminjaman'));
         }
     }
 
@@ -30,7 +30,7 @@ class PeminjamanController extends Controller
     {
         $buku = Buku::all();
         $peminjaman = Peminjaman::all();
-        return view('admin.peminjaman.create',compact('buku','peminjaman'));
+        return view('user.peminjaman.create',compact('buku','peminjaman'));
     }
 
     /**
@@ -55,7 +55,7 @@ class PeminjamanController extends Controller
             $buku->jumlah -= $request->jumlah;
             $buku->save();
 
-            $peminjaman->save();
+            $buku->save();
 
         return redirect()->route('peminjaman.index');
             
@@ -86,7 +86,7 @@ class PeminjamanController extends Controller
 
         $buku = Buku::all();
         $peminjaman = Peminjaman::findOrfail($id);
-        return view('admin.peminjaman.edit',compact('buku','peminjaman'));
+        return view('user.peminjaman.edit',compact('buku','peminjaman'));
 
     }
 
@@ -106,7 +106,7 @@ class PeminjamanController extends Controller
         $peminjaman ->update($request->all());
 
         if ($buku->jumlah < $request->jumlah){
-        return redirect() ->route('admin.peminjaman.index');
+        return redirect() ->route('user.peminjaman.index');
             
         }else{
             $buku->jumlah -= $request->jumlah;
@@ -121,10 +121,10 @@ class PeminjamanController extends Controller
                 
             }
             $peminjaman->save();
-        return redirect() ->route('admin.peminjaman.index');
+        return redirect() ->route('user.peminjaman.index');
     }
 
-    /**
+    /** 
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Peminjaman  $peminjaman

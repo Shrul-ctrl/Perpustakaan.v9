@@ -22,6 +22,13 @@
                         @enderror
                     </div>
                 </div>
+
+                <div class="col-md-4x">
+                    <label for="input13" class="form-label">Alamat</label>
+                    <div class="position-relative">
+                        <textarea class="form-control mb-3" type="text" name="alamat" placeholder="Alamat" required></textarea>
+                    </div>
+                </div>
  
                 <div class="col-md-12">
                     <label for="input16" class="form-label">Email</label>
@@ -53,9 +60,9 @@
                 </div>
                 <div class="col-md-12">
                     <label for="input19" class="form-label">Role</label>
-                    <select id="input19" name="is_admin" class="form-select">
+                    <select id="input19" name="isAdmin" class="form-select">
                         <option selected="">Pilih...</option>
-                        <option value="0">User</option>
+                        <option value="0">Peminjam</option>
                         <option value="1">Admin</option>
                     </select>
                 </div>
