@@ -85,7 +85,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between mb-3">
                     <div class="">
-                        <h5 class="mb-0">Daftar Kasir</h5>
+                        <h5 class="mb-0">Daftar User</h5>
                     </div>
                     <div class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle-nocaret options dropdown-toggle" data-bs-toggle="dropdown">

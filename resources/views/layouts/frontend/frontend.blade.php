@@ -5,8 +5,8 @@
         <title>SMA ASSALAAM</title>
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     
-        <link href="{{asset('backend/assets/css/pace.min.css')}}" rel="stylesheet">
-        <script src="{{asset('backend/assets/js/pace.min.js')}}"></script>
+        {{-- <link href="{{asset('backend/assets/css/pace.min.css')}}" rel="stylesheet"> --}}
+        {{-- <script src="{{asset('backend/assets/js/pace.min.js')}}"></script> --}}
     
         <!--plugins-->
         <link href="{{asset('backend/assets/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -29,16 +29,16 @@
         <link href="{{asset('frontend/lib/lightbox/css/lightbox.min.css')}}" rel="stylesheet" />
     
         <!-- Customized Bootstrap Stylesheet -->
-        <link href="{{asset('backend/assets/css/bootstrap.min.css')}}" rel="stylesheet">
+        {{-- <link href="{{asset('backend/assets/css/bootstrap.min.css')}}" rel="stylesheet"> --}}
         <link href="{{asset('frontend/css/style.css')}}" rel="stylesheet" />
     
         <!--plugins-->
-        <link rel="stylesheet" href="{{asset('backend/assets/css/extra-icons.css')}}">
+        {{-- <link rel="stylesheet" href="{{asset('backend/assets/css/extra-icons.css')}}"> --}}
     
         <!--bootstrap css-->
         <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
         <!--main css-->
-        <link href="{{asset('backend/assets/css/bootstrap-extended.css')}}" rel="stylesheet">
+        {{-- <link href="{{asset('backend/assets/css/bootstrap-extended.css')}}" rel="stylesheet"> --}}
     </head>
 
 <body>

@@ -45,6 +45,7 @@ Route::get('', [PerpusController::class, 'index'])->name('AssalaamPerpustakaan')
 
 Route::group(['prefix' => 'user'], function () {
     Route::get('listbuku', [PerpusController::class, 'listbuku'])->name('listbuku');
+    Route::get('kategori/{id}', [PerpusController::class, 'listbuku'])->name('buku.filter');
     Route::get('show/{id}', [PerpusController::class, 'show']);
     Route::get('profile', [PerpusController::class, 'profile'])->name('profile');
     Route::get('dashboarduser', [PerpusController::class, 'dashboard'])->name('dashboarduser');

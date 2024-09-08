@@ -132,6 +132,7 @@
                 </div>
             </div>
             @endforeach
+            <a href="{{ route('listbuku') }}" type="button" class="btn btn-primary">Lihat Lebih Banyak Buku</a>
         </div>
     </div>
 </div>

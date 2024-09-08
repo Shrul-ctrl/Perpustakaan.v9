@@ -63,10 +63,6 @@ class BukuController extends Controller
     $buku->id_kategori= $request->id_kategori ;
     $buku->tahun_terbit= $request->tahun_terbit ;
     $buku->jumlah= $request->jumlah ;
-    
-    // Tambahkan jumlah buku baru dengan jumlah yang sudah ada
-    $oldJumlah = $buku->jumlah;
-    $buku->jumlah = $oldJumlah + $request->jumlah;
 
         // update img
         if ($request->hasFile('foto')) {

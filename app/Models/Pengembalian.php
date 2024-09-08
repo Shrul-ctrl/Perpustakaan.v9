@@ -18,8 +18,8 @@ class Pengembalian extends Model
         return $this->belongsTo(Buku::class, 'id_buku');
     }
 
-    public function peminjaman()
+    public function peminjamens()
     {
-        return $this->belongsTo(Peminjaman::class,'id_peminjaman');
+        return $this->belongsTo(Peminjamen::class,'id_peminjaman');
     }
 }

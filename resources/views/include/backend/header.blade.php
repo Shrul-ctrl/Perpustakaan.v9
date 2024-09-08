@@ -1,6 +1,5 @@
 <header class="top-header">
-    <nav class="navbar navbar-expand align-items-center gap-4 bg-dark
-    ">
+    <nav class="navbar navbar-expand align-items-center gap-4 bg-dark">
         <div class="btn-toggle">
             <a href="javascript:;"><i class="material-icons-outlined">menu</i></a>
         </div>

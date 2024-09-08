@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Peminjaman;
-use App\Models\Buku;
 use Illuminate\Http\Request;
+use App\Models\Peminjamens;
+use App\Models\Buku;
+use App\Models\User;
+use Carbon\Carbon;
 
 class PeminjamanController extends Controller
 {
@@ -14,9 +16,9 @@ class PeminjamanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {
+    { 
         {
-            $peminjaman = Peminjaman::latest()->paginate(5);
+            $peminjaman = Peminjamens::orderBy('id', 'desc')->get();
             return view('user.peminjaman.index', compact('peminjaman'));
         }
     }
@@ -28,9 +30,10 @@ class PeminjamanController extends Controller
      */
     public function create()
     {
+        $batastanggal = Carbon::now()->addWeek()->format('Y-m-d');
+        $sekarang = now()->format('Y-m-d');
         $buku = Buku::all();
-        $peminjaman = Peminjaman::all();
-        return view('user.peminjaman.create',compact('buku','peminjaman'));
+        return view('user.peminjaman.create', compact('buku', 'sekarang', 'batastanggal'));
     }
 
     /**
@@ -41,36 +44,38 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-            
-        $buku = new buku();
-        $buku->jumlah = $request->jumlah;
-        $buku->tanggal_pinjam = $request->tanggal_pinjam;
-        $buku->nama_peminjam = $request->nama_peminjam;
-        $buku->status = $request->status;
-        $buku->id_buku= $request->id_buku ;
+        //     $request -> validate([
+        //         'nama_Penerbit' => 'required|unique:Penerbits,nama_Penerbit'
+        //     ],
 
-        $buku = Buku::findOrFail($request ->id_buku);
+        //     [
+        //         'nama_Penerbit.required' => 'Nama harus diisi',
+        //         'nama_Penerbit.unique' => 'Penerbit dengan nama tersebut sudah ada sebelumnya.',
+        //     ]
+        // );
 
-        if ($buku) {
-            $buku->jumlah -= $request->jumlah;
-            $buku->save();
 
-            $buku->save();
 
-        return redirect()->route('peminjaman.index');
-            
-        }else{
-                    return redirect()->back()->with('Error', 'Buku tidak ditemukan');
-        }
+        $peminjaman = new Peminjamens();
+        $peminjaman->nama_peminjam = $request->nama_peminjam;
+        $peminjaman->id_buku = $request->id_buku;
+        $peminjaman->jumlah = $request->jumlah;
+        $peminjaman->tanggal_pinjam = $request->tanggal_pinjam;
+        $peminjaman->batas_pinjam = $request->batas_pinjam;
+        $peminjaman->tanggal_kembali = $request->tanggal_kembali;
+        $peminjaman->status = $request->status;
+        $peminjaman->save();
+
+        return redirect()->route('peminjaman.index')->with('success', 'Buku berhasil dipinjam');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Peminjaman  $peminjaman
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Peminjaman $peminjaman)
+    public function show($id)
     {
         //
     }
@@ -78,15 +83,13 @@ class PeminjamanController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Peminjaman  $peminjaman
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Peminjaman $peminjaman)
+    public function edit(Peminjamens $peminjaman)
     {
-
         $buku = Buku::all();
-        $peminjaman = Peminjaman::findOrfail($id);
-        return view('user.peminjaman.edit',compact('buku','peminjaman'));
+        return view('user.peminjaman.edit', compact('peminjaman','buku'));
 
     }
 
@@ -94,48 +97,31 @@ class PeminjamanController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Peminjaman  $peminjaman
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Peminjaman $peminjaman)
+    public function update(Request $request, Peminjamens $peminjaman)
     {
-        
-        $peminjaman = Peminjaman::findOrfail($id);
-        $buku = Buku::findOrfail($peminjaman->id_buku);
 
-        $peminjaman ->update($request->all());
-
-        if ($buku->jumlah < $request->jumlah){
-        return redirect() ->route('user.peminjaman.index');
-            
-        }else{
-            $buku->jumlah -= $request->jumlah;
-            $buku->jumlah += $request->jumlah;
-            $buku->save();
-        }
-
-        
-        if ($buku->status == "Sudah Dikembalikan"){
-            $buku->jumlah += $peminjaman->jumlah;
-            $buku->save();
-                
-            }
-            $peminjaman->save();
-        return redirect() ->route('user.peminjaman.index');
+        $peminjaman->nama_peminjam = $request->nama_peminjam;
+        $peminjaman->id_buku = $request->id_buku;
+        $peminjaman->jumlah = $request->jumlah;
+        $peminjaman->tanggal_pinjam = $request->tanggal_pinjam;
+        $peminjaman->batas_pinjam = $request->batas_pinjam;
+        $peminjaman->tanggal_kembali = $request->tanggal_kembali;
+        $peminjaman->status = $request->status;
+        $peminjaman->save();
+        return redirect()->route('peminjaman.index')->with('success', 'Data berhasil diubah');
     }
 
-    /** 
+    /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Peminjaman  $peminjaman
+     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Peminjaman $peminjaman)
+    public function destroy($id)
     {
-        {
-            $peminjaman = $peminjaman::FindOrFail($id);
-            $peminjaman->delete();
-            return redirect()->route('peminjaman.index')->with('success', 'Data berhasil dihapus');
-        }
+        //
     }
 }

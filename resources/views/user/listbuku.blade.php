@@ -26,14 +26,19 @@
         <div class="row">
             <div class="col-12 text-center mb-2">
                 <ul class="list-inline mb-4" id="portfolio-flters">
-                    @foreach ($buku as $data)
-                    <li class="btn btn-outline-primary m-1 active" data-filter="*">
-                        {{$data->kategori->nama_kategori}}  
+                    <li class="btn btn-outline-primary m-1">
+                        <a href="{{ route('listbuku') }}">Semua</a>
+                    </li>
+                    @foreach ($kategori as $data)
+                    <li class="btn btn-outline-primary m-1">
+                        <a href="{{ route('buku.filter', $data->id) }}">{{ $data->nama_kategori }}</a>
                     </li>
                     @endforeach
                 </ul>
             </div>
         </div>
+        
+        
         <div class="row">
             @php
             $limitedbuku = $buku ->take(4)

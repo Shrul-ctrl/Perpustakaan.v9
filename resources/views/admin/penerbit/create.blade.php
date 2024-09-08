@@ -26,7 +26,7 @@
                 <div class="col-md-12">
                     <div class="d-md-flex d-grid align-items-center gap-3">
                         <a href="{{route('penerbit.index')}}" class="btn btn-danger px-4">Batal</a>
-                        <a href="{{route('penerbit.create')}}" class="btn btn-grd btn-primary px-4 ">Reset</a>
+                        {{-- <a href="{{route('penerbit.create')}}" class="btn btn-grd btn-primary px-4 ">Reset</a> --}}
                         <button type="submit" class="btn btn-success px-4">Simpan</button>
                     </div>
                 </div>

@@ -5,10 +5,10 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Peminjaman extends Model
+class Peminjamens extends Model
 {
     use HasFactory;
-    protected $fillable = ['id', 'jumlah','tanggal_pinjam','tanggal_kembali','nama_peminjam','status','id_buku'];
+    protected $fillable = ['id','nama_peminjam','id_buku', 'jumlah','tanggal_pinjam','batas_pinjam','tanggal_kembali','status'];
     public $timestamps = true;
 
     public function buku()
@@ -16,8 +16,8 @@ class Peminjaman extends Model
         return $this->belongsTo(Buku::class, 'id_buku');
     }
 
-    public function pengembalian()
-    {
-        return $this->hasMany(Pengembalian::class);
-    }
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class, 'id_user');
+    // }
 }
