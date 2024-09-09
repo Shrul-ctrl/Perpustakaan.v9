@@ -36,6 +36,9 @@
                         </div>
                     </a>
                     <hr class="dropdown-divider">
+                    <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('AssalaamPerpustakaan') }}">
+                        <i class="material-icons-outlined">join_right</i>List Buku</a>
+                        
                     <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('login') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                         <i class="material-icons-outlined">power_settings_new</i>Logout</a>
                         

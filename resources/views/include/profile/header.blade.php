@@ -37,6 +37,13 @@
                         </div>
                     </a>
                     <hr class="dropdown-divider">
+                    @auth
+                    @if(auth()->user()->isAdmin)
+                    <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('dashboard') }}">
+                        <i class="material-icons-outlined">admin_panel_settings</i>Admin Dashboard
+                    </a>
+                    @endif
+                    @endauth
                     <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('dashboarduser') }}">
                         <i class="material-icons-outlined">home</i>Profile</a>
                     <a class="dropdown-item d-flex align-items-center gap-2 py-2" href="{{ route('AssalaamPerpustakaan') }}">
