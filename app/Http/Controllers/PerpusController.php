@@ -8,6 +8,10 @@ use App\Models\penuli;
 use App\Models\Kategori;
 use App\Models\buku;
 use App\Models\penerbit;
+use App\Models\user;
+use Illuminate\Support\Facades\Auth;
+
+
 
 class PerpusController extends Controller
 {
@@ -23,30 +27,34 @@ class PerpusController extends Controller
         $jumlahpenerbit = Penerbit::count();
         $jumlahpenulis = Penuli::count();
         $jumlahkategori = Kategori::count();
+        $jumlahpinjam = Peminjamens::count();
+
         $buku = Buku::all();
+        $user = auth()->user();
         $peminjaman = Peminjamens::all();
-        return view('user.dashboarduser', compact('buku', 'jumlahbuku', 'jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori', 'peminjaman'));
+        return view('user.dashboarduser', compact('buku', 'jumlahbuku', 'jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori', 'peminjaman', 'jumlahpinjam', 'user'));
     }
 
     public function listbuku($id = null)
     {
         $kategori = Kategori::all();
-        $buku = $id ? Buku::where('id_kategori', $id)->get():
-        $buku = Buku::all();
-    
+        $buku = $id ? Buku::where('id_kategori', $id)->get() :
+            $buku = Buku::all();
+
         return view('user.listbuku', compact('buku', 'kategori'));
     }
 
     public function show($id)
     {
         $buku = Buku::findOrFail($id);
-        return view('user.show', compact('buku'));
+        $user = User::findOrFail($id);
+        return view('user.show', compact('buku', 'user'));
     }
 
     public function profile()
     {
-        $buku = Buku::all();
-        return view('user.profile', compact('buku'));
+        $user = Auth::user(); 
+        return view('user.profile', ['user' => $user]);
     }
 
 

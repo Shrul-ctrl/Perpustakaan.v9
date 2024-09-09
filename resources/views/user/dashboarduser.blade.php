@@ -2,7 +2,7 @@
 @section('content')
 
 <div class="row">
-    <div class="col-12 col-lg-12 col-xxl-12 d-flex">
+    <div class="col-12 col-lg-12 col-xxl-12">
         <div class="card bg-secondary text-light">
             <div class="card-header">
                 <h4 class="card-title mb-0 py-1 text-light d-flex align-items-center gap-2 py-2"><i class="material-icons-outlined fs-2">warning_amber</i>Peraturan</h4>
@@ -30,7 +30,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="">
-                            <h3 class="mb-0 text-indigo pb-3">{{$jumlahbuku}}</h3>
+                            <h3 class="mb-0 text-indigo pb-3">{{$jumlahpinjam}}</h3>
                             <a href="{{route('buku.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
                         </div>
                         <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">
@@ -45,7 +45,7 @@
             <div class="card-body">
                 <div class="">
                     <div class="d-flex align-items-center gap-2 mb-2">
-                        <h5 class="mb-0">Pengembalian</h5>
+                        <h5 class="mb-0">Favorit</h5>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="">
@@ -65,7 +65,7 @@
             <div class="card-body">
                 <div class="">
                     <div class="d-flex align-items-center gap-2 mb-2">
-                        <h5 class="mb-0">Favorite</h5>
+                        <h5 class="mb-0">Histori</h5>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="">
@@ -81,87 +81,9 @@
 
 </div>
 
-
 <div class="row">
-    <div class="col-12 col-lg-6 col-xxl-6 d-flex">
-        <div class="card rounded-4 w-100 bg">
-            <div class="card-body">
-                <div class="position-relative">
-                    <img src="{{asset('backend/assets/images/gallery/18.png')}}" class="img-fluid rounded" alt="">
-                    <div class="position-absolute top-100 start-50 translate-middle">
-                        <img src="{{asset('backend/assets/images/gallery/02.png')}}" width="100" height="100" class="rounded-circle raised p-1 bg-white" alt="">
-                    </div>
-                </div>
-                <div class="text-center mt-5 pt-4">
-                    <h5 class="mb-2">Julinee Moree</h5>
-                    <p class="mb-0">Marketing Excutive</p>
-                </div>
-                <div class="d-flex align-items-center justify-content-around mt-5">
-                    <div class="d-flex flex-column gap-2">
-                        <h4 class="mb-0">798</h4>
-                        <p class="mb-0">Posts</p>
-                    </div>
-                    <div class="d-flex flex-column gap-2">
-                        <h4 class="mb-0">48K</h4>
-                        <p class="mb-0">Following</p>
-                    </div>
-                    <div class="d-flex flex-column gap-2">
-                        <h4 class="mb-0">24.3M</h4>
-                        <p class="mb-0">Followers</p>
-                    </div>
-                </div>
-                <hr>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="col-6 col-lg-6 col-xxl-6 d-flex">
-        <div class="row">
-            <div class="card rounded-4 w-100 bg ">
-                <div class="card-body">
-                    <div class="">
-                        <div class="d-flex align-items-center gap-2 mb-2">
-                            <h5 class="mb-0">Pengembalian</h5>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="">
-                                <h3 class="mb-0 text-indigo pb-3"></h3>
-                                <a href="{{route('penulis.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
-                            </div>
-                            <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="card rounded-4 w-100 bg ">
-                <div class="card-body">
-                    <div class="">
-                        <div class="d-flex align-items-center gap-2 mb-2">
-                            <h5 class="mb-0">Pengembalian</h5>
-                        </div>
-                        <div class="d-flex align-items-center justify-content-between">
-                            <div class="">
-                                <h3 class="mb-0 text-indigo pb-3"></h3>
-                                <a href="{{route('penulis.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
-                            </div>
-                            <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-
-
-
-
-
-<div class="row">
-    <div class="col-lg-12 col-xxl-8 d-flex align-items-stretch">
+    <!-- Profil -->
+        <div class="col-lg-8 col-xxl-8 d-flex align-items-stretch">
         <div class="card w-100 rounded-4">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between mb-3">
@@ -175,11 +97,11 @@
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Nama Buku</th>
-                                <th scope="col">Nama Peminjam</th>
+                                {{-- <th scope="col">Nama Peminjam</th> --}}
                                 <th scope="col">Jumlah</th>
                                 <th scope="col">Tanggal Peminjaman</th>
                                 <th scope="col">Batas Peminjaman</th>
-                                <th scope="col">Tanggal Pengembalian</th>
+                                {{-- <th scope="col">Tanggal Pengembalian</th> --}}
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
@@ -188,11 +110,11 @@
                             <tr>
                                 <th scope="row">{{ $loop->index+1 }}</th>
                                 <td>{{ $data->buku->judul }}</td>
-                                <td>{{ $data->nama_peminjam}}</td>
-                                <td>{{ $data->jumlah }}</td>
+                                {{-- <td>{{ $data->nama_peminjam}}</td> --}}
+                                <td>{{ $data->jumlah }}</td> 
                                 <td>{{ $data->tanggal_pinjam }}</td>
                                 <td>{{ $data->batas_pinjam }}</td>
-                                <td>{{ $data->tanggal_kembali }}</td>
+                                {{-- <td>{{ $data->tanggal_kembali }}</td> --}}
                                 <td>
                                     @if($data->status)
                                     <p class="dash-lable mb-0 bg-success bg-opacity-10 text-success rounded-2">Sudah di kembalikan</p>
@@ -207,6 +129,44 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabel -->
+    <div class="col-12 col-lg-4 col-xxl-4 d-flex flex-column">
+        <div class="card rounded-4 w-100 bg ">
+            <div class="card-body">
+                <div class="col">
+                    <h6 class="mb-0 text-uppercase">Baca Buku Terbaru</h6>
+                    <hr>
+                    <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
+                        <ol class="carousel-indicators">
+                            <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active"></li>
+                            <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"></li>
+                            <li data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            @foreach ($buku as $data)
+                            <div class="carousel-item active">
+                                <img src="{{ asset('images/buku/' . $data->foto) }}" alt="" class="card-img-top" alt="..." width="20" height="450" style=" filter: brightness(70%);object-fit:cover;">
+                                <div class="carousel-caption d-none d-md-block">
+                                    <h5 class="text-light">{{$data->judul}}</h5>
+                                    <p>{{$data->kategori->nama_kategori}}</p>
+                                    <a href="{{ url('user/show', $data->id) }}" type="button" class="btn btn-primary">Detail</a>
+
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+                        <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-bs-slide="prev"> <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carouselExampleCaptions" role="button" data-bs-slide="next"> <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>

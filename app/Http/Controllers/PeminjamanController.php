@@ -16,8 +16,7 @@ class PeminjamanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
-        {
+    { {
             $peminjaman = Peminjamens::orderBy('id', 'desc')->get();
             return view('user.peminjaman.index', compact('peminjaman'));
         }
@@ -66,7 +65,23 @@ class PeminjamanController extends Controller
         $peminjaman->status = $request->status;
         $peminjaman->save();
 
-        return redirect()->route('peminjaman.index')->with('success', 'Buku berhasil dipinjam');
+        $buku = Buku::findOrFail($request->id_buku);
+
+        if ($buku) {
+            if ($buku->jumlah >= $request->jumlah) {
+                $buku->jumlah -= $request->jumlah;
+                $buku->save();
+
+                $peminjaman->save();
+                return redirect()->route('peminjaman.index');
+
+            } else {
+                return redirect()->back()->with('error,', 'stok buku habis');
+            }
+        } else {
+            return redirect()->back()->with('error', 'Buku tidak Di temukan');
+        }
+
     }
 
     /**
@@ -89,7 +104,7 @@ class PeminjamanController extends Controller
     public function edit(Peminjamens $peminjaman)
     {
         $buku = Buku::all();
-        return view('user.peminjaman.edit', compact('peminjaman','buku'));
+        return view('user.peminjaman.edit', compact('peminjaman', 'buku'));
 
     }
 

@@ -49,6 +49,7 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('show/{id}', [PerpusController::class, 'show']);
     Route::get('profile', [PerpusController::class, 'profile'])->name('profile');
     Route::get('dashboarduser', [PerpusController::class, 'dashboard'])->name('dashboarduser');
+
     
     Route::group(['middleware' => ['auth', IsAdmin::class]], function () {
     Route::resource('peminjaman', PeminjamanController::class);

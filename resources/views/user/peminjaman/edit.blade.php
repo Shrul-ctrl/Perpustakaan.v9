@@ -11,22 +11,20 @@
                     <div class="col-md-4x">
                         <label for="input13" class="form-label">Nama Peminjam</label>
                         <div class="position-relative">
-                            <input class="form-control mb-3" type="text" name="nama_peminjam" placeholder="Nama" value="{{ Auth::user()->name }}" required>
+                            <input class="form-control mb-3" type="text" name="nama_peminjam" placeholder="Nama" value="{{ Auth::user()->name }}" disabled>
+                            <input type="hidden" name="nama_peminjam" value="{{ Auth::user()->name }}">
                         </div>
-                    </div>
-
+                    </div>  
                        
                     <div class="col-md-4x">
                         <label for="input13" class="form-label">Nama Buku</label>
-                        <select class="form-control mb-3" name="id_buku" placeholder="Buku" required>
-                            @php
-                            $limitedbuku = $buku ->take(1)
-                            @endphp
-                            @foreach ($limitedbuku as $data)
-                            <option value="{{ $data->id }}">{{ $data->judul }} </option>
+                        <select class="form-control" name="id_buku" required>
+                            @foreach($buku as $data)
+                                <option value="{{ $data->id }}">{{ $data->judul }}</option>
                             @endforeach
                         </select>
                     </div>
+                    
 
                     <div class="col-md-4x">
                         <label for="input13" class="form-label">Jumlah</label>
@@ -56,6 +54,7 @@
                             <option selected="">Pilih...</option>
                             <option value="0">Pinjam</option>
                             <option value="1">Kembalikan</option>
+                            <input type="hidden" name="status" value="{{ $peminjaman->status }}">
                         </select>
                     </div>
                     <div class="col-md-12">

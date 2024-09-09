@@ -20,13 +20,13 @@
                     <div class="menu-title">Dashboard</div>
                 </a>
             </li>
-            {{-- <li>
+            <li>
                 <a href="{{route('profile')}}">
                     <div class="parent-icon"><i class="material-icons-outlined">join_right</i>
                     </div>
                     <div class="menu-title">Profile</div>
                 </a>
-            </li> --}}
+            </li>
             <li class="menu-label">List</li>
             <li>
                 <a href="{{route('pengembalian.index')}}">
