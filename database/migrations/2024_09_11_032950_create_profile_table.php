@@ -13,13 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('pengembalians', function (Blueprint $table) {
+        Schema::create('profile', function (Blueprint $table) {
             $table->id();
-            $table->string('jumlah_kembali');
-            $table->date('tanggal_kembali');
-            $table->string('status');
-            $table->unsignedBigInteger('id_peminjaman');
-            $table->unsignedBigInteger('id_buku');
             $table->timestamps();
         });
     }
@@ -31,6 +26,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('pengembalians');
+        Schema::dropIfExists('profile');
     }
 };

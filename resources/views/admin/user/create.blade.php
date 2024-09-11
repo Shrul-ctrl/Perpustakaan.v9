@@ -24,6 +24,20 @@
                 </div>
 
                 <div class="col-md-4x">
+                    <label for="input13" class="form-label">foto Profile</label>
+                    <div class="position-relative ">
+                        <input class="form-control mb-3" type="file" name="fotoprofile" required>
+                    </div>
+                </div>
+
+                <div class="col-md-4x">
+                    <label for="input13" class="form-label">Nomer telepon</label>
+                    <div class="position-relative">
+                        <input class="form-control mb-3" type="number" name="no_hp" placeholder="Nama Penulis" required>
+                    </div>
+                </div>
+
+                <div class="col-md-4x">
                     <label for="input13" class="form-label">Alamat</label>
                     <div class="position-relative">
                         <textarea class="form-control mb-3" type="text" name="alamat" placeholder="Alamat" required></textarea>

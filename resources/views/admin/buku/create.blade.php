@@ -76,7 +76,7 @@
                 <div class="col-md-4x">
                     <label for="input13" class="form-label">Jumlah</label>
                     <div class="position-relative">
-                        <input class="form-control mb-3" type="number" name="jumlah" placeholder="Jumlah" required>
+                        <input class="form-control mb-3" type="number" name="jumlah_buku" placeholder="Jumlah" required>
                     </div>
                 </div>
                 <div class="col-md-12">

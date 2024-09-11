@@ -3,6 +3,8 @@
     <head>
         <meta charset="utf-8" />
         <title>SMA ASSALAAM</title>
+        {{-- <link rel=”icon” href="{{asset('images/buku/smk.png')}}"> --}}
+        {{-- <img src="{{asset('images/buku/smk.png')}}" alt="" /> --}}
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     
         {{-- <link href="{{asset('backend/assets/css/pace.min.css')}}" rel="stylesheet"> --}}

@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Penerbit;
+use Illuminate\Support\Facades\Auth;
+
 
 class PenerbitController extends Controller
 {
@@ -15,7 +17,8 @@ class PenerbitController extends Controller
     public function index()
     {
         $penerbit = Penerbit::orderBy('id', 'desc')->get();
-        return view('admin.penerbit.index', compact('penerbit'));
+        $user = Auth::user();
+        return view('admin.penerbit.index', ['user' => $user], compact('penerbit'));
     }
 
     /**
@@ -25,7 +28,8 @@ class PenerbitController extends Controller
      */
     public function create()
     {
-        return view('admin.penerbit.create');
+        $user = Auth::user();
+        return view('admin.penerbit.create', ['user' => $user]);
     }
 
     /**
@@ -62,7 +66,8 @@ class PenerbitController extends Controller
      */
     public function show(Penerbit $Penerbit)
     {
-        return view('admin.penerbit.show', compact('penerbit'));
+        $user = Auth::user();
+        return view('admin.penerbit.show', ['user' => $user], compact('penerbit'));
 
     }
 
@@ -74,7 +79,8 @@ class PenerbitController extends Controller
      */
     public function edit(Penerbit $penerbit)
     {
-        return view('admin.penerbit.edit', compact('penerbit'));
+        $user = Auth::user();
+        return view('admin.penerbit.edit', ['user' => $user], compact('penerbit'));
     }
 
     /**

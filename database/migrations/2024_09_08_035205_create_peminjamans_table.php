@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_peminjam');
             $table->unsignedBigInteger('id_buku');
-            $table->string('jumlah');
+            $table->string('jumlah_pinjam');
             $table->date('tanggal_pinjam');
             $table->date('batas_pinjam');
             $table->date('tanggal_kembali');

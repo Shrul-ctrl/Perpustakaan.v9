@@ -9,6 +9,8 @@ use App\Models\buku;
 use App\Models\penerbit;
 use App\Models\user;
 use App\chart\MonthlyUsersChart;
+use Illuminate\Support\Facades\Auth;
+
 
 class DashboardController extends Controller
 {
@@ -18,10 +20,10 @@ class DashboardController extends Controller
         $jumlahpenerbit = Penerbit::count();
         $jumlahpenulis = Penuli::count();
         $jumlahkategori = Kategori::count();
-        $user = User::orderBy('id', 'desc')->get();
-
+        $users = User::orderBy('id', 'desc')->get();
+        $user = Auth::user();
         
-        return view('admin.dashboard', compact('jumlahbuku','jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori','user'));
+        return view('admin.dashboard', ['user' => $user], compact('jumlahbuku','jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori','users'));
     }
     
     // public function chart(MonthlyUsersChart $chart)

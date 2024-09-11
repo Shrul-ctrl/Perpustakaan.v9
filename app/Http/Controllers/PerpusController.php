@@ -18,7 +18,8 @@ class PerpusController extends Controller
     public function index()
     {
         $buku = Buku::all();
-        return view('user.home', compact('buku'));
+        $user = Auth::user();
+        return view('user.home', ['user' => $user], compact('buku'));
     }
 
     public function dashboard()
@@ -32,28 +33,29 @@ class PerpusController extends Controller
         $buku = Buku::all();
         $user = auth()->user();
         $peminjaman = Peminjamens::all();
-        return view('user.dashboarduser', compact('buku', 'jumlahbuku', 'jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori', 'peminjaman', 'jumlahpinjam', 'user'));
+        return view('user.dashboarduser', ['user' => $user], compact('buku', 'jumlahbuku', 'jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori', 'peminjaman', 'jumlahpinjam', 'user'));
     }
 
     public function listbuku($id = null)
     {
         $kategori = Kategori::all();
         $buku = $id ? Buku::where('id_kategori', $id)->get() :
-            $buku = Buku::all();
-
-        return view('user.listbuku', compact('buku', 'kategori'));
+        $buku = Buku::all();
+        $user = Auth::user();
+        return view('user.listbuku', ['user' => $user], compact('buku', 'kategori',));
     }
 
     public function show($id)
     {
         $buku = Buku::findOrFail($id);
         $user = User::findOrFail($id);
-        return view('user.show', compact('buku', 'user'));
+        $user = Auth::user();
+        return view('user.show', ['user' => $user], compact('buku', 'user',));
     }
 
     public function profile()
     {
-        $user = Auth::user(); 
+        $user = Auth::user();
         return view('user.profile', ['user' => $user]);
     }
 

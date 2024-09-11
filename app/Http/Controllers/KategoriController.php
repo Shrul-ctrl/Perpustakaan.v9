@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kategori;
+use Illuminate\Support\Facades\Auth;
+
 
 class KategoriController extends Controller
 {
@@ -15,7 +17,8 @@ class KategoriController extends Controller
     public function index()
     {
         $kategori = Kategori::orderBy('id', 'desc')->get();
-        return view('admin.kategori.index', compact('kategori'));
+        $user = Auth::user();
+        return view('admin.kategori.index', ['user' => $user], compact('kategori'));
     }
 
     /**
@@ -25,7 +28,8 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        return view('admin.kategori.create');
+        $user = Auth::user();
+        return view('admin.kategori.create', ['user' => $user]);
     }
 
     /**
@@ -61,7 +65,8 @@ class KategoriController extends Controller
      */
     public function show(Kategori $kategori)
     {
-        return view('admin.kategori.show', compact('kategori'));
+        $user = Auth::user();
+        return view('admin.kategori.show', ['user' => $user], compact('kategori'));
 
     }
 
@@ -73,7 +78,8 @@ class KategoriController extends Controller
      */
     public function edit(Kategori $kategori)
     {
-        return view('admin.kategori.edit', compact('kategori'));
+        $user = Auth::user();
+        return view('admin.kategori.edit', ['user' => $user], compact('kategori'));
     }
 
     /**

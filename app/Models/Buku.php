@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Buku extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','judul','deskripsi','foto','id_penulis','id_penerbit','id_kategori','tahun_terbit','jumlah'];
+    protected $fillable = ['id','judul','deskripsi','foto','id_penulis','id_penerbit','id_kategori','tahun_terbit','jumlah_buku'];
     public $timestamps = true;
 
     public function penuli()

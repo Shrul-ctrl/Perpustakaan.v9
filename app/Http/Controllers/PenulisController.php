@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Penuli;
+use Illuminate\Support\Facades\Auth;
+
 
 class PenulisController extends Controller
 {
@@ -15,7 +17,8 @@ class PenulisController extends Controller
     public function index()
     {
         $penulis = Penuli::orderBy('id', 'desc')->get();
-        return view('admin.penulis.index', compact('penulis'));
+        $user = Auth::user();
+        return view('admin.penulis.index', ['user' => $user], compact('penulis'));
     }
 
     /**
@@ -25,7 +28,8 @@ class PenulisController extends Controller
      */
     public function create()
     {
-        return view('admin.penulis.create');
+        $user = Auth::user();
+        return view('admin.penulis.create', ['user' => $user]);
     }
 
     /**
@@ -61,7 +65,8 @@ class PenulisController extends Controller
      */
     public function show(Penuli $penuli)
     {
-        return view('admin.penulis.show', compact('penuli'));
+        $user = Auth::user();
+        return view('admin.penulis.show', ['user' => $user], compact('penuli'));
 
     }
 
@@ -73,7 +78,8 @@ class PenulisController extends Controller
      */
     public function edit(Penuli $penuli)
     {
-        return view('admin.penulis.edit', compact('penuli'));
+        $user = Auth::user();
+        return view('admin.penulis.edit', ['user' => $user], compact('penuli'));
     }
 
     /**

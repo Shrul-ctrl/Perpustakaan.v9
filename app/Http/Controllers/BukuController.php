@@ -7,6 +7,7 @@ use App\Models\buku;
 use App\Models\penuli;
 use App\Models\penerbit;
 use App\Models\kategori;
+use Illuminate\Support\Facades\Auth;
 
 
 class BukuController extends Controller
@@ -20,7 +21,8 @@ class BukuController extends Controller
     {
         $buku = buku::orderBy('id', 'asc')->get();
         $bukus = Buku::all();
-        return view('admin.buku.index', compact('buku','bukus'));
+        $user = Auth::user();
+        return view('admin.buku.index', ['user' => $user], compact('buku','bukus'));
     }
 
     /**
@@ -33,7 +35,8 @@ class BukuController extends Controller
         $penulis = penuli::all();
         $penerbit = penerbit::all();
         $kategori = kategori::all();
-        return view('admin.buku.create',compact('kategori','penulis','penerbit'));
+        $user = Auth::user();
+        return view('admin.buku.create', ['user' => $user],compact('kategori','penulis','penerbit'));
     }
 
     /**
@@ -62,7 +65,7 @@ class BukuController extends Controller
     $buku->id_penerbit = $request->id_penerbit;
     $buku->id_kategori= $request->id_kategori ;
     $buku->tahun_terbit= $request->tahun_terbit ;
-    $buku->jumlah= $request->jumlah ;
+    $buku->jumlah_buku= $request->jumlah_buku ;
 
         // update img
         if ($request->hasFile('foto')) {
@@ -85,7 +88,8 @@ class BukuController extends Controller
      */
     public function show($id){
         $buku = Buku::findOrFail($id);
-        return view('admin.buku.show',compact('buku'));
+        $user = Auth::user();
+        return view('admin.buku.show', ['user' => $user],compact('buku'));
     }
 
     /**
@@ -99,7 +103,8 @@ class BukuController extends Controller
         $penulis = penuli::all();
         $penerbit = penerbit::all();
         $kategori = kategori::all();
-        return view('admin.buku.edit',compact('kategori','penulis','penerbit','buku'));
+        $user = Auth::user();
+        return view('admin.buku.edit', ['user' => $user] ,compact('kategori','penulis','penerbit','buku'));
     }
 
     /**
@@ -117,7 +122,7 @@ class BukuController extends Controller
         $buku->id_penerbit = $request->id_penerbit;
         $buku->id_kategori= $request->id_kategori ;
         $buku->tahun_terbit= $request->tahun_terbit ;
-        $buku->jumlah= $request->jumlah;
+        $buku->jumlah_buku= $request->jumlah_buku;
 
         // delete img
         if ($request->hasFile('foto')) {

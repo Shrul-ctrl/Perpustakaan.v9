@@ -8,7 +8,7 @@
                     <div class="position-relative">
                         <img src="{{ asset('backend/assets/images/gallery/18.png') }}" class="img-fluid rounded" alt="">
                         <div class="position-absolute top-100 start-50 translate-middle">
-                            <img src="{{ asset('backend/assets/images/gallery/02.png') }}" width="100" height="100" class="rounded-circle raised p-1 bg-white" alt="">
+                            <img src="{{ asset('images/user/' . $user->fotoprofile) }}"  width="100" height="100" class="rounded-circle raised p-1 bg-white"" style="object-fit: cover;" alt="">
                         </div>
                     </div>
                     <div class="text-center mt-5 pt-4">
@@ -16,20 +16,72 @@
                         {{-- <p class="mb-0">Marketing Executive</p> --}}
                     </div>
                     <div class="d-flex align-items-center justify-content-around mt-5">
-                        <form class="row g-3" method="POST" action="{{ route('peminjaman.store') }}" enctype="multipart/form-data">
+                        <form class="row g-3" method="POST" action="{{ route('user.update', $user->id) }}" enctype="multipart/form-data"    >
+                            @method('PATCH')
                             @csrf
                             <div class="col-md-6">
-                                <label for="input13" class="form-label">Email</label>
-                                <input class="form-control mb-3" type="text" name="nama_peminjam" placeholder="Nama Peminjam" value="{{ $user->email }}" disabled>
+                                <label for="input13" class="form-label">Nama</label>
+                                <div class="position-relative">
+                                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="input13" value="{{ $user->name }}" placeholder="Full Name" required>
+                                    @error('name')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
                             </div>
+            
                             <div class="col-md-6">
-                                <label for="input13" class="form-label">Nomor Telepon</label>
-                                <input class="form-control mb-3" type="text" name="nama_peminjam" placeholder="Nama Peminjam" value="{{ $user->no_hp }}" disabled>
+                                <label for="input13" class="form-label">Nomer telepon</label>
+                                <div class="position-relative">
+                                    <input class="form-control mb-3" type="number" name="no_hp" placeholder="Nama Penulis" value="{{ $user->no_hp }}" required>
+                                </div>
                             </div>
-
+            
+                            <div class="col-md-12">
+                                <label for="input13" class="form-label">Alamat</label>
+                                <div class="position-relative">
+                                    {{-- <textarea class="form-control mb-3" name="deskripsi" required> {{$buku->deskripsi}}</textarea> --}}
+                                    <textarea class="form-control mb-3" type="text" name="alamat" placeholder="Alamat" required>{{$user->alamat}}</textarea>
+                                </div>
+                            </div>
+            
                             <div class="col-md-6">
-                                <label for="input13" class="form-label">Alamat Rumah</label>
-                                <input class="form-control mb-3" type="text" name="nama_peminjam" placeholder="Nama Peminjam" value="{{ $user->alamat }}" disabled>
+                                <label for="input13" class="form-label">Foto Profile</label>
+                                <div class="position-relative">
+                                    {{-- <img src="{{ asset('images/user/' . $user->fotoprofile) }}" class="rounded-circle p-1 border mb-4" width="80" height="80" alt=""> --}}
+                                    
+                                    <input class="form-control mb-3" type="file" name="foto"> 
+                                </div>
+                            </div>
+            
+            
+                            <div class="col-md-6">
+                                <label for="input16" class="form-label">Email</label>
+                                <div class="position-relative">
+                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" value="{{ $user->email }}" id="input16" placeholder="Email" required>
+                                    @error('email')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+{{--             
+                            <div class="col-md-12">
+                                <label for="input19" class="form-label">level</label>
+                                <select id="input19" name="isAdmin" class="form-select">
+                                    <option selected="">Pilih...</option>
+                                    <option value="0" selected>Peminjam</option>
+                                    <option value="1">Admin</option>
+                                </select>
+                            </div>
+                             --}}
+                            <div class="col-md-12">
+                                <div class="d-md-flex d-grid align-items-center gap-3">
+                                    {{-- <a href="{{route('user.index')}}" class="btn btn-danger px-4">Cancel</a> --}}
+                                    <button type="submit" class="btn btn-primary px-4">update profile</button>
+                                </div>
                             </div>
                         </form>
                     </div>

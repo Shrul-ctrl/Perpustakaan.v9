@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Pengembalian extends Model
 {
     use HasFactory;
-    protected $fillable = ['id', 'jumlah','tanggal_kembali','status','id_peminjaman','id_buku'];
+    protected $fillable = ['id', 'jumlah_kembali','tanggal_kembali','status','id_peminjaman','id_buku'];
     public $timestamps = true;
 
     protected $table = peminjamen;

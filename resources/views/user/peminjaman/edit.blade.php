@@ -29,7 +29,7 @@
                     <div class="col-md-4x">
                         <label for="input13" class="form-label">Jumlah</label>
                         <div class="position-relative">
-                            <input class="form-control mb-3" name="jumlah" placeholder="penerbit" value="{{$peminjaman->jumlah}}" required>
+                            <input class="form-control mb-3" name="jumlah_pinjam" placeholder="penerbit" value="{{$peminjaman->jumlah}}" required>
                         </div>
                     </div>
 

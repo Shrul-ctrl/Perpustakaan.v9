@@ -31,7 +31,7 @@
                         <th scope="row">{{ $loop->index+1 }}</th>
                         <td>{{ $data->buku->judul }}</td>
                         <td>{{ $data->nama_peminjam}}</td>
-                        <td>{{ $data->jumlah }}</td>
+                        <td>{{ $data->jumlah_pinjam }}</td>
                         <td>{{ $data->tanggal_pinjam }}</td>
                         <td>{{ $data->batas_pinjam }}</td>
                         <td>{{ $data->tanggal_kembali }}</td>

@@ -16,7 +16,9 @@
                 <tr>
                     <th scope="col">No</th>
                     <th scope="col">Nama</th>
-                    <th scope="col">Email</th>
+                    <th scope="col">Alamat</th>
+                    <th scope="col">Nomer Telepon</th>
+                    <th scope="col">Foto</th>
                     <th scope="col">Role</th>
                     <th scope="col">Action</th>
                 </tr>
@@ -24,12 +26,17 @@
             <tbody>
                 {{-- @foreach ($user as $index => $data) --}}
                 {{-- @if ($data->is_admin == '0') --}}
-                @foreach ($user as $data)
+                @foreach ($users as $data)
                 <tr>
                     <th scope="row">{{ $loop->index+1 }}</th>
                     <td>{{$data->name}}</td>
+                    <td>{{$data->alamat}}</td>
+                    <td>{{$data->no_hp}}</td>
+                    <td>
+                        <img src="{{ asset('images/user/' . $data->fotoprofile) }}"  class="rounded-circle p-1 border mb-4" width="80" height="80" style="object-fit: cover;" alt="">
+                    </td>
                     <td>{{$data->email}}</td>
-                    <td>{{$data ->isAdmin ? 'Peminjam' : 'Admin'}}</td>
+                    <td>{{$data ->isAdmin ? 'Admin' : 'Peminjam'}}</td>
                     <td>
                         <form action="{{ route('user.destroy', $data->id) }}" method="POST">
                             @csrf

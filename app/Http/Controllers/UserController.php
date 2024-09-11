@@ -21,8 +21,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        $user = User::orderBy('id', 'desc')->get();
-        return view('admin.user.index', compact('user'));
+        $users = User::orderBy('id', 'desc')->get();
+        $user = Auth::user();
+        return view('admin.user.index', ['user' => $user], compact('users'));
     }
 
     /**
@@ -30,7 +31,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.create');
+        $user = Auth::user();
+        return view('admin.user.create', ['user' => $user]);
     }
 
     /**
@@ -38,24 +40,35 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'alamat' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ],
-        [
-            'email.required' => 'Email harus diisi',
-            'email.unique' => 'Email dengan nama tersebut sudah ada sebelumnya.',
-        ]
-    );
+        $request->validate(
+            [
+                'name' => ['required', 'string', 'max:255'],
+                'alamat' => ['required', 'string', 'max:255'],
+                'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+                'password' => ['required', 'string', 'min:8', 'confirmed'],
+            ],
+            [
+                'email.required' => 'Email harus diisi',
+                'email.unique' => 'Email dengan nama tersebut sudah ada sebelumnya.',
+            ]
+        );
 
         $user = new User();
         $user->name = $request->name;
         $user->alamat = $request->alamat;
+        $user->no_hp = $request->no_hp;
         $user->email = $request->email;
         $user->password = Hash::make($request->password);
         $user->isAdmin = $request->isAdmin;
+
+          // update img
+          if ($request->hasFile('fotoprofile')) {
+            $img = $request->file('fotoprofile');
+            $name = rand(1000, 9999) . $img->getClientOriginalName();
+            $img->move('images/user', $name);
+            $user->fotoprofile = $name;
+        }
+
         $user->save();
 
         return redirect()->route('user.index')->with('success', 'berhasil didaftarkan');
@@ -66,7 +79,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return view('admin.user.show', compact('user'));
+        $user = Auth::user();
+        return view('admin.user.show', ['user' => $user], compact('user'));
     }
 
     /**
@@ -74,7 +88,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('admin.user.edit', compact('user'));
+        $user = Auth::user();
+        return view('admin.user.edit', ['user' => $user], compact('user'));
     }
 
     /**
@@ -85,17 +100,36 @@ class UserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => [
-                'required', 'string', 'email', 'max:255',
+                'required',
+                'string',
+                'email',
+                'max:255',
                 // use Illuminate\Validation\Rule;
                 Rule::unique('users')->ignore($user->id)
             ],
         ]);
 
         $user->name = $request->name;
+        $user->alamat = $request->alamat;
+        $user->no_hp = $request->no_hp;
         $user->email = $request->email;
-        $user->isAdmin = $request->isAdmin;
+        // $user->isAdmin = $request->isAdmin;
+
+        //  delete img
+         if ($request->hasFile('fotoprofile')) {
+            $img = $request->file('fotoprofile');
+            $name = rand(1000, 9999) . $img->getClientOriginalName();
+            $img->move('images/user', $name);
+            $user->fotoprofile = $name;
+        }
+
+
         $user->save();
-        return redirect()->route('user.index')->with('success', 'Data berhasil diubah');
+        if ($request->has('redirect_to') && $request->redirect_to === 'profile') {
+            return redirect()->back()->with('success', 'Profil berhasil diperbarui');
+        } else {
+            return redirect()->route('user.index')->with('success', 'Data berhasil diperbarui');
+        }
     }
 
     /**
@@ -109,4 +143,4 @@ class UserController extends Controller
         }
         return redirect()->route('user.index')->with('success', 'Data berhasil dihapus');
     }
-}   
+}

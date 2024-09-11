@@ -102,7 +102,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($user as $data)
+                            @foreach ($users as $data)
                             <tr>
                                 <th scope="row">{{ $loop->index+1 }}</th>
                                 <td>{{ $data->name }}</td>

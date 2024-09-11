@@ -27,10 +27,49 @@
                         <h5 class="mb-4">Pinjam Buku</h5>
                         <form class="row g-3" method="POST" action="{{ route('peminjaman.store') }}" enctype="multipart/form-data">
                             @csrf
-                            <div class="col-md-6"> 
-                                <label for="input13" class="form-label">Nama Peminjam</label>
-                                <input class="form-control mb-3" type="text" name="nama_peminjam" placeholder="Nama Peminjam" value="{{ Auth::user()->name }}" required>
+                            @if ($errors->has('jumlah_pinjam'))
+                            <div class="alert alert-danger">
+                                {{ $errors->first('jumlah_pinjam') }}
                             </div>
+                            @endif
+
+                            @if (session('success'))
+                            <div class="alert alert-success">
+                                {{ session('success') }}
+                            </div>
+                            @endif
+
+                            @if ($errors->has('id_buku'))
+                            <div class="alert alert-danger">
+                                {{ $errors->first('id_buku') }}
+                            </div>
+                            @endif
+                            <div class="col-md-6">
+                                <label for="input13" class="form-label">Nama Peminjam</label>
+                                <div class="position-relative">
+                                    <input class="form-control mb-3" type="text" name="nama_peminjam" placeholder="Nama" value="{{ Auth::user()->name }}" required readonly>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="input13" class="form-label">Tanggal Peminjaman</label>
+                                <input class="form-control mb-3" type="date" name="tanggal_pinjam" value="{{ $sekarang }}" required readonly>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="input13" class="form-label">Batas Pengembalian</label>
+                                <input class="form-control mb-3" type="date" name="batas_pinjam" value="{{ $batastanggal }}" required readonly>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="input19" class="form-label">Status</label>
+                                <select id="input19" name="status" class="form-select" required>
+                                    <option selected="">Pilih...</option>
+                                    <option value="0">Pinjam</option>
+                                    <option value="1">Kembalikan</option>
+                                </select>
+                            </div>
+
                             <div class="col-md-6">
                                 <label for="input13" class="form-label">Nama Buku</label>
                                 <select class="form-control mb-3" name="id_buku" placeholder="Buku" required>
@@ -42,31 +81,12 @@
 
                             <div class="col-md-6">
                                 <label for="input13" class="form-label">Jumlah</label>
-                                <input class="form-control mb-3" type="text" name="jumlah" placeholder="Jumlah" required>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="input13" class="form-label">Tanggal Peminjaman</label>
-                                <input class="form-control mb-3" type="date" name="tanggal_pinjam" value="{{ $sekarang }}" required>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="input13" class="form-label">Batas Pengembalian</label>
-                                <input class="form-control mb-3" type="date" name="batas_pinjam" value="{{ $batastanggal }}" required>
+                                <input class="form-control mb-3" type="number" name="jumlah_pinjam" placeholder="Jumlah" required>
                             </div>
 
                             <div class="col-md-6">
                                 <label for="input13" class="form-label">Tanggal Pengembalian</label>
                                 <input class="form-control mb-3" type="date" name="tanggal_kembali" required>
-                            </div>
-
-                            <div class="col-md-6">
-                                <label for="input19" class="form-label">Status</label>
-                                <select id="input19" name="status" class="form-select">
-                                    <option selected="">Pilih...</option>
-                                    <option value="0">Pinjam</option>
-                                    <option value="1">Kembalikan</option>
-                                </select>
                             </div>
 
                             <div class="col-md-12">
@@ -80,4 +100,4 @@
                 </div>
             </div>
 
-@endsection
+            @endsection

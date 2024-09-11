@@ -22,7 +22,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_penerbit');
             $table->unsignedBigInteger('id_kategori');
             $table->string('tahun_terbit');
-            $table->integer('jumlah');
+            $table->integer('jumlah_buku');
             $table->timestamps();
 
             $table->foreign('id_penulis')->references('id')->on('penulis')->onDelete('cascade');

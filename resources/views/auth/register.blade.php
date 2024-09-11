@@ -63,7 +63,7 @@
                                 <div class="col-md-12">
                                     <label for="input13" class="form-label">Alamat</label>
                                     <div class="position-relative">
-                                        <input class="form-control mb-3" type="text" name="alamat" placeholder="alamat" required>
+                                        <textarea class="form-control mb-3" type="text" name="alamat" placeholder="alamat" required></textarea>
                                     </div>
                                 </div>
                                 <div class="col-12">

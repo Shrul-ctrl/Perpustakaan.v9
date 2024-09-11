@@ -38,7 +38,7 @@
                     <td>{{ $data->penerbit->nama_penerbit }}</td>
                     <td>{{ $data->kategori->nama_kategori }}</td>
                     <td>{{ $data->tahun_terbit }}</td>
-                    <td>{{ $data->jumlah }}</td>
+                    <td>{{ $data->jumlah_buku }}</td>
 
                     <td>
                         <form action="{{ route('buku.destroy', $data->id) }}" method="POST">
