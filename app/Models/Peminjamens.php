@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Peminjamens extends Model
 {
     use HasFactory;
-    protected $fillable = ['id','nama_peminjam','id_buku', 'jumlah_pinjam','tanggal_pinjam','batas_pinjam','tanggal_kembali','status'];
+    protected $fillable = ['id','nama_peminjam','id_buku', 'jumlah_pinjam','tanggal_pinjam','batas_pinjam','tanggal_kembali','status_pengajuan'];
     public $timestamps = true;
 
     public function buku()

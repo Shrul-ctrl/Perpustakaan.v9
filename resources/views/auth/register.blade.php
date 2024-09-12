@@ -103,7 +103,7 @@
                                 </div>
                                 <div class="col-12">
                                     <div class="text-start">
-                                        <p class="mb-0">Sudah punya akun? <a href="auth-basic-login.html">Login sekarang</a></p>
+                                        <p class="mb-0">Sudah punya akun? <a href="{{route('login')}}">Login sekarang</a></p>
                                     </div>
                                 </div>
                             </form>

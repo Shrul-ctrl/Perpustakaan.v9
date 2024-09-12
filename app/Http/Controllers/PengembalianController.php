@@ -20,7 +20,7 @@ class PengembalianController extends Controller
      */
     public function index()
     {
-        $pengembalian =Peminjaman::where('status', 'sudaj Dikembalikan')->get();
+        $pengembalian = Peminjaman::where('status', 'sudah Dikembalikan')->get();
 
         foreach ($pengembalian as $data) {
             $data->formatted_tanggal = Carbon::parse($data->tanggal)->translatedForamt('l, d F Y');

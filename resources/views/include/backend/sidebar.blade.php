@@ -15,65 +15,57 @@
         <!--navigation-->
         <ul class="metismenu" id="sidenav">
             <li>
-                <a href="{{route('dashboard')}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">home</i>
-                    </div>
+                <a href="{{ route('dashboard') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">home</i></div>
                     <div class="menu-title">Dashboard</div>
                 </a>
             </li>
             <li>
-                <a href="{{route('user.index')}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">person</i>
-                    </div>
+                <a href="{{ route('user.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">account_circle</i></div>
                     <div class="menu-title">User</div>
                 </a>
             </li>
             <li class="menu-label">Tabel</li>
             <li>
-                <a href="{{route('kategori.index')}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i>
-                    </div>
-                    <div class="menu-title">kategori</div>
+                <a href="{{ route('kategori.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
+                    <div class="menu-title">Kategori</div>
                 </a>
             </li>
             <li>
-                <a href="{{route('penerbit.index')}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i>
-                    </div>
-                    <div class="menu-title">penerbit</div>
+                <a href="{{ route('penerbit.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i></div>
+                    <div class="menu-title">Penerbit</div>
                 </a>
             </li>
             <li>
-                <a href="{{route('penulis.index')}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">card_giftcard</i>
-                    </div>
-                    <div class="menu-title">penulis</div>
+                <a href="{{ route('penulis.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">card_giftcard</i></div>
+                    <div class="menu-title">Penulis</div>
                 </a>
             </li>
             <li>
-                <a href="{{route('buku.index')}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">apps</i>
-                    </div>
-                    <div class="menu-title">buku</div>
+                <a href="{{ route('buku.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">apps</i></div>
+                    <div class="menu-title">Buku</div>
                 </a>
             </li>
-
-            {{-- <li class="menu-label">List</li>
+            <li class="menu-label">List</li>
             <li>
-                <a href="{{route('peminjaman.index')}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i>
-                    </div>
-                    <div class="menu-title">peminjaman</div>
+                <a href="{{ route('peminjamanadmin') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
+                    <div class="menu-title">Peminjaman</div>
                 </a>
             </li>
-            <li>
-                <a href="{{route('pengembalian.index')}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i>
-                    </div>
-                    <div class="menu-title">pengembalian</div>
+            {{-- <li>
+                <a href="{{ route('pengembalian.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i></div>
+                    <div class="menu-title">Pengembalian</div>
                 </a>
             </li> --}}
         </ul>
+        
         <!--end navigation-->
     </div>
 </aside>

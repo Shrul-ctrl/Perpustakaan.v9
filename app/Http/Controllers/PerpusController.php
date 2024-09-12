@@ -59,5 +59,14 @@ class PerpusController extends Controller
         return view('user.profile', ['user' => $user]);
     }
 
+    public function profilelistbuku($id = null)
+    {
+        $kategori = Kategori::all();
+        $buku = $id ? Buku::where('id_kategori', $id)->get() :
+        $buku = Buku::all();
+        $user = Auth::user();
+        return view('user.profilelistbuku', ['user' => $user], compact('buku', 'kategori',));
+    }
+
 
 }

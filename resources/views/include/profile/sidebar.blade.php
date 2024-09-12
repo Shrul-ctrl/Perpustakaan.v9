@@ -1,10 +1,10 @@
 <aside class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header mt-3">
         <div class="logo-icon">
-            <img src="{{asset('images/buku/smk.png')}}" alt="" width="50"/>
+            <img src="{{ asset('images/buku/smk.png') }}" alt="" width="50" />
         </div>
         <div class="logo-name flex-grow-1">
-            <h5 class="mt-0">Profile {{Auth::user()->name}}</h5>
+            <h5 class="mt-0">Profile {{ Auth::user()->name }}</h5>
         </div>
         <div class="sidebar-close">
             <span class="material-icons-outlined">close</span>
@@ -14,42 +14,43 @@
         <!--navigation-->
         <ul class="metismenu" id="sidenav">
             <li>
-                <a href="{{route('dashboarduser')}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">home</i>
-                    </div>
+                <a href="{{ route('dashboarduser') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">home</i></div>
                     <div class="menu-title">Dashboard</div>
                 </a>
             </li>
             <li>
-                <a href="{{route('profile')}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">join_right</i>
-                    </div>
+                <a href="{{ route('profile') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">account_circle</i></div>
                     <div class="menu-title">Profile</div>
                 </a>
             </li>
             <li class="menu-label">List</li>
             <li>
-                <a href="{{route('pengembalian.index')}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i>
-                    </div>
+                <a href="{{ route('pengembalian.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">favorite</i></div>
                     <div class="menu-title">Favorite</div>
                 </a>
             </li>
-
             <li>
-                <a href="{{route('peminjaman.index')}}">
-                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i>
-                    </div>
+                <a href="{{ route('peminjaman.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
                     <div class="menu-title">Peminjaman</div>
                 </a>
             </li>
-            {{-- <li>
-                <a href="{{route('pengembalian.index')}}">
-            <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i>
-            </div>
-            <div class="menu-title">pengembalian</div>
-            </a>
-            </li> --}}
+            <li>
+                <a href="{{ route('profilelistbuku') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">list</i></div>
+                    <div class="menu-title">List Buku</div>
+                </a>
+            </li>
+            <li class="menu-label">List</li>
+            <li>
+                <a href="{{ route('pengembalian.index') }}">
+                    <div class="parent-icon"><i class="material-icons-outlined">history</i></div>
+                    <div class="menu-title">Histori</div>
+                </a>
+            </li>
         </ul>
         <!--end navigation-->
     </div>

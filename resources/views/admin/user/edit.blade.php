@@ -55,14 +55,14 @@
                     </div>
                 </div>
 
-                <div class="col-md-12">
+                {{-- <div class="col-md-12">
                     <label for="input19" class="form-label">level</label>
                     <select id="input19" name="isAdmin" class="form-select">
                         <option selected="">Pilih...</option>
                         <option value="0">Peminjam</option>
                         <option value="1">Admin</option>
                     </select>
-                </div>
+                </div> --}}
                 <div class="col-md-12">
                     <div class="d-md-flex d-grid align-items-center gap-3">
                         <a href="{{route('user.index')}}" class="btn btn-danger px-4">Cancel</a>

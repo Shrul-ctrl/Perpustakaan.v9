@@ -21,6 +21,7 @@ return new class extends Migration
             $table->unsignedBigInteger('id_peminjaman');
             $table->unsignedBigInteger('id_buku');
             $table->timestamps();
+            
         });
     }
 

@@ -15,6 +15,17 @@ class IsAdmin
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
 
+    //  public function handle(Request $request, Closure $next)
+    //  {
+    //      // Pastikan pengguna sudah terautentikasi dan cek apakah mereka admin
+    //      if (Auth::check() && Auth::user()->is_admin != 1) {
+    //          // Redirect pengguna non-admin ke halaman yang diinginkan, misalnya dashboard pengguna
+    //          return redirect()->route('dashboarduser');
+    //      }
+    //      return $next($request);
+    //  }
+ 
+
      public function handle(Request $request, Closure $next): Response
     {
         if (Auth::user()->isAdmin != 1) {

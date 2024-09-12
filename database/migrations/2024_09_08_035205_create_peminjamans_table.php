@@ -16,12 +16,12 @@ return new class extends Migration
         Schema::create('peminjamens', function (Blueprint $table) {
             $table->id();
             $table->string('nama_peminjam');
-            $table->unsignedBigInteger('id_buku');
+            $table->unsignedBigInteger('id_buku');  
             $table->string('jumlah_pinjam');
             $table->date('tanggal_pinjam');
             $table->date('batas_pinjam');
             $table->date('tanggal_kembali');
-            $table->string('status');
+            $table->enum('status_pengajuan', ['ditahan', 'diterima', 'ditolak'])->default('ditahan');
             $table->timestamps();
         });
     }

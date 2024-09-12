@@ -126,7 +126,7 @@ class UserController extends Controller
 
         $user->save();
         if ($request->has('redirect_to') && $request->redirect_to === 'profile') {
-            return redirect()->back()->with('success', 'Profil berhasil diperbarui');
+            return redirect()->route('profile')->with('success', 'Profil berhasil diperbarui');
         } else {
             return redirect()->route('user.index')->with('success', 'Data berhasil diperbarui');
         }

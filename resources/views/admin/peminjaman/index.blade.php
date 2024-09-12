@@ -1,4 +1,4 @@
-@extends('layouts.frontend.profileuser')
+@extends('layouts.backend.backend')
 @section('content')
 <h3 class="mb-0 text-uppercase pb-3">PINJAMAN BUKU</h3>
 <hr>
@@ -27,8 +27,7 @@
                 </thead>
                 <tbody>
                     @foreach ($peminjaman as $data)
-                    @if ($data->status_pengajuan === 'diterima')
-                    <tr>    
+                    <tr>
                         <th scope="row">{{ $loop->index+1 }}</th>
                         <td>{{ $data->buku->judul }}</td>
                         <td>{{ $data->nama_peminjam}}</td>
@@ -37,23 +36,24 @@
                         <td>{{ $data->batas_pinjam }}</td>
                         <td>{{ $data->tanggal_kembali }}</td>
                         <td>
-                            @if($data->status === 'Dikembalikan')
-                            <p class="badge bg-success">Sudah Dikembalikan</p>
+                            @if($data->status_pengajuan === 'ditahan')
+                            <p class="dash-lable mb-0 bg-primary bg-opacity-10 text-primary rounded-2">Ditahan</p>
+                            @elseif($data->status_pengajuan === 'diterima')
+                            <p class="dash-lable mb-0 bg-success bg-opacity-10 text-success rounded-2">Diterima</p>
                             @else
-                            <p class="badge bg-danger">Masih Dipinjam</p>
+                            <p class="dash-lable mb-0 bg-danger bg-opacity-10 text-danger rounded-2">Ditolak</p>
                             @endif
                         </td>
-
                         <td>
-                            <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST">
+                            <form action="{{ route('peminjaman.update', $data->id) }}" method="POST">
                                 @csrf
-                                @method('DELETE')
-                                <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-warning btn-small">Edit</a>
-                                {{-- <button type="submit" class="btn btn-danger btn-small" onclick="return confirm('Apakah anda yakin??')">Hapus</button> --}}
+                                @method('PATCH')
+                                <input type="hidden" name="redirect_to" value="peminjamanadmin">
+                                <button type="submit" name="status_pengajuan" value="diterima" class="btn btn-success btn-sm">Terima</button>
+                                <button type="submit" name="status_pengajuan" value="ditolak" class="btn btn-danger btn-sm">Tolak</button>
                             </form>
                         </td>
                     </tr>
-                    @endif
                     @endforeach
                 </tbody>
             </table>

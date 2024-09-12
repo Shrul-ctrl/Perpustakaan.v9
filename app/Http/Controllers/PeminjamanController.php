@@ -19,11 +19,21 @@ class PeminjamanController extends Controller
      */
     public function index()
     { {
-            $peminjaman = Peminjamens::orderBy('id', 'desc')->get();
+            // $peminjaman = Peminjamens::orderBy('id', 'desc')->get();
+            $user = Auth::user();
+            $peminjaman = Peminjamens::where('nama_peminjam', $user->name)->get();
             $user = Auth::user();
             return view('user.peminjaman.index', ['user' => $user], compact('peminjaman'));
         }
     }
+
+    public function indexAdmin()
+    {
+        $peminjaman = Peminjamens::where('status_pengajuan', 'ditahan')->get();
+        $user = Auth::user();
+        return view('admin.peminjaman.index', ['user' => $user], compact('peminjaman'));
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -47,18 +57,26 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        //     $request -> validate([
-        //         'id_buku' => 'required|unique:Peminjamens,id_buku',
-        //         'jumlah_pinjam' => 'required',
-        //     ],
+        $request->validate(
+            [
+                'id_buku' => 'required|unique:Peminjamens,id_buku',
+                'jumlah_pinjam' => 'required',
+            ],
 
-        //     [
-        //         'id_buku.required' => 'Nama harus diisi',
-        //         'id_buku.unique' => 'Buku dengan Judul tersebut sudah dipinjam.',
-        //         'jumlah_pinjam.required' => 'jumlah_pinjam harus diisi', 
-        //     ]
-        // );
+            [
+                'id_buku.required' => 'Nama harus diisi',
+                'id_buku.unique' => 'Buku dengan Judul tersebut sudah dipinjam.',
+            ]
+        );
 
+        $buku = Buku::find($request->id_buku);
+        if (!$buku) {
+            return redirect()->back()->withErrors(['id_buku' => 'Buku tidak ditemukan'])->withInput();
+        }
+
+        if ($buku->jumlah_buku < $request->jumlah_pinjam) {
+            return redirect()->back()->withErrors(['jumlah_pinjam' => 'Stok buku terbatas'])->withInput();
+        }
 
 
         $peminjaman = new Peminjamens();
@@ -68,24 +86,15 @@ class PeminjamanController extends Controller
         $peminjaman->tanggal_pinjam = $request->tanggal_pinjam;
         $peminjaman->batas_pinjam = $request->batas_pinjam;
         $peminjaman->tanggal_kembali = $request->tanggal_kembali;
-        $peminjaman->status = $request->status;
+        $peminjaman->status_pengajuan = 'ditahan';
         $peminjaman->save();
 
-        $buku = Buku::findOrFail($request->id_buku);
-        if ($buku) {
-            if ($buku->jumlah_buku >= $request->jumlah_pinjam) {
-                $buku->jumlah_buku -= $request->jumlah_pinjam;
-                $buku->save();
+        // Update book stock
+        $buku->jumlah_buku -= $request->jumlah_pinjam;
+        $buku->save();
 
-                return redirect()->route('peminjaman.index')->with('success', 'Buku Berhasil dipinjam');
-            } else {
-                return redirect()->back()->withErrors(['jumlah_pinjam' => 'Stok buku terbatas'])->withInput();
-            }
-        } else {
-            return redirect()->back()->withErrors(['jumlah_pinjam' => 'Buku tidak ditemukan'])->withInput();
-        }
+        return redirect()->route('peminjaman.index')->with('success', 'Peminjaman Buku berhasil dibuat. Tunggu sekitar 10 menit untuk persetujuan dari admin. ');
     }
-
     /**
      * Display the specified resource.
      *
@@ -114,41 +123,36 @@ class PeminjamanController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  \Illuminate\Http\Request  $request   
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Peminjamens $peminjaman)
     {
-        $validated = $request->validate([
-            'status' => 'required',
-        ]);
+        // $request->validate([
+        //     'status_pengajuan' => 'required|in:accepted,rejected',
+        // ]);
 
-        $peminjaman->nama_peminjam = $request->nama_peminjam;
-        $peminjaman->id_buku = $request->id_buku;
-        $peminjaman->jumlah_pinjam = $request->jumlah_pinjam;
-        $peminjaman->tanggal_pinjam = $request->tanggal_pinjam;
-        $peminjaman->batas_pinjam = $request->batas_pinjam;
-        $peminjaman->tanggal_kembali = $request->tanggal_kembali;
-        $peminjaman->status = $request->status;
+        $peminjaman->status_pengajuan = $request->status_pengajuan;
 
-        if ($validated['status'] === 'Dikembalikan') {
+        if ($request->status_pengajuan === 'diterima') {
             $buku = Buku::findOrFail($peminjaman->id_buku);
-    
-            $buku->jumlah_buku += $peminjaman->jumlah;
-            $buku->save();
-    
-            $totalpinjam = Peminjamens::where('nama')->sum('jumlah');
-            $totalpinjam -= $peminjaman->jumlah;
-    
-            if ($totalpinjam < 0) {
-                $totalpinjam = 0;
+            if ($buku) {
+                $buku->jumlah_buku -= $peminjaman->jumlah_pinjam;
+                $buku->save();
             }
+        } elseif ($request->status_pengajuan === 'ditolak') {
+            // Optionally, restore book quantity or notify user
         }
 
         $peminjaman->save();
-        return redirect()->route('peminjaman.index')->with('success', 'Data berhasil diubah');
+        if ($request->has('redirect_to') && $request->redirect_to === 'peminjamanadmin') {
+            return redirect()->route('peminjamanadmin')->with('success', 'Status pengajuan berhasil diperbarui');
+        } else {
+            return redirect()->route('peminjaman.index')->with('success', 'Peminjaman Buku berhasil dikembalikan');
+        }
     }
+
 
     /**
      * Remove the specified resource from storage.

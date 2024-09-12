@@ -1,4 +1,4 @@
-    @extends('layouts.frontend.profileuser')
+@extends('layouts.backend.backend')
     @section('content')
     <div class="col-12 col-xl-12">
         <div class="card">
@@ -7,24 +7,24 @@
                 <form class="row g-3" method="POST" action="{{ route('peminjaman.update', $peminjaman->id) }}" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
-
+                    
                     <div class="col-md-4x">
                         <label for="input13" class="form-label">Nama Peminjam</label>
                         <div class="position-relative">
                             <input class="form-control mb-3" type="text" name="nama_peminjam" placeholder="Nama" value="{{ Auth::user()->name }}" disabled>
                             <input type="hidden" name="nama_peminjam" value="{{ Auth::user()->name }}">
                         </div>
-                    </div>
-
+                    </div>  
+                       
                     <div class="col-md-4x">
                         <label for="input13" class="form-label">Nama Buku</label>
                         <select class="form-control" name="id_buku" required>
                             @foreach($buku as $data)
-                            <option value="{{ $data->id }}">{{ $data->judul }}</option>
+                                <option value="{{ $data->id }}">{{ $data->judul }}</option>
                             @endforeach
                         </select>
                     </div>
-
+                    
 
                     <div class="col-md-4x">
                         <label for="input13" class="form-label">Jumlah</label>
@@ -48,15 +48,14 @@
                         <input class="form-control mb-3" type="date" name="tanggal_kembali" value="{{ $peminjaman->tanggal_kembali }}" required>
                     </div>
 
-                    <div class="col-md-4x">
-                        <label for="status" class="form-label">Status</label>
-                        <select name="status_pengajuan" class="form-control" required>
-                            <option value="diterima" {{ $peminjaman->status == 'Dipinjam' ? 'selected' : '' }}>Dipinjam</option>
-                            <option value="ditolak" {{ $peminjaman->status == 'Dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
+                    <div class="col-md-12">
+                        <label for="input17" class="form-label">Status</label>
+                        <select name="status" class="form-control" id="">
+                            <option value="Dipinjam" {{ $peminjaman->status == 'Dipinjam' ? 'selected' : '' }}>Dipinjam</option>
+                            <option value="Dikembalikan" {{ $peminjaman->status == 'Dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
                         </select>
-                    </div>
-
-
+                    </div> 
+                    
                     <div class="col-md-12">
                         <div class="d-md-flex d-grid align-items-center gap-3">
                             <a href="{{route('buku.index')}}" class="btn btn-danger px-4">Batal</a>
