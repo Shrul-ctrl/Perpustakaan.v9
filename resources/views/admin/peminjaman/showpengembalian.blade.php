@@ -51,8 +51,8 @@
 
     <div class="col-md-12">
         <div class="d-md-flex d-grid align-items-center gap-3">
-            <input type="hidden" name="redirect_to" value="showpengajuan">
-            <button type="submit" name="status_pengajuan" value="diterima" class="btn btn-success btn-sm">Terima</button>
+            <input type="hidden" name="redirect_to" value="showpengembalian">
+            <button type="submit" name="status_pengajuan" value="sukses" class="btn btn-success btn-sm">Terima</button>
             <button type="submit" name="status_pengajuan" value="ditolak" class="btn btn-danger btn-sm">Tolak</button>
         </div>
     </div>

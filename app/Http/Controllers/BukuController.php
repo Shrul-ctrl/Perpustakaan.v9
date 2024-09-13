@@ -7,6 +7,7 @@ use App\Models\buku;
 use App\Models\penuli;
 use App\Models\penerbit;
 use App\Models\kategori;
+use App\Models\Peminjamens;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -19,10 +20,13 @@ class BukuController extends Controller
      */
     public function index()
     {
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $peminjamannotif = Peminjamens::all();
         $buku = buku::orderBy('id', 'asc')->get();
         $bukus = Buku::all();
         $user = Auth::user();
-        return view('admin.buku.index', ['user' => $user], compact('buku','bukus'));
+        return view('admin.buku.index', compact('peminjamannotif','user','buku','bukus','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**
@@ -32,11 +36,14 @@ class BukuController extends Controller
      */
     public function create()
     {
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $peminjamannotif = Peminjamens::all();
         $penulis = penuli::all();
         $penerbit = penerbit::all();
         $kategori = kategori::all();
         $user = Auth::user();
-        return view('admin.buku.create', ['user' => $user],compact('kategori','penulis','penerbit'));
+        return view('admin.buku.create' ,compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian','kategori','penulis','penerbit'));
     }
 
     /**
@@ -87,9 +94,12 @@ class BukuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id){
+        $peminjamannotif = Peminjamens::all();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
         $buku = Buku::findOrFail($id);
         $user = Auth::user();
-        return view('admin.buku.show', ['user' => $user],compact('buku'));
+        return view('admin.buku.show', compact('peminjamannotif','buku','jumlahpengajuan','jumlahpengembalian','user'));
     }
 
     /**
@@ -100,11 +110,14 @@ class BukuController extends Controller
      */
     public function edit(buku $buku)
     {
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $peminjamannotif = Peminjamens::all();
         $penulis = penuli::all();
         $penerbit = penerbit::all();
         $kategori = kategori::all();
         $user = Auth::user();
-        return view('admin.buku.edit', ['user' => $user] ,compact('kategori','penulis','penerbit','buku'));
+        return view('admin.buku.edit',compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian','kategori','penulis','penerbit','buku'));
     }
 
     /**

@@ -1,7 +1,7 @@
 <ul class="navbar-nav gap-1 nav-right-links align-items-center">
     <li class="nav-item dropdown pt-4">
         <a href="javascrpt:;" data-bs-toggle="dropdown">
-            <img src="{{ asset('images/user/' . $user->fotoprofile) }}" class="rounded-circle p-1 border mb-4" width="50" height="50" style="object-fit: cover;" alt="">
+            <img src="{{ asset('images/user/' . $user->fotoprofile) }}" class="rounded-circle p-1 border mb-4" width="45" height="45" style="object-fit: cover;" alt="">
         </a>
         <div class="dropdown-menu dropdown-user dropdown-menu-end shadow" style="width: 250px;border-radius:5%;">
             <a class="dropdown-item  gap-2 py-2" href="javascript:;">

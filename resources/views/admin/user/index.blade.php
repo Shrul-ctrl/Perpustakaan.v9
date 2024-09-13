@@ -24,9 +24,9 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- @foreach ($user as $index => $data) --}}
-                {{-- @if ($data->is_admin == '0') --}}
-                @foreach ($users as $data)
+                @foreach ($users as $index => $data)
+                @if ($data->isAdmin == '0')
+                {{-- @foreach ($users as $data) --}}
                 <tr>
                     <th scope="row">{{ $loop->index+1 }}</th>
                     <td>{{$data->name}}</td>
@@ -46,7 +46,7 @@
                         </form>
                     </td>
                 </tr>
-                {{-- @endif --}}
+                @endif
                 @endforeach
             </tbody>
 

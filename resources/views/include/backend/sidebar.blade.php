@@ -55,14 +55,40 @@
             <li class="">
                 <a class="has-arrow" href="javascript:;" aria-expanded="false">
                     <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i>
-                        {{-- <span class="badge-notify bg-danger text-light p-1">5</span> --}}
+
+                        @php
+                        $hasilnotif = $jumlahpengajuan + $jumlahpengembalian
+                        @endphp
+
+                        @if($hasilnotif > 0)
+                        <span class="badge bg-danger" style="font-size: 0.6rem; padding: 0.2em 0.4em;">
+                            {{ $hasilnotif }}
+                        </span>
+                        @endif
+
                     </div>
                     <div class="menu-title">Peminjaman</div>
                 </a>
                 <ul class="mm-collapse" style="height: 0px;">
-                    <li><a href="{{ route('indexpengajuan') }}" aria-expanded="true"><i class="material-icons-outlined">arrow_right</i>Pengajuan Buku</a>
+                    <li><a href="{{ route('indexpengajuan') }}" aria-expanded="true"><i class="material-icons-outlined">arrow_right</i>Pengajuan Buku
+
+                            @if($jumlahpengajuan > 0)
+                            <span class="badge bg-danger" style="font-size: 0.6rem; padding: 0.2em 0.4em;">
+                                {{ $jumlahpengajuan }}
+                            </span>
+                            @endif
+
+                        </a>
                     </li>
-                    <li><a href="{{ route('indexpengembalian') }}" aria-expanded="true"><i class="material-icons-outlined">arrow_right</i>Pengembalian Buku</a>
+                    <li><a href="{{ route('indexpengembalian') }}" aria-expanded="true"><i class="material-icons-outlined">arrow_right</i>Pengembalian Buku
+
+                            @if($jumlahpengembalian > 0)
+                            <span class="badge bg-danger" style="font-size: 0.6rem; padding: 0.2em 0.4em;">
+                                {{ $jumlahpengembalian }}
+                            </span>
+                            @endif
+
+                        </a>
                     </li>
                     <li><a href="{{ route('indexpeminjaman') }}" aria-expanded="true"><i class="material-icons-outlined">arrow_right</i>Peminjaman Buku</a>
                     </li>

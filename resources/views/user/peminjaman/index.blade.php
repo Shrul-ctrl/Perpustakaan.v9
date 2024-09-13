@@ -22,13 +22,17 @@
                         <th scope="col">Batas Peminjaman</th>
                         <th scope="col">Tanggal Pengembalian</th>
                         <th scope="col">Status</th>
+                        {{-- @if ($peminjamanditerima  ) --}}
                         <th scope="col">Action</th>
+                        {{-- @elseif ($peminjamanditolak === 'ditolak')
+                        <th scope="col">Action</th> --}}
+                        {{-- @endif --}}
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($peminjaman as $data)
-                    @if ($data->status_pengajuan === 'diterima')
-                    <tr>    
+                    {{-- @if ($data->status_pengajuan === 'diterima') --}}
+                    <tr>
                         <th scope="row">{{ $loop->index+1 }}</th>
                         <td>{{ $data->buku->judul }}</td>
                         <td>{{ $data->nama_peminjam}}</td>
@@ -37,23 +41,66 @@
                         <td>{{ $data->batas_pinjam }}</td>
                         <td>{{ $data->tanggal_kembali }}</td>
                         <td>
-                            @if($data->status === 'Dikembalikan')
-                            <p class="dash-lable mb-0 bg-sucess bg-opacity-10 text-sucess rounded-2">Sudah Dikembalikan</p>
+                            @include('include.fullstack.ifelsestatus')
+                        </td>
+
+                        <td>
+                            @if($data->status_pengajuan === 'ditahan')
+                            <form action="{{ route('peminjaman.update', $data->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="status_pengajuan" value="batalkan">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin membatalkan pengajuan?')">Batal</button>
+                            </form>
+                            @elseif($data->status_pengajuan === 'diterima')
+                            <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-warning">Edit</a>
+                            {{-- @elseif($data->status_pengajuan === 'dikembalikan')
+                                <p class="dash-lable mb-0 bg-warning bg-opacity-10 text-warning rounded-2">Dikembalikan</p> --}}
                             @else
-                            <p class="dash-lable mb-0 bg-danger bg-opacity-10 text-danger rounded-2">Masih Dipinjam</p>
+                            <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Hapus Peminjaman')">Hapus</button>
+                            </form>
                             @endif
                         </td>
 
+
+                        {{-- @foreach ($peminjaman as $data)
+                        @if($data->status_pengajuan === 'diterima')
+                        <td>
+                            <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-warning">Edit</a>
+                        </td>
+                        @endif
+                        @endforeach
+
+                        @foreach ($peminjaman as $data)
+                        @if($data->status_pengajuan === 'ditahan')
+                        <td>
+                            <form action="{{ route('peminjaman.update', $data->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <input type="hidden" name="status_pengajuan" value="batalkan">
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin membatalkan pengajuan?')">Batal</button>
+                            </form>
+
+                        </td>
+                        @endif
+                        @endforeach
+
+                        @foreach ($peminjaman as $data)
+                        @if($data->status_pengajuan === 'ditolak')
                         <td>
                             <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-warning btn-small">Edit</a>
-                                {{-- <button type="submit" class="btn btn-danger btn-small" onclick="return confirm('Apakah anda yakin??')">Hapus</button> --}}
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Hapus Peminjaman')">Hapus</button>
                             </form>
                         </td>
+                        @endif
+                        @endforeach --}}
+
                     </tr>
-                    @endif
                     @endforeach
                 </tbody>
             </table>

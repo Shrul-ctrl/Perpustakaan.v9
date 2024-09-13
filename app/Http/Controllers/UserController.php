@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Middleware\IsAdmin;
 use App\Models\User;
+use App\Models\Peminjamens;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
@@ -21,9 +22,12 @@ class UserController extends Controller
      */
     public function index()
     {
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
         $users = User::orderBy('id', 'desc')->get();
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.user.index', ['user' => $user], compact('users'));
+        return view('admin.user.index', compact('peminjamannotif','user','users','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**
@@ -31,8 +35,11 @@ class UserController extends Controller
      */
     public function create()
     {
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.user.create', ['user' => $user]);
+        return view('admin.user.create', compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**
@@ -80,7 +87,10 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user = Auth::user();
-        return view('admin.user.show', ['user' => $user], compact('user'));
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $peminjamannotif = Peminjamens::all();
+        return view('admin.user.show', compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**
@@ -89,7 +99,10 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $user = Auth::user();
-        return view('admin.user.edit', ['user' => $user], compact('user'));
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $peminjamannotif = Peminjamens::all();
+        return view('admin.user.edit', compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**

@@ -8,6 +8,7 @@ use App\Models\Kategori;
 use App\Models\buku;
 use App\Models\penerbit;
 use App\Models\user;
+use App\Models\Peminjamens;
 use App\chart\MonthlyUsersChart;
 use Illuminate\Support\Facades\Auth;
 
@@ -16,19 +17,20 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $jumlahbuku = Buku::count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahuser  = User::where('isAdmin', 0)->count();
+        $jumlahpeminjamanbuku  = Peminjamens::count();
+        $users = User::orderBy('id', 'desc')->get();
+        $peminjamannotif = Peminjamens::all();
+        $jumlahkategori = Kategori::count();
         $jumlahpenerbit = Penerbit::count();
         $jumlahpenulis = Penuli::count();
-        $jumlahkategori = Kategori::count();
-        $users = User::orderBy('id', 'desc')->get();
+        $jumlahbuku = Buku::count();
+        
         $user = Auth::user();
         
-        return view('admin.dashboard', ['user' => $user], compact('jumlahbuku','jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori','users'));
+        return view('admin.dashboard',compact('peminjamannotif','users','user','jumlahuser','jumlahbuku','jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori','jumlahpengajuan','jumlahpengembalian','jumlahpeminjamanbuku'));
     }
     
-    // public function chart(MonthlyUsersChart $chart)
-    // {
-    //     return view('admin.dashboard', ['chart' => $chart->build()]);
-    // } 
-
 }

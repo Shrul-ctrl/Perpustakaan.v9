@@ -10965,4 +10965,15 @@ body {
 	border-bottom: 1px solid black;
 	border-radius: 5%;
   }
+
+  .badge-notify {
+    display: inline-block;
+    width: 30px; /* Atur lebar sesuai kebutuhan */
+    height: 30px; /* Atur tinggi sesuai kebutuhan */
+    border-radius: 50%; /* Membuat elemen menjadi bulat */
+    text-align: center; /* Mengatur teks berada di tengah */
+    line-height: 30px; /* Mengatur tinggi baris agar teks berada di tengah secara vertikal */
+    font-size: 16px; /* Ukuran font sesuai kebutuhan */
+}
+
 /*# sourceMappingURL=bootstrap.min.css.map */

@@ -36,25 +36,8 @@
                         <td>{{ $data->batas_pinjam }}</td>
                         <td>{{ $data->tanggal_kembali }}</td>
                         <td>
-                            @if($data->status_pengajuan === 'ditahan')
-                                <p class="dash-lable mb-0 bg-primary bg-opacity-10 text-primary rounded-2">Ditahan</p>
-                            @elseif($data->status_pengajuan === 'diterima')
-                                <p class="dash-lable mb-0 bg-success bg-opacity-10 text-success rounded-2">Diterima</p>
-                            @elseif($data->status_pengajuan === 'dikembalikan')
-                                <p class="dash-lable mb-0 bg-warning bg-opacity-10 text-warning rounded-2">Dikembalikan</p>
-                            @else
-                                <p class="dash-lable mb-0 bg-danger bg-opacity-10 text-danger rounded-2">Ditolak</p>
-                            @endif
+                            @include('include.fullstack.ifelsestatus')
                         </td>
-                        {{-- <td>
-                            <form action="{{ route('peminjaman.update', $data->id) }}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <input type="hidden" name="redirect_to" value="peminjamanadmin">
-                                <button type="submit" name="status_pengajuan" value="diterima" class="btn btn-success btn-sm">Terima</button>
-                                <button type="submit" name="status_pengajuan" value="ditolak" class="btn btn-danger btn-sm">Tolak</button>
-                            </form>
-                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>

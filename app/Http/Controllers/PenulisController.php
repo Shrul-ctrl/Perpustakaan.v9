@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Penuli;
+use App\Models\Peminjamens;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -17,8 +18,11 @@ class PenulisController extends Controller
     public function index()
     {
         $penulis = Penuli::orderBy('id', 'desc')->get();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.penulis.index', ['user' => $user], compact('penulis'));
+        return view('admin.penulis.index', compact('user','peminjamannotif','penulis','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**
@@ -28,8 +32,11 @@ class PenulisController extends Controller
      */
     public function create()
     {
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.penulis.create', ['user' => $user]);
+        return view('admin.penulis.create', compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**
@@ -79,7 +86,10 @@ class PenulisController extends Controller
     public function edit(Penuli $penuli)
     {
         $user = Auth::user();
-        return view('admin.penulis.edit', ['user' => $user], compact('penuli'));
+        $peminjamannotif = Peminjamens::all();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        return view('admin.penulis.edit',compact('peminjamannotif','user','penuli','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**

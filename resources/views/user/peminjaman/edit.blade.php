@@ -11,7 +11,7 @@
                     <div class="col-md-4x">
                         <label for="input13" class="form-label">Nama Peminjam</label>
                         <div class="position-relative">
-                            <input class="form-control mb-3" type="text" name="nama_peminjam" placeholder="Nama" value="{{ Auth::user()->name }}" disabled>
+                            <input class="form-control mb-3" type="text" name="nama_peminjam" placeholder="Nama" value="{{ Auth::user()->name }}" readonly>
                             <input type="hidden" name="nama_peminjam" value="{{ Auth::user()->name }}">
                         </div>
                     </div>
@@ -35,23 +35,22 @@
 
                     <div class="col-md-4x">
                         <label for="input13" class="form-label">Tanggal Peminjaman</label>
-                        <input class="form-control mb-3" type="date" name="tanggal_pinjam" value="{{ $peminjaman->tanggal_pinjam }}" required>
+                        <input class="form-control mb-3" type="date" name="tanggal_pinjam" value="{{ $peminjaman->tanggal_pinjam }}" readonly>
                     </div>
 
                     <div class="col-md-4x">
                         <label for="input13" class="form-label">Batas Pengembalian</label>
-                        <input class="form-control mb-3" type="date" name="batas_pinjam" value="{{ $peminjaman->batas_pinjam }}" required>
+                        <input class="form-control mb-3" type="date" name="batas_pinjam" value="{{ $peminjaman->batas_pinjam }}" readonly>
                     </div>
 
                     <div class="col-md-4x">
                         <label for="input13" class="form-label">Tanggal Pengembalian</label>
-                        <input class="form-control mb-3" type="date" name="tanggal_kembali" value="{{ $peminjaman->tanggal_kembali }}" required>
+                        <input class="form-control mb-3" type="date" name="tanggal_kembali" value="{{ $peminjaman->tanggal_kembali }}" readonly>
                     </div>
 
                     <div class="col-md-4x">
                         <label for="status" class="form-label">Status</label>
                         <select name="status_pengajuan" class="form-control" required>
-                            <option value="dipinjam" {{ $peminjaman->status == 'Dipinjam' ? 'selected' : '' }}>Dipinjam</option>
                             <option value="dikembalikan" {{ $peminjaman->status == 'Dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
                         </select>
                     </div>

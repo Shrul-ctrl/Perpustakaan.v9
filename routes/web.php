@@ -33,7 +33,6 @@ use App\Http\Middleware\IsAdmin;
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], function () {
     Route::get('home', [DashboardController::class, 'index'])->name('dashboard');
-    // Route::get('home', [DashboardController::class, 'chart']);
     Route::resource('kategori', KategoriController::class);
     Route::resource('penerbit', PenerbitController::class);
     Route::resource('penulis', PenulisController::class);
@@ -50,7 +49,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], fu
 
 Route::get('', [PerpusController::class, 'index'])->name(name: 'AssalaamPerpustakaan');
 
-Route::group(['prefix' => 'user'], function () {
+Route::group(['prefix' => 'user', 'middleware' => ['auth']], function () {
     Route::get('listbuku', [PerpusController::class, 'listbuku'])->name('listbuku');
     Route::get('kategori/{id}', [PerpusController::class, 'listbuku'])->name('buku.filter');
     Route::get('show/{id}', [PerpusController::class, 'show']);
@@ -58,15 +57,11 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('profilelistbuku', [PerpusController::class, 'profilelistbuku'])->name('profilelistbuku');
     Route::get('dashboarduser', [PerpusController::class, 'dashboard'])->name('dashboarduser');
     Route::get('historiuser', [PerpusController::class, 'historiuser'])->name('historiuser');
-
-
-    // Route::group(['middleware' => ['auth', IsAdmin::class]], function () {
-        Route::resource('peminjaman', PeminjamanController::class);
-        Route::resource('pengembalian', PengembalianController::class);
-    // });
-
-
+    Route::resource('peminjaman', PeminjamanController::class);
+    Route::resource('pengembalian', PengembalianController::class);
 });
+
+
 
 
 Auth::routes();

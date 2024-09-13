@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Penerbit;
+use App\Models\Peminjamens;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -17,8 +18,11 @@ class PenerbitController extends Controller
     public function index()
     {
         $penerbit = Penerbit::orderBy('id', 'desc')->get();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.penerbit.index', ['user' => $user], compact('penerbit'));
+        return view('admin.penerbit.index', compact('peminjamannotif','user','penerbit','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**
@@ -29,7 +33,10 @@ class PenerbitController extends Controller
     public function create()
     {
         $user = Auth::user();
-        return view('admin.penerbit.create', ['user' => $user]);
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $peminjamannotif = Peminjamens::all();
+        return view('admin.penerbit.create', compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**
@@ -67,7 +74,7 @@ class PenerbitController extends Controller
     public function show(Penerbit $Penerbit)
     {
         $user = Auth::user();
-        return view('admin.penerbit.show', ['user' => $user], compact('penerbit'));
+        return view('admin.penerbit.show', compact('user','penerbit'));
 
     }
 
@@ -80,7 +87,10 @@ class PenerbitController extends Controller
     public function edit(Penerbit $penerbit)
     {
         $user = Auth::user();
-        return view('admin.penerbit.edit', ['user' => $user], compact('penerbit'));
+        $peminjamannotif = Peminjamens::all();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        return view('admin.penerbit.edit', compact('peminjamannotif','user','penerbit','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**

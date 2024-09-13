@@ -53,7 +53,6 @@
                             <a href="{{route('penulis.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
                         </div>
                         <img src="{{asset('backend/assets/images/leptop/p5.jfif')}}" width="100" alt="">
-
                     </div>
                 </div>
             </div>
@@ -83,7 +82,7 @@
 
 <div class="row">
     <!-- Profil -->
-        <div class="col-lg-8 col-xxl-8 d-flex align-items-stretch">
+    <div class="col-lg-8 col-xxl-8 d-flex align-items-stretch">
         <div class="card w-100 rounded-4">
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between mb-3">
@@ -92,48 +91,29 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table align-middle" id="example">
-                        <thead>
+                    <table class="table mb-0" id="example">
+                        <thead class="table">
                             <tr>
                                 <th scope="col">No</th>
                                 <th scope="col">Nama Buku</th>
-                                {{-- <th scope="col">Nama Peminjam</th> --}}
                                 <th scope="col">Jumlah</th>
                                 <th scope="col">Tanggal Peminjaman</th>
                                 <th scope="col">Batas Peminjaman</th>
-                                {{-- <th scope="col">Tanggal Pengembalian</th> --}}
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($peminjaman as $data)
-                            @if ($data->status_pengajuan === 'diterima')
-                            <tr>    
+                            <tr>
                                 <th scope="row">{{ $loop->index+1 }}</th>
                                 <td>{{ $data->buku->judul }}</td>
-                                {{-- <td>{{ $data->nama_peminjam}}</td> --}}
                                 <td>{{ $data->jumlah_pinjam }}</td>
                                 <td>{{ $data->tanggal_pinjam }}</td>
                                 <td>{{ $data->batas_pinjam }}</td>
-                                {{-- <td>{{ $data->tanggal_kembali }}</td> --}}
                                 <td>
-                                    @if($data->status === 'Dikembalikan')
-                                    <p class="badge bg-success">Sudah Dikembalikan</p>
-                                    @else
-                                    <p class="badge bg-danger">Masih Dipinjam</p>
-                                    @endif
-                                </td>
-        
-                                <td>
-                                    <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-warning btn-small">Edit</a>
-                                        {{-- <button type="submit" class="btn btn-danger btn-small" onclick="return confirm('Apakah anda yakin??')">Hapus</button> --}}
-                                    </form>
+                                    @include('include.fullstack.ifelsestatus')
                                 </td>
                             </tr>
-                            @endif
                             @endforeach
                         </tbody>
                     </table>

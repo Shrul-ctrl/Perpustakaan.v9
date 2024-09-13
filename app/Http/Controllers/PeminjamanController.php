@@ -18,41 +18,47 @@ class PeminjamanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { {
-            // $peminjaman = Peminjamens::orderBy('id', 'desc')->get();
-            $user = Auth::user();
-            $peminjaman = Peminjamens::where('nama_peminjam', $user->name)->orderBy('id', 'desc')->get();
-            $user = Auth::user();
-            return view('user.peminjaman.index', ['user' => $user], compact('user', 'peminjaman'));
-        }
+    {
+
+        $user = Auth::user();
+        $peminjaman = Peminjamens::where('nama_peminjam', $user->name)->whereIn('status_pengajuan', ['ditahan', 'diterima', 'ditolak'])->orderBy('id', 'desc')->get();
+        $peminjamanditerima = Peminjamens::where('status_pengajuan', 'diterima')->orderBy('id', 'desc')->get();
+        $jumlahditerima = Peminjamens::where('status_pengajuan', 'diterima')->count();
+        $peminjamannotif = Peminjamens::all();
+
+        return view('user.peminjaman.index', ['user' => $user], compact('user','peminjamannotif', 'peminjaman', 'peminjamanditerima', 'jumlahditerima'));
     }
 
     public function indexpengajuan()
     {
         $peminjaman = Peminjamens::where('status_pengajuan', 'ditahan')->orderBy('id', 'desc')->get();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.peminjaman.indexpengajuan', ['user' => $user], compact('peminjaman'));
+        return view('admin.peminjaman.indexpengajuan', ['user' => $user], compact('peminjamannotif','peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
 
     public function indexpeminjaman()
     {
         $peminjaman = Peminjamens::orderBy('id', 'desc')->get();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.peminjaman.indexpeminjaman', ['user' => $user], compact('peminjaman'));
+        return view('admin.peminjaman.indexpeminjaman', ['user' => $user], compact('peminjamannotif','peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
 
     public function indexpengembalian()
     {
         $peminjaman = Peminjamens::where('status_pengajuan', 'dikembalikan')->orderBy('id', 'desc')->get();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.peminjaman.indexpengembalian', ['user' => $user], compact('peminjaman'));
+        return view('admin.peminjaman.indexpengembalian', ['user' => $user], compact('peminjamannotif','peminjamannotif','peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function create()
     {
         $buku = Buku::all();
@@ -61,37 +67,19 @@ class PeminjamanController extends Controller
         $user = Auth::user();
         return view('user.peminjaman.create', ['user' => $user], compact('buku', 'sekarang', 'batastanggal'));
     }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function store(Request $request)
     {
-        // Validasi input jika diperlukan
-        // $request->validate([
-        //     'id_buku' => 'required|exists:buku,id',
-        //     'jumlah_pinjam' => 'required|integer|min:1',
-        //     'nama_peminjam' => 'required|string|max:255',
-        //     'tanggal_pinjam' => 'required|date',
-        //     'batas_pinjam' => 'required|date',
-        //     'tanggal_kembali' => 'required|date'
-        // ]);
 
-        // Temukan buku yang dipinjam
         $buku = Buku::find($request->id_buku);
         if (!$buku) {
             return redirect()->back()->withErrors(['id_buku' => 'Buku tidak ditemukan'])->withInput();
         }
 
-        // Periksa ketersediaan stok buku
         if ($buku->jumlah_buku < $request->jumlah_pinjam) {
             return redirect()->back()->withErrors(['jumlah_pinjam' => 'Stok buku terbatas'])->withInput();
         }
 
-        // Simpan data peminjaman dengan status 'pending'
         $peminjaman = new Peminjamens();
         $peminjaman->nama_peminjam = $request->nama_peminjam;
         $peminjaman->id_buku = $request->id_buku;
@@ -102,55 +90,40 @@ class PeminjamanController extends Controller
         $peminjaman->status_pengajuan = 'ditahan';
         $peminjaman->save();
 
-        // Berikan notifikasi bahwa pengajuan telah diterima dan menunggu persetujuan
         return redirect()->route('peminjaman.index')->with('success', 'Pengajuan peminjaman buku berhasil dibuat. Tunggu persetujuan dari admin.');
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function showpengajuan($id)
     {
         $peminjaman = Peminjamens::findOrFail($id);
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.peminjaman.showpengajuan', ['user' => $user], compact('peminjaman'));
+        return view('admin.peminjaman.showpengajuan', ['user' => $user], compact('peminjamannotif','peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
+    
     public function showpengembalian($id)
     {
         $peminjaman = Peminjamens::findOrFail($id);
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
+        $peminjamannotif = Peminjamens::all();  
         $user = Auth::user();
-        return view('admin.peminjaman.showpengembalian', ['user' => $user], compact('peminjaman'));
+        return view('admin.peminjaman.showpengembalian', ['user' => $user], compact('peminjamannotif','peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function edit(Peminjamens $peminjaman)
     {
+        $jumlahditerima = Peminjamens::where('status_pengajuan', 'diterima')->count();
+        $peminjamannotif = Peminjamens::all();
         $buku = Buku::all();
         $user = Auth::user();
-        return view('user.peminjaman.edit', ['user' => $user], compact('peminjaman', 'buku'));
-
+        return view('user.peminjaman.edit', compact('user','buku','peminjaman','peminjamannotif','jumlahditerima'));
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request   
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function update(Request $request, Peminjamens $peminjaman)
     {
-        // $request->validate([
-        //     'status_pengajuan' => 'required|in:accepted,rejected',
-        // ]);
 
         $peminjaman->status_pengajuan = $request->status_pengajuan;
 
@@ -160,30 +133,38 @@ class PeminjamanController extends Controller
                 $buku->jumlah_buku -= $peminjaman->jumlah_pinjam;
                 $buku->save();
             }
+            $peminjaman->status_pengajuan = 'diterima';
+
         } elseif ($request->status_pengajuan === 'ditolak') {
+            $peminjaman->status_pengajuan = 'ditolak';  
+
         } elseif ($request->status_pengajuan === 'dikembalikan') {
             $buku = Buku::findOrFail($peminjaman->id_buku);
             if ($buku) {
                 $buku->jumlah_buku += $peminjaman->jumlah_pinjam;
                 $buku->save();
             }
+            $peminjaman->status_pengajuan = 'dikembalikan';
+
+        }elseif ($request->status_pengajuan === 'sukses') {
+            $buku = Buku::findOrFail($peminjaman->id_buku);
+            if ($buku) {
+                $buku->jumlah_buku += $peminjaman->jumlah_pinjam;
+                $buku->save();
+            }
+            $peminjaman->status_pengajuan = 'sukses';
         }
 
         $peminjaman->save();
         if ($request->has('redirect_to') && $request->redirect_to === 'showpengajuan') {
             return redirect()->route('indexpengajuan')->with('success', 'Status pengajuan berhasil diperbarui');
+        } elseif ($request->has('redirect_to') && $request->redirect_to === 'showpengembalian') {
+            return redirect()->route('indexpengembalian')->with('success', 'Pinjaman Buku berhasil dikembalikan');
         } else {
             return redirect()->route('peminjaman.index')->with('success', 'Peminjaman Buku berhasil dikembalikan');
         }
     }
-
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+ 
     public function destroy($id)
     {
         //

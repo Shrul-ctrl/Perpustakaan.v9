@@ -15,6 +15,14 @@ class IsAdmin
      * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
 
+    public function handle(Request $request, Closure $next)
+    {
+        if (Auth::check() && Auth::user()->isAdmin) {
+            return $next($request);
+        }
+        return abort(404); 
+    }
+
     //  public function handle(Request $request, Closure $next)
     //  {
     //      // Pastikan pengguna sudah terautentikasi dan cek apakah mereka admin
@@ -24,19 +32,19 @@ class IsAdmin
     //      }
     //      return $next($request);
     //  }
- 
 
-     public function handle(Request $request, Closure $next): Response
-    {
-        if (Auth::user()->isAdmin != 1) {
-            return redirect('dashboard');
-        }
-        return $next($request);
-    }
+
+    //  public function handle(Request $request, Closure $next): Response
+    // {
+    //     if (Auth::user()->isAdmin != 1) {
+    //         return redirect('dashboard');
+    //     }
+    //     return $next($request);
+    // }
     // public function handle(Request $request, Closure $next)
     // {
     //     if (Auth::user()->is_admin == 1) {
-            // return $next($request);
+    // return $next($request);
     //     }
     //     return abort(403);
     // }   

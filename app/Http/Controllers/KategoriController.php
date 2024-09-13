@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Kategori;
+use App\Models\Peminjamens;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -16,9 +17,12 @@ class KategoriController extends Controller
      */
     public function index()
     {
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
         $kategori = Kategori::orderBy('id', 'desc')->get();
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.kategori.index', ['user' => $user], compact('kategori'));
+        return view('admin.kategori.index', compact('peminjamannotif','user','kategori','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**
@@ -28,8 +32,11 @@ class KategoriController extends Controller
      */
     public function create()
     {
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.kategori.create', ['user' => $user]);
+        return view('admin.kategori.create', compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**
@@ -66,7 +73,7 @@ class KategoriController extends Controller
     public function show(Kategori $kategori)
     {
         $user = Auth::user();
-        return view('admin.kategori.show', ['user' => $user], compact('kategori'));
+        return view('admin.kategori.show', compact('peminjamannotif','user','kategori'));
 
     }
 
@@ -78,8 +85,11 @@ class KategoriController extends Controller
      */
     public function edit(Kategori $kategori)
     {
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.kategori.edit', ['user' => $user], compact('kategori'));
+        return view('admin.kategori.edit', compact('peminjamannotif','user','kategori','jumlahpengajuan','jumlahpengembalian'));
     }
 
     /**

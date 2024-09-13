@@ -12,9 +12,9 @@
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="">
                             <h3 class="mb-0 text-indigo pb-3">{{$jumlahbuku}}</h3>
-                            <a href="{{route('buku.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
+                            <a href="{{route('buku.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Detail</a>
                         </div>
-                        <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">
+                        <img src="{{asset('backend/assets/images/leptop/cf.jfif')}}" width="123" alt="">
                     </div>
                 </div>
             </div>
@@ -26,12 +26,12 @@
             <div class="card-body">
                 <div class="">
                     <div class="d-flex align-items-center gap-2 mb-2">
-                        <h5 class="mb-0">Tabel Penulis</h5>
+                        <h5 class="mb-0">Jumlah Peminjaman</h5>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="">
-                            <h3 class="mb-0 text-indigo pb-3">{{$jumlahpenulis}}</h3>
-                            <a href="{{route('penulis.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
+                            <h3 class="mb-0 text-indigo pb-3">{{$jumlahpeminjamanbuku}}</h3>
+                            <a href="{{route('indexpeminjaman')}}" class="btn btn-primary rounded-5 border-0 px-4">Detail</a>
                         </div>
                         <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">
                     </div>
@@ -45,14 +45,14 @@
             <div class="card-body">
                 <div class="">
                     <div class="d-flex align-items-center gap-2 mb-2">
-                        <h5 class="mb-0">Tabel Penerbit</h5>
+                        <h5 class="mb-0">Jumlah Pengguna</h5>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="">
-                            <h3 class="mb-0 text-indigo pb-3">{{$jumlahpenerbit}}</h3>
-                            <a href="{{route('penerbit.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
+                            <h3 class="mb-0 text-indigo pb-3">{{$jumlahuser}}</h3>
+                            <a href="{{route('user.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Detail</a>
                         </div>
-                        <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">
+                        <img src="{{asset('backend/assets/images/leptop/p5.jfif')}}" width="100" alt="">
                     </div>
                 </div>
             </div>
@@ -64,12 +64,12 @@
             <div class="card-body">
                 <div class="">
                     <div class="d-flex align-items-center gap-2 mb-2">
-                        <h5 class="mb-0">Tabel Kategori</h5>
+                        <h5 class="mb-0">Ulasan</h5>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="">
                             <h3 class="mb-0 text-indigo pb-3">{{$jumlahkategori}}</h3>
-                            <a href="{{route('kategori.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
+                            <a href="{{route('kategori.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Detail</a>
                         </div>
                         <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">
                     </div>
@@ -102,12 +102,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $data)
+                            @foreach ($users as $index => $data)
+                            @if ($data->isAdmin == '0')
                             <tr>
                                 <th scope="row">{{ $loop->index+1 }}</th>
                                 <td>{{ $data->name }}</td>
                                 <td>{{ $data->email }}</td>
                             </tr>
+                            @endif
                             @endforeach
                         </tbody>
                     </table>
