@@ -51,8 +51,8 @@
                     <div class="col-md-4x">
                         <label for="status" class="form-label">Status</label>
                         <select name="status_pengajuan" class="form-control" required>
-                            <option value="diterima" {{ $peminjaman->status == 'Dipinjam' ? 'selected' : '' }}>Dipinjam</option>
-                            <option value="ditolak" {{ $peminjaman->status == 'Dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
+                            <option value="dipinjam" {{ $peminjaman->status == 'Dipinjam' ? 'selected' : '' }}>Dipinjam</option>
+                            <option value="dikembalikan" {{ $peminjaman->status == 'Dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
                         </select>
                     </div>
 

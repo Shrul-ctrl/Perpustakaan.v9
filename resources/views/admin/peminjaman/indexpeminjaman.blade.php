@@ -37,11 +37,13 @@
                         <td>{{ $data->tanggal_kembali }}</td>
                         <td>
                             @if($data->status_pengajuan === 'ditahan')
-                            <p class="dash-lable mb-0 bg-primary bg-opacity-10 text-primary rounded-2">Ditahan</p>
+                                <p class="dash-lable mb-0 bg-primary bg-opacity-10 text-primary rounded-2">Ditahan</p>
                             @elseif($data->status_pengajuan === 'diterima')
-                            <p class="dash-lable mb-0 bg-success bg-opacity-10 text-success rounded-2">Diterima</p>
+                                <p class="dash-lable mb-0 bg-success bg-opacity-10 text-success rounded-2">Diterima</p>
+                            @elseif($data->status_pengajuan === 'dikembalikan')
+                                <p class="dash-lable mb-0 bg-warning bg-opacity-10 text-warning rounded-2">Dikembalikan</p>
                             @else
-                            <p class="dash-lable mb-0 bg-danger bg-opacity-10 text-danger rounded-2">Ditolak</p>
+                                <p class="dash-lable mb-0 bg-danger bg-opacity-10 text-danger rounded-2">Ditolak</p>
                             @endif
                         </td>
                         {{-- <td>

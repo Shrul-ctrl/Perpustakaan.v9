@@ -18,8 +18,7 @@ class PeminjamanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { 
-        {
+    { {
             // $peminjaman = Peminjamens::orderBy('id', 'desc')->get();
             $user = Auth::user();
             $peminjaman = Peminjamens::where('nama_peminjam', $user->name)->orderBy('id', 'desc')->get();
@@ -41,12 +40,12 @@ class PeminjamanController extends Controller
         $user = Auth::user();
         return view('admin.peminjaman.indexpeminjaman', ['user' => $user], compact('peminjaman'));
     }
-    
+
     public function indexpengembalian()
     {
-        $peminjaman = Peminjamens::where('status_pengajuan', 'ditolak')->orderBy('id', 'desc')->get();
+        $peminjaman = Peminjamens::where('status_pengajuan', 'dikembalikan')->orderBy('id', 'desc')->get();
         $user = Auth::user();
-        return view('admin.peminjaman.indexpeminjaman', ['user' => $user], compact('peminjaman'));
+        return view('admin.peminjaman.indexpengembalian', ['user' => $user], compact('peminjaman'));
     }
 
     /**
@@ -80,18 +79,18 @@ class PeminjamanController extends Controller
         //     'batas_pinjam' => 'required|date',
         //     'tanggal_kembali' => 'required|date'
         // ]);
-    
+
         // Temukan buku yang dipinjam
         $buku = Buku::find($request->id_buku);
         if (!$buku) {
             return redirect()->back()->withErrors(['id_buku' => 'Buku tidak ditemukan'])->withInput();
         }
-    
+
         // Periksa ketersediaan stok buku
         if ($buku->jumlah_buku < $request->jumlah_pinjam) {
             return redirect()->back()->withErrors(['jumlah_pinjam' => 'Stok buku terbatas'])->withInput();
         }
-    
+
         // Simpan data peminjaman dengan status 'pending'
         $peminjaman = new Peminjamens();
         $peminjaman->nama_peminjam = $request->nama_peminjam;
@@ -102,21 +101,28 @@ class PeminjamanController extends Controller
         $peminjaman->tanggal_kembali = $request->tanggal_kembali;
         $peminjaman->status_pengajuan = 'ditahan';
         $peminjaman->save();
-    
+
         // Berikan notifikasi bahwa pengajuan telah diterima dan menunggu persetujuan
         return redirect()->route('peminjaman.index')->with('success', 'Pengajuan peminjaman buku berhasil dibuat. Tunggu persetujuan dari admin.');
     }
-    
+
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function showpengajuan($id){
+    public function showpengajuan($id)
+    {
         $peminjaman = Peminjamens::findOrFail($id);
         $user = Auth::user();
-        return view('admin.peminjaman.show', ['user' => $user],compact('peminjaman'));
+        return view('admin.peminjaman.showpengajuan', ['user' => $user], compact('peminjaman'));
+    }
+    public function showpengembalian($id)
+    {
+        $peminjaman = Peminjamens::findOrFail($id);
+        $user = Auth::user();
+        return view('admin.peminjaman.showpengembalian', ['user' => $user], compact('peminjaman'));
     }
 
     /**
@@ -155,8 +161,7 @@ class PeminjamanController extends Controller
                 $buku->save();
             }
         } elseif ($request->status_pengajuan === 'ditolak') {
-        }elseif ($request->status_pengajuan === 'dikembalikan') {
-            
+        } elseif ($request->status_pengajuan === 'dikembalikan') {
             $buku = Buku::findOrFail($peminjaman->id_buku);
             if ($buku) {
                 $buku->jumlah_buku += $peminjaman->jumlah_pinjam;

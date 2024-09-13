@@ -39,7 +39,8 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], fu
     Route::resource('penulis', PenulisController::class);
     Route::resource('buku', BukuController::class);
     Route::resource('user', UserController::class);
-    Route::get('show/{id}', [PeminjamanController::class, 'showpengajuan'])->name('showpengajuan');
+    Route::get('pengajuan/show/{id}', [PeminjamanController::class, 'showpengajuan'])->name('showpengajuan');
+    Route::get('pengembalian/show/{id}', [PeminjamanController::class, 'showpengembalian'])->name('showpengembalian');
     Route::get('pengajuan', [PeminjamanController::class, 'indexpengajuan'])->name('indexpengajuan');
     Route::get('peminjaman', [PeminjamanController::class, 'indexpeminjaman'])->name('indexpeminjaman');
     Route::get('pengembalian', [PeminjamanController::class, 'indexpengembalian'])->name('indexpengembalian');
