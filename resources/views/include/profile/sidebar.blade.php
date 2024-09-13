@@ -46,7 +46,7 @@
             </li>
             <li class="menu-label">List</li>
             <li>
-                <a href="{{ route('pengembalian.index') }}">
+                <a href="{{ route('historiuser') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">history</i></div>
                     <div class="menu-title">Histori</div>
                 </a>

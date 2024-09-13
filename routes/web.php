@@ -39,8 +39,10 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], fu
     Route::resource('penulis', PenulisController::class);
     Route::resource('buku', BukuController::class);
     Route::resource('user', UserController::class);
-    Route::get('peminjaman', [PeminjamanController::class, 'indexadmin'])->name('peminjamanadmin');
-    // Route::get('peminjamaneditadmin', [PeminjamanController::class, 'editadmin'])->name('peminjamaneditadmin');
+    Route::get('show/{id}', [PeminjamanController::class, 'showpengajuan'])->name('showpengajuan');
+    Route::get('pengajuan', [PeminjamanController::class, 'indexpengajuan'])->name('indexpengajuan');
+    Route::get('peminjaman', [PeminjamanController::class, 'indexpeminjaman'])->name('indexpeminjaman');
+    Route::get('pengembalian', [PeminjamanController::class, 'indexpengembalian'])->name('indexpengembalian');
 
 
 });
@@ -54,12 +56,13 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('profile', [PerpusController::class, 'profile'])->name('profile');
     Route::get('profilelistbuku', [PerpusController::class, 'profilelistbuku'])->name('profilelistbuku');
     Route::get('dashboarduser', [PerpusController::class, 'dashboard'])->name('dashboarduser');
+    Route::get('historiuser', [PerpusController::class, 'historiuser'])->name('historiuser');
 
 
-    Route::group(['middleware' => ['auth', IsAdmin::class]], function () {
+    // Route::group(['middleware' => ['auth', IsAdmin::class]], function () {
         Route::resource('peminjaman', PeminjamanController::class);
         Route::resource('pengembalian', PengembalianController::class);
-    });
+    // });
 
 
 });

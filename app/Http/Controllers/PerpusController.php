@@ -24,16 +24,19 @@ class PerpusController extends Controller
 
     public function dashboard()
     {
+        $user = auth()->user();
+
         $jumlahbuku = Buku::count();
         $jumlahpenerbit = Penerbit::count();
         $jumlahpenulis = Penuli::count();
         $jumlahkategori = Kategori::count();
         $jumlahpinjam = Peminjamens::count();
+        $jumlahhistori = Peminjamens::where('nama_peminjam', $user->name)->count();
+
 
         $buku = Buku::all();
-        $user = auth()->user();
         $peminjaman = Peminjamens::all();
-        return view('user.dashboarduser', ['user' => $user], compact('buku', 'jumlahbuku', 'jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori', 'peminjaman', 'jumlahpinjam', 'user'));
+        return view('user.dashboarduser', ['user' => $user], compact('buku', 'jumlahbuku', 'jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori', 'peminjaman', 'jumlahpinjam','jumlahhistori', 'user'));
     }
 
     public function listbuku($id = null)
@@ -66,6 +69,14 @@ class PerpusController extends Controller
         $buku = Buku::all();
         $user = Auth::user();
         return view('user.profilelistbuku', ['user' => $user], compact('buku', 'kategori',));
+    }
+
+    public function historiuser()
+    {
+        $user = Auth::user();
+        $peminjaman = Peminjamens::where('nama_peminjam', $user->name)->get();
+
+        return view('user.historiuser', ['user' => $user], compact( 'peminjaman'));
     }
 
 

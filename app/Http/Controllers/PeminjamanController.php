@@ -18,22 +18,36 @@ class PeminjamanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    { {
+    { 
+        {
             // $peminjaman = Peminjamens::orderBy('id', 'desc')->get();
             $user = Auth::user();
-            $peminjaman = Peminjamens::where('nama_peminjam', $user->name)->get();
+            $peminjaman = Peminjamens::where('nama_peminjam', $user->name)->orderBy('id', 'desc')->get();
             $user = Auth::user();
-            return view('user.peminjaman.index', ['user' => $user], compact('peminjaman'));
+            return view('user.peminjaman.index', ['user' => $user], compact('user', 'peminjaman'));
         }
     }
 
-    public function indexAdmin()
+    public function indexpengajuan()
     {
-        $peminjaman = Peminjamens::where('status_pengajuan', 'ditahan')->get();
+        $peminjaman = Peminjamens::where('status_pengajuan', 'ditahan')->orderBy('id', 'desc')->get();
         $user = Auth::user();
-        return view('admin.peminjaman.index', ['user' => $user], compact('peminjaman'));
+        return view('admin.peminjaman.indexpengajuan', ['user' => $user], compact('peminjaman'));
     }
 
+    public function indexpeminjaman()
+    {
+        $peminjaman = Peminjamens::orderBy('id', 'desc')->get();
+        $user = Auth::user();
+        return view('admin.peminjaman.indexpeminjaman', ['user' => $user], compact('peminjaman'));
+    }
+    
+    public function indexpengembalian()
+    {
+        $peminjaman = Peminjamens::where('status_pengajuan', 'ditolak')->orderBy('id', 'desc')->get();
+        $user = Auth::user();
+        return view('admin.peminjaman.indexpeminjaman', ['user' => $user], compact('peminjaman'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -57,28 +71,28 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate(
-            [
-                'id_buku' => 'required|unique:Peminjamens,id_buku',
-                'jumlah_pinjam' => 'required',
-            ],
-
-            [
-                'id_buku.required' => 'Nama harus diisi',
-                'id_buku.unique' => 'Buku dengan Judul tersebut sudah dipinjam.',
-            ]
-        );
-
+        // Validasi input jika diperlukan
+        // $request->validate([
+        //     'id_buku' => 'required|exists:buku,id',
+        //     'jumlah_pinjam' => 'required|integer|min:1',
+        //     'nama_peminjam' => 'required|string|max:255',
+        //     'tanggal_pinjam' => 'required|date',
+        //     'batas_pinjam' => 'required|date',
+        //     'tanggal_kembali' => 'required|date'
+        // ]);
+    
+        // Temukan buku yang dipinjam
         $buku = Buku::find($request->id_buku);
         if (!$buku) {
             return redirect()->back()->withErrors(['id_buku' => 'Buku tidak ditemukan'])->withInput();
         }
-
+    
+        // Periksa ketersediaan stok buku
         if ($buku->jumlah_buku < $request->jumlah_pinjam) {
             return redirect()->back()->withErrors(['jumlah_pinjam' => 'Stok buku terbatas'])->withInput();
         }
-
-
+    
+        // Simpan data peminjaman dengan status 'pending'
         $peminjaman = new Peminjamens();
         $peminjaman->nama_peminjam = $request->nama_peminjam;
         $peminjaman->id_buku = $request->id_buku;
@@ -88,22 +102,21 @@ class PeminjamanController extends Controller
         $peminjaman->tanggal_kembali = $request->tanggal_kembali;
         $peminjaman->status_pengajuan = 'ditahan';
         $peminjaman->save();
-
-        // Update book stock
-        $buku->jumlah_buku -= $request->jumlah_pinjam;
-        $buku->save();
-
-        return redirect()->route('peminjaman.index')->with('success', 'Peminjaman Buku berhasil dibuat. Tunggu sekitar 10 menit untuk persetujuan dari admin. ');
+    
+        // Berikan notifikasi bahwa pengajuan telah diterima dan menunggu persetujuan
+        return redirect()->route('peminjaman.index')->with('success', 'Pengajuan peminjaman buku berhasil dibuat. Tunggu persetujuan dari admin.');
     }
+    
     /**
      * Display the specified resource.
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function showpengajuan($id){
+        $peminjaman = Peminjamens::findOrFail($id);
+        $user = Auth::user();
+        return view('admin.peminjaman.show', ['user' => $user],compact('peminjaman'));
     }
 
     /**
@@ -142,12 +155,18 @@ class PeminjamanController extends Controller
                 $buku->save();
             }
         } elseif ($request->status_pengajuan === 'ditolak') {
-            // Optionally, restore book quantity or notify user
+        }elseif ($request->status_pengajuan === 'dikembalikan') {
+            
+            $buku = Buku::findOrFail($peminjaman->id_buku);
+            if ($buku) {
+                $buku->jumlah_buku += $peminjaman->jumlah_pinjam;
+                $buku->save();
+            }
         }
 
         $peminjaman->save();
-        if ($request->has('redirect_to') && $request->redirect_to === 'peminjamanadmin') {
-            return redirect()->route('peminjamanadmin')->with('success', 'Status pengajuan berhasil diperbarui');
+        if ($request->has('redirect_to') && $request->redirect_to === 'showpengajuan') {
+            return redirect()->route('indexpengajuan')->with('success', 'Status pengajuan berhasil diperbarui');
         } else {
             return redirect()->route('peminjaman.index')->with('success', 'Peminjaman Buku berhasil dikembalikan');
         }

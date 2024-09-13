@@ -1,7 +1,7 @@
 <aside class="sidebar-wrapper" data-simplebar="true">
     <div class="sidebar-header mt-3">
         <div class="logo-icon">
-            <img src="{{asset('images/buku/smk.png')}}" alt="" width="50"/>
+            <img src="{{asset('images/buku/smk.png')}}" alt="" width="50" />
 
         </div>
         <div class="logo-name flex-grow-1">
@@ -52,20 +52,30 @@
                 </a>
             </li>
             <li class="menu-label">List</li>
-            <li>
-                <a href="{{ route('peminjamanadmin') }}">
-                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i></div>
+            <li class="">
+                <a class="has-arrow" href="javascript:;" aria-expanded="false">
+                    <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i>
+                        {{-- <span class="badge-notify bg-danger text-light p-1">5</span> --}}
+                    </div>
                     <div class="menu-title">Peminjaman</div>
                 </a>
+                <ul class="mm-collapse" style="height: 0px;">
+                    <li><a href="{{ route('indexpengajuan') }}" aria-expanded="true"><i class="material-icons-outlined">arrow_right</i>Pengajuan Buku</a>
+                    </li>
+                    <li><a href="{{ route('indexpengembalian') }}" aria-expanded="true"><i class="material-icons-outlined">arrow_right</i>Pengembalian Buku</a>
+                    </li>
+                    <li><a href="{{ route('indexpeminjaman') }}" aria-expanded="true"><i class="material-icons-outlined">arrow_right</i>Peminjaman Buku</a>
+                    </li>
+                </ul>
             </li>
             {{-- <li>
                 <a href="{{ route('pengembalian.index') }}">
-                    <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i></div>
-                    <div class="menu-title">Pengembalian</div>
-                </a>
+            <div class="parent-icon"><i class="material-icons-outlined">shopping_bag</i></div>
+            <div class="menu-title">Pengembalian</div>
+            </a>
             </li> --}}
         </ul>
-        
+
         <!--end navigation-->
     </div>
 </aside>

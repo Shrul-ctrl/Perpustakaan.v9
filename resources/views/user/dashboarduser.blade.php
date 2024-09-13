@@ -30,7 +30,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="">
-                            <h3 class="mb-0 text-indigo pb-3">{{$jumlahpinjam}}</h3>
+                            <h3 class="mb-0 text-indigo pb-3">{{$jumlahhistori}}</h3>
                             <a href="{{route('buku.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
                         </div>
                         <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">
@@ -69,7 +69,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="">
-                            <h3 class="mb-0 text-indigo pb-3">{{$jumlahpenerbit}}</h3>
+                            <h3 class="mb-0 text-indigo pb-3">{{$jumlahhistori}}</h3>
                             <a href="{{route('penerbit.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Lihat Detail</a>
                         </div>
                         <img src="{{asset('backend/assets/images/leptop/cf.jfif')}}" width="149" alt="">
@@ -107,25 +107,33 @@
                         </thead>
                         <tbody>
                             @foreach ($peminjaman as $data)
-                            <tr>
+                            @if ($data->status_pengajuan === 'diterima')
+                            <tr>    
                                 <th scope="row">{{ $loop->index+1 }}</th>
                                 <td>{{ $data->buku->judul }}</td>
                                 {{-- <td>{{ $data->nama_peminjam}}</td> --}}
-                                <td>{{ $data->jumlah }}</td> 
+                                <td>{{ $data->jumlah_pinjam }}</td>
                                 <td>{{ $data->tanggal_pinjam }}</td>
                                 <td>{{ $data->batas_pinjam }}</td>
                                 {{-- <td>{{ $data->tanggal_kembali }}</td> --}}
                                 <td>
-                                    @if($data->status)
-                                    <p class="dash-lable mb-0 bg-success bg-opacity-10 text-success rounded-2">Sudah di kembalikan</p>
+                                    @if($data->status === 'Dikembalikan')
+                                    <p class="badge bg-success">Sudah Dikembalikan</p>
                                     @else
-                                    <p class="dash-lable mb-0 bg-danger bg-opacity-10 text-danger rounded-2">Masih dipinjam</p>
+                                    <p class="badge bg-danger">Masih Dipinjam</p>
                                     @endif
                                 </td>
-                                {{-- <td>
-                                    <p class="dash-lable mb-0 bg-success bg-opacity-10 text-success rounded-2">Completed</p>
-                                </td> --}}
+        
+                                <td>
+                                    <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-warning btn-small">Edit</a>
+                                        {{-- <button type="submit" class="btn btn-danger btn-small" onclick="return confirm('Apakah anda yakin??')">Hapus</button> --}}
+                                    </form>
+                                </td>
                             </tr>
+                            @endif
                             @endforeach
                         </tbody>
                     </table>

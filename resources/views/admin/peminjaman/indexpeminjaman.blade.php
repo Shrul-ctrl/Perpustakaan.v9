@@ -22,7 +22,7 @@
                         <th scope="col">Batas Peminjaman</th>
                         <th scope="col">Tanggal Pengembalian</th>
                         <th scope="col">Status</th>
-                        <th scope="col">Action</th>
+                        {{-- <th scope="col">Action</th> --}}
                     </tr>
                 </thead>
                 <tbody>
@@ -44,7 +44,7 @@
                             <p class="dash-lable mb-0 bg-danger bg-opacity-10 text-danger rounded-2">Ditolak</p>
                             @endif
                         </td>
-                        <td>
+                        {{-- <td>
                             <form action="{{ route('peminjaman.update', $data->id) }}" method="POST">
                                 @csrf
                                 @method('PATCH')
@@ -52,7 +52,7 @@
                                 <button type="submit" name="status_pengajuan" value="diterima" class="btn btn-success btn-sm">Terima</button>
                                 <button type="submit" name="status_pengajuan" value="ditolak" class="btn btn-danger btn-sm">Tolak</button>
                             </form>
-                        </td>
+                        </td> --}}
                     </tr>
                     @endforeach
                 </tbody>
