@@ -50,10 +50,17 @@
     </div>
 
     <div class="col-md-12">
+        <label for="input13" class="form-label">Alasan Penolakan </label>
+        <div class="position-relative">
+            <textarea class="form-control mb-3" type="text" name="alasan_pengajuan" value="{{$peminjaman->alasan_pengajuan}}"></textarea>
+        </div>
+    </div>
+
+    <div class="col-md-12">
         <div class="d-md-flex d-grid align-items-center gap-3">
             <input type="hidden" name="redirect_to" value="showpengajuan">
-            <button type="submit" name="status_pengajuan" value="diterima" class="btn btn-success btn-sm">Terima</button>
-            <button type="submit" name="status_pengajuan" value="ditolak" class="btn btn-danger btn-sm">Tolak</button>
+            <button type="submit" name="status_pengajuan" value="pengajuan diterima" class="btn btn-success btn-sm">Terima</button>
+            <button type="submit" name="status_pengajuan" value="pengajuan ditolak" class="btn btn-danger btn-sm">Tolak</button>
         </div>
     </div>
 </form>

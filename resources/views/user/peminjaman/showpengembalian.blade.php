@@ -3,10 +3,9 @@
     <div class="col-12 col-xl-12">
         <div class="card">
             <div class="card-body p-4">
-                <h5 class="mb-4">Edit buku</h5>
-                <form class="row g-3" method="POST" action="{{ route('peminjaman.update', $peminjaman->id) }}" enctype="multipart/form-data">
-                    @method('PATCH')
-                    @csrf
+                <h4 class="mb-4">Detail Pengembalian Buku</h4>
+                <hr>
+                <form class="row g-3" enctype="multipart/form-data">
 
                     <div class="col-md-6">
                         <label for="input13" class="form-label">Nama Peminjam</label>
@@ -47,23 +46,19 @@
                         </div>
                     </div>
 
-                    {{-- <div class="col-md-12">
+                    <div class="col-md-12">
                         <label for="input13" class="form-label">Alasan Penolakan</label>
                         <textarea class="form-control mb-3" type="text" name="alasan_pengembalian" readonly>{{ $peminjaman->alasan_pengembalian }}</textarea>
-                    </div> --}}
-
-                    <div class="col-md-4x">
-                        <label for="status" class="form-label">Status</label>
-                        <select name="status_pengajuan" class="form-control" required>
-                            <option value="dikembalikan" {{ $peminjaman->status == 'Dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
-                        </select>
                     </div>
-
 
                     <div class="col-md-12">
                         <div class="d-md-flex d-grid align-items-center gap-3">
-                            <a href="{{route('buku.index')}}" class="btn btn-danger px-4">Batal</a>
-                            <button type="submit" class="btn btn-primary px-4">Submit</button>
+                            <a href="{{route('peminjaman.index')}}" class="btn btn-primary px-4">kembali</a>
+                            <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Hapus Pengajuan Penolakan Buku?')">Hapus</button>
+                            </form>
                         </div>
                     </div>
                 </form>

@@ -45,22 +45,30 @@
                         </td>
 
                         <td>
-                            @if($data->status_pengajuan === 'ditahan')
-                            <form action="{{ route('peminjaman.update', $data->id) }}" method="POST">
-                                @csrf
-                                @method('PUT')
-                                <input type="hidden" name="status_pengajuan" value="batalkan">
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Apakah anda yakin ingin membatalkan pengajuan?')">Batal</button>
-                            </form>
-                            @elseif($data->status_pengajuan === 'diterima')
-                            <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-warning">Edit</a>
-                            {{-- @elseif($data->status_pengajuan === 'dikembalikan')
-                                <p class="dash-lable mb-0 bg-warning bg-opacity-10 text-warning rounded-2">Dikembalikan</p> --}}
-                            @else
+                            @if($data->status_pengajuan === 'menunggu pengajuan')
                             <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Hapus Peminjaman')">Hapus</button>
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Batal Peminjaman Buku?')">Batal</button>
+                            </form>
+
+                            @elseif($data->status_pengajuan === 'pengajuan diterima')
+                            <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-warning">Edit</a>
+
+                            @elseif($data->status_pengajuan === 'pengajuan ditolak')
+                            <a href="{{ route('showpengajuanuser', $data->id) }}" class="btn btn-warning">Detail</a>
+
+
+                            @elseif($data->status_pengajuan === 'pengembalian diterima')
+                            <form class="row g-3" enctype="multipart/form-data" action="{{ route('peminjaman.update', $data->id) }}" method="POST">
+                                @csrf
+                                @method('PATCH')
+                                <button type="submit" name="status_pengajuan" value="sukses" class="btn btn-danger btn-sm">Hapus</button>
+                            </form>
+                            
+                            @elseif($data->status_pengajuan === 'pengembalian ditolak')
+                            <a href="{{ route('showpengembalianuser', $data->id) }}" class="btn btn-warning">Detail</a>
+
                             </form>
                             @endif
                         </td>

@@ -21,7 +21,9 @@ return new class extends Migration
             $table->date('tanggal_pinjam');
             $table->date('batas_pinjam');
             $table->date('tanggal_kembali');
-            $table->enum('status_pengajuan', ['ditahan', 'diterima', 'ditolak','dipinjam','dikembalikan','sukses'])->default('ditahan');
+            $table->enum('status_pengajuan', ['menunggu pengajuan','pengajuan diterima', 'pengajuan ditolak','pengembalian diterima','pengembalian ditolak','dipinjam','dikembalikan','sukses'])->default('menunggu pengajuan');
+            $table->string('alasan_pengembalian')->nullable();
+            $table->string('alasan_pengajuan')->nullable();
             $table->timestamps();
         });
     }

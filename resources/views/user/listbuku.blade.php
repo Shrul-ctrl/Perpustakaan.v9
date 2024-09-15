@@ -56,12 +56,10 @@
                         </p>
                     </div>
                     <div class="d-flex justify-content-center gap-2">
-                        {{-- <a href="" type="button" class="btn btn-primary px-4 float-end mb-4 mr-5" data-bs-toggle="modal" data-bs-target="#ScrollableModal">Kembali</a> --}}
                         <a href="{{route('peminjaman.create')}}" type="button" class="btn btn-primary">Pinjam</a>
                         <a href="{{ url('show', $data->id) }}" type="button" class="btn btn-success">Ulas</a>
                         <a href="{{ url('user/show', $data->id) }}" type="button" class="btn btn-warning">Detail</a>
                     </div>
-
                 </div>
             </div>
             @endforeach
