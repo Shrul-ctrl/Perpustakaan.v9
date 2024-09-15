@@ -9,6 +9,7 @@ use App\Models\Kategori;
 use App\Models\buku;
 use App\Models\penerbit;
 use App\Models\user;
+use App\Models\komentar;
 use Illuminate\Support\Facades\Auth;
 
 
@@ -60,7 +61,8 @@ class PerpusController extends Controller
         $user = User::findOrFail($id);
         $user = Auth::user();
         $peminjaman = Peminjamens::all();
-        return view('user.show', ['user' => $user], compact('buku', 'peminjaman', 'user', 'jumlahditerima'));
+        $komentars = Komentar::with('user')->latest()->get();
+        return view('user.show', ['user' => $user], compact('komentars','buku', 'peminjaman', 'user', 'jumlahditerima'));
     }
 
     public function profile()

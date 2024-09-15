@@ -64,9 +64,7 @@
                             <div class="col-md-6">
                                 <label for="input19" class="form-label">Status</label>
                                 <select id="input19" name="status" class="form-select" required>
-                                    <option selected="">Pilih...</option>
-                                    <option value="0">Pinjam</option>
-                                    <option value="1">Kembalikan</option>
+                                    <option selected>Pinjam</option>
                                 </select>
                             </div>
 
@@ -92,7 +90,6 @@
                             <div class="col-md-12">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     <a href="{{ url()->previous() }}" class="btn btn-danger px-4">Kembali</a>
-
                                     <button type="submit" class="btn btn-success px-4">Simpan</button>
                                 </div>
                             </div>

@@ -29,7 +29,11 @@
                         </div>
                     </div>
                     
-                    
+                    @if($buku->isEmpty())
+                    <div class="alert alert-info" role="alert">
+                        <h2 class="text-center p-3">Buku Sedang Kosong</h2>
+                    </div>
+                    @else
                     <div class="row">
                         @php
                         $limitedbuku = $buku ->take(4)
@@ -49,14 +53,14 @@
                                 <div class="d-flex justify-content-center gap-1">
                                     {{-- <a href="" type="button" class="btn btn-primary px-4 float-end mb-4 mr-5" data-bs-toggle="modal" data-bs-target="#ScrollableModal">Kembali</a> --}}
                                     <a href="{{route('peminjaman.create')}}" type="button" class="btn btn-primary">Pinjam</a>
-                                    <a href="{{ url('show', $data->id) }}" type="button" class="btn btn-success">Ulas</a>
+                                    <a href="{{ url('user/show', $data->id) }}#komentar" type="button" class="btn btn-success">Ulas</a>
                                     <a href="{{ url('user/show', $data->id) }}" type="button" class="btn btn-warning">Detail</a>
                                 </div>
-            
                             </div>
                         </div>
                         @endforeach
                     </div>
+                    @endif
                 </div>
             </div>
         </div>

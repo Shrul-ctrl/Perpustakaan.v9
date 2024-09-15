@@ -9,6 +9,7 @@ use App\Models\buku;
 use App\Models\penerbit;
 use App\Models\user;
 use App\Models\Peminjamens;
+use App\Models\Komentar;
 use App\chart\MonthlyUsersChart;
 use Illuminate\Support\Facades\Auth;
 
@@ -27,10 +28,11 @@ class DashboardController extends Controller
         $jumlahpenerbit = Penerbit::count();
         $jumlahpenulis = Penuli::count();
         $jumlahbuku = Buku::count();
+        $jumlahkomentar = Komentar::count();
         
         $user = Auth::user();
         
-        return view('admin.dashboard',compact('peminjamannotif','users','user','jumlahuser','jumlahbuku','jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori','jumlahpengajuan','jumlahpengembalian','jumlahpeminjamanbuku'));
+        return view('admin.dashboard',compact('jumlahkomentar','peminjamannotif','users','user','jumlahuser','jumlahbuku','jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori','jumlahpengajuan','jumlahpengembalian','jumlahpeminjamanbuku'));
     }
     
 }

@@ -68,7 +68,7 @@
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="">
-                            <h3 class="mb-0 text-indigo pb-3">{{$jumlahkategori}}</h3>
+                            <h3 class="mb-0 text-indigo pb-3">{{$jumlahkomentar}}</h3>
                             <a href="{{route('kategori.index')}}" class="btn btn-primary rounded-5 border-0 px-4">Detail</a>
                         </div>
                         <img src="{{asset('backend/assets/images/leptop/cart.avif')}}" width="100" alt="">

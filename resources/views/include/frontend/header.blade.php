@@ -9,15 +9,18 @@
             </button>
             <div class="navbar-nav font-weight-bold mx-auto py-0">
                 <a href="{{route('AssalaamPerpustakaan')}}" class="nav-item nav-link ">Home</a>
+                <a href="{{route('AssalaamPerpustakaan')}}" class="nav-item nav-link">Tentang</a>
+                <a href="{{route('AssalaamPerpustakaan')}}#hubungi_kami" class="nav-item nav-link">Hubungi Kami</a>
                 <a href="{{route('listbuku')}}" class="nav-item nav-link">Buku</a>
             </div>
             @guest
-            <a href="{{route('login')}}" class="btn btn-primary px-4">Login</a>
-            <a href="{{route('register')}}" class="btn btn-primary px-4">Register</a>
+            <div class="d-flex align-content-between">
+                <a href="{{route('login')}}" class="btn btn-primary px-4 mx-1">Login</a>
+                <a href="{{route('register')}}" class="btn btn-primary px-4 mx-1">Register</a>
+            </div>
             @endguest
             @auth
-                        @include('include.fullstack.dropdown')
-
+            @include('include.fullstack.dropdown')
             @endauth
         </nav>
     </div>

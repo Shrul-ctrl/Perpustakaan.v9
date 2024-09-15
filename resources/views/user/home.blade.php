@@ -13,7 +13,7 @@
             </p>
             {{-- <a href="" class="btn btn-secondary mt-1 py-3 px-5">Learn More</a> --}}
         </div>
-        <div class="col-lg-6 text-center text-lg-right">
+        <div class="col-lg-6 text-center text-lg-right mt-5 mb-3">
             <img class="img-fluid mt-5" src="{{asset('frontend/img/header.png')}}" alt="" />
         </div>
     </div>
@@ -106,6 +106,11 @@
             </p>
             <h1 class="mb-4">Buku</h1>
         </div>
+        @if($buku->isEmpty())
+        <div class="alert alert-info" role="alert">
+            <h2 class="text-center p-3">Buku Sedang Kosong</h2>
+        </div>
+        @else
         <div class="row">
             @php
             $limitedbuku = $buku ->take(4)
@@ -125,7 +130,7 @@
                     <div class="d-flex justify-content-center gap-2">
                         {{-- <a href="" type="button" class="btn btn-primary px-4 float-end mb-4 mr-5" data-bs-toggle="modal" data-bs-target="#ScrollableModal">Kembali</a> --}}
                         <a href="{{route('peminjaman.create')}}" type="button" class="btn btn-primary">Pinjam</a>
-                        <a href="{{ url('show', $data->id) }}" type="button" class="btn btn-success">Ulas</a>
+                        <a href="{{ url('user/show', $data->id) }}#komentar" type="button" class="btn btn-success">Ulas</a>
                         <a href="{{ url('user/show', $data->id) }}" type="button" class="btn btn-warning">Detail</a>
                     </div>
 
@@ -134,36 +139,83 @@
             @endforeach
             <a href="{{ route('listbuku') }}" type="button" class="btn btn-primary">Lihat Lebih Banyak Buku</a>
         </div>
+        @endif
     </div>
 </div>
 <!-- Class End -->
-@endsection
 
-{{-- <div class="modal fade" id="ScrollableModal" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
-        <div class="modal-content">
-            <div class="modal-header border-bottom-0 bg-grd-primary py-2">
-                <h5 class="modal-title">Buku {{$bukus->judul}}</h5>
-                <a href="javascript:;" class="primaery-menu-close" data-bs-dismiss="modal">
-                    <i class="material-icons-outlined"></i>
-                </a>
+<section id="hubungi_kami" class="pt-5">
+    <div class="container-fluid py-5 mt-5">
+        <div class="container">
+            <div class="text-center pb-2">
+                <p class="section-title px-5">
+                    <span class="px-2">Hubungi Kami</span>
+                </p>
+                <h1 class="mb-4">Kontak</h1>
             </div>
-            <div class="modal-body">
-                <div class="des col-lg-8 col-md-6 pb-1">
-                    <p>Judul : {{$bukus->judul}}</p>
-                    <p>Penulis : {{$bukus->penuli->nama_penulis}}</p>
-                    <p>Penerbit : {{$bukus->penerbit->nama_penerbit}}</p>
-                    <p>Kategori : {{$bukus->kategori->nama_kategori}}</p>
-                    <p>Jumlah : {{$bukus->jumlah}}</p>
-                    <p>Sinopsis : {{$bukus->deskripsi}}</p>
+            <div class="row align-items-center">
+                <div class="col-lg-7 mb-5 mb-lg-0">
+                    <p class="section-title pr-5">
+                        <span class="pr-2">Pesan Ruang Bacaan</span>
+                    </p>
+                    <h1 class="mb-4">Pesan Ruang Bacaan untuk Anak Anda</h1>
+                    <p>
+                        Perpustakaan kami menyediakan ruang bacaan yang nyaman untuk anak Anda. Baik untuk belajar atau membaca buku, ruang-ruang kami dilengkapi untuk memberikan lingkungan yang kondusif. Pesan ruang bacaan hari ini untuk memastikan sesi belajar yang tenang dan fokus.
+                    </p>
+                    <ul class="list-inline m-0">
+                        <li class="py-2">
+                            <i class="fa fa-check text-success mr-3"></i>Ruang yang tenang dan nyaman untuk belajar
+                        </li>
+                        <li class="py-2">
+                            <i class="fa fa-check text-success mr-3"></i>Ruang yang dapat diakses dan dilengkapi dengan baik
+                        </li>
+                        <li class="py-2">
+                            <i class="fa fa-check text-success mr-3"></i>Sistem pemesanan memastikan ketersediaan dan kenyamanan
+                        </li>
+                    </ul>
+
+                    <a href="{{route('listbuku')}}" class="btn btn-primary mt-4 py-2 px-4">Pinjam Buku</a>
                 </div>
-            </div>
-            <div class="modal-footer border-top-0">
-                <button type="button" class="btn btn-primary" data-bs-dismiss="modal">Batal</button>
-                <button type="button" class="btn btn-primary">Kembali</button>  
+                <div class="col-lg-5">
+                    <div class="card border-0">
+                        <div class="card-header bg-secondary text-center p-4">
+                            <h1 class="text-white m-0">Hubungi Kami</h1>
+                        </div>
+                        <div class="card-body rounded-bottom bg-primary p-5">
+                            <form class="row g-3" method="POST" action="{{ route('kontak.store') }}" enctype="multipart/form-data">
+                                @csrf
+                                @if (session('success'))
+                                <div class="alert alert-success">
+                                    {{ session('success') }}
+                                </div>
+                                @endif
+                                <div class="form-group">
+                                    <input type="text" class="form-control border-0 p-4" name="id_user" placeholder="Nama Anda" required />
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" class="form-control border-0 p-4" name="id_user" placeholder="Email Anda" required />
+                                </div>
+                                <div class="form-group">
+                                    <textarea type="text" class="form-control border-0 p-4" name="kontak" placeholder="Masukkan" required></textarea>
+                                </div>
+                                <div>
+                                    @guest
+                                    <a href="{{route('login')}}" class="btn btn-secondary btn-block border-0 py-3"> Login Terlebih dahulu </a>
+                                    @endguest
+
+                                    @auth
+                                    <button class="btn btn-secondary btn-block border-0 py-3" type="submit"> Kirim </button>
+                                    @endauth
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-</div> --}}
+</section>
 
 
+
+@endsection

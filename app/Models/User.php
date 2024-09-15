@@ -45,5 +45,15 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function komentar()
+    {   
+        return $this->hasMany(Komentar::class);
+    } 
+
+    public function kontak()
+    {   
+        return $this->hasMany(Kontak::class);
+    } 
+
     
 }

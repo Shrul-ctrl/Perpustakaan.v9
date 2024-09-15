@@ -4,7 +4,7 @@
             <img src="{{ asset('images/buku/smk.png') }}" alt="" width="50" />
         </div>
         <div class="logo-name flex-grow-1">
-            <h5 class="mt-0">Profile {{ Auth::user()->name }}</h5>
+            <h5 class="mt-0">Profile </h5>
         </div>
         <div class="sidebar-close">
             <span class="material-icons-outlined">close</span>
@@ -27,7 +27,7 @@
             </li>
             <li class="menu-label">List</li>
             <li>
-                <a href="{{ route('pengembalian.index') }}">
+                <a href=" ">
                     <div class="parent-icon"><i class="material-icons-outlined">favorite</i></div>
                     <div class="menu-title">Favorite</div>
                 </a>
