@@ -21,12 +21,15 @@ class PeminjamanController extends Controller
     {
 
         $user = Auth::user();
-        $peminjaman = Peminjamens::where('nama_peminjam', $user->name)->whereIn('status_pengajuan', ['menunggu pengajuan', 'pengajuan diterima', 'pengajuan ditolak','pengembalian diterima','pengembalian ditolak'])->orderBy('id', 'desc')->get();
+        $peminjaman = Peminjamens::where('nama_peminjam', $user->name)->whereIn('status_pengajuan', ['menunggu pengajuan', 'pengajuan diterima', 'pengajuan ditolak', 'pengembalian diterima', 'pengembalian ditolak'])->orderBy('id', 'desc')->get();
         $peminjamanditerima = Peminjamens::where('status_pengajuan', 'pengajuan diterima')->orderBy('id', 'desc')->get();
-        $jumlahditerima = Peminjamens::where('status_pengajuan', 'pengajuan diterima')->count();
-        $peminjamannotif = Peminjamens::all();
+        $jumlahpengajuanditerima = Peminjamens::where('status_pengajuan', 'pengajuan diterima')->where('nama_peminjam', $user->name)->count();
+        $jumlahpengajuanditolak = Peminjamens::where('status_pengajuan', 'pengajuan ditolak')->where('nama_peminjam', $user->name)->count();
+        $jumlahpengembalianditerima = Peminjamens::where('status_pengajuan', 'pengembalian diterima')->where('nama_peminjam', $user->name)->count();
+        $jumlahpengembalianditolak = Peminjamens::where('status_pengajuan', 'pengembalian ditolak')->where('nama_peminjam', $user->name)->count();
+        $peminjamannotif = Peminjamens::where('nama_peminjam', $user->name)->whereIn('status_pengajuan',['pengajuan diterima', 'pengajuan ditolak', 'pengembalian diterima', 'pengembalian ditolak'])->orderBy('id', 'desc')->get();
 
-        return view('user.peminjaman.index', ['user' => $user], compact('user','peminjamannotif', 'peminjaman', 'peminjamanditerima', 'jumlahditerima'));
+        return view('user.peminjaman.index', compact('user', 'peminjamannotif', 'peminjaman', 'peminjamanditerima', 'jumlahpengajuanditerima','jumlahpengajuanditolak','jumlahpengembalianditerima','jumlahpengembalianditolak'));
     }
 
     public function indexpengajuan()
@@ -34,9 +37,9 @@ class PeminjamanController extends Controller
         $peminjaman = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->orderBy('id', 'desc')->get();
         $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
         $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
-        $peminjamannotif = Peminjamens::all();
+        $peminjamannotif = Peminjamens::orderBy('id', 'desc')->get();
         $user = Auth::user();
-        return view('admin.peminjaman.indexpengajuan', ['user' => $user], compact('peminjamannotif','peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
+        return view('admin.peminjaman.indexpengajuan', ['user' => $user], compact('peminjamannotif', 'peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
 
     public function indexpeminjaman()
@@ -46,7 +49,7 @@ class PeminjamanController extends Controller
         $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.peminjaman.indexpeminjaman', ['user' => $user], compact('peminjamannotif','peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
+        return view('admin.peminjaman.indexpeminjaman', ['user' => $user], compact('peminjamannotif', 'peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
 
     public function indexpengembalian()
@@ -56,9 +59,9 @@ class PeminjamanController extends Controller
         $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.peminjaman.indexpengembalian', ['user' => $user], compact('peminjamannotif','peminjamannotif','peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
+        return view('admin.peminjaman.indexpengembalian', ['user' => $user], compact('peminjamannotif', 'peminjamannotif', 'peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
- 
+
     public function create()
     {
         $buku = Buku::all();
@@ -67,7 +70,7 @@ class PeminjamanController extends Controller
         $user = Auth::user();
         return view('user.peminjaman.create', ['user' => $user], compact('buku', 'sekarang', 'batastanggal'));
     }
- 
+
     public function store(Request $request)
     {
 
@@ -93,25 +96,33 @@ class PeminjamanController extends Controller
         return redirect()->route('peminjaman.index')->with('success', 'Pengajuan peminjaman buku berhasil dibuat. Tunggu persetujuan dari admin.');
     }
 
-    public function showpengajuanuser($id){
+    public function showpengajuanuser($id)
+    {
         $peminjaman = Peminjamens::findOrFail($id);
-        $jumlahditerima = Peminjamens::where('status_pengajuan', 'pengajuan diterima')->count();
         $peminjamannotif = Peminjamens::all();
         $buku = Buku::all();
         $user = Auth::user();
-        return view('user.peminjaman.showpengajuan', compact('user','buku','peminjaman','peminjamannotif','jumlahditerima'));
+        $jumlahpengajuanditerima = Peminjamens::where('status_pengajuan', 'pengajuan diterima')->where('nama_peminjam', $user->name)->count();
+        $jumlahpengajuanditolak = Peminjamens::where('status_pengajuan', 'pengajuan ditolak')->where('nama_peminjam', $user->name)->count();
+        $jumlahpengembalianditerima = Peminjamens::where('status_pengajuan', 'pengembalian diterima')->where('nama_peminjam', $user->name)->count();
+        $jumlahpengembalianditolak = Peminjamens::where('status_pengajuan', 'pengembalian ditolak')->where('nama_peminjam', $user->name)->count();
+        return view('user.peminjaman.showpengajuan', compact('user', 'buku', 'peminjaman', 'peminjamannotif', 'jumlahpengajuanditerima','jumlahpengajuanditolak','jumlahpengembalianditerima','jumlahpengembalianditolak'));
     }
 
-    public function showpengembalianuser($id){
+    public function showpengembalianuser($id)
+    {
         $peminjaman = Peminjamens::findOrFail($id);
-        $jumlahditerima = Peminjamens::where('status_pengajuan', 'pengajuan diterima')->count();
         $peminjamannotif = Peminjamens::all();
         $buku = Buku::all();
         $user = Auth::user();
-        return view('user.peminjaman.showpengembalian', compact('user','buku','peminjaman','peminjamannotif','jumlahditerima'));
+        $jumlahpengajuanditerima = Peminjamens::where('status_pengajuan', 'pengajuan diterima')->where('nama_peminjam', $user->name)->count();
+        $jumlahpengajuanditolak = Peminjamens::where('status_pengajuan', 'pengajuan ditolak')->where('nama_peminjam', $user->name)->count();
+        $jumlahpengembalianditerima = Peminjamens::where('status_pengajuan', 'pengembalian diterima')->where('nama_peminjam', $user->name)->count();
+        $jumlahpengembalianditolak = Peminjamens::where('status_pengajuan', 'pengembalian ditolak')->where('nama_peminjam', $user->name)->count();
+        return view('user.peminjaman.showpengembalian', compact('user', 'buku', 'peminjaman', 'peminjamannotif', 'jumlahpengajuanditerima','jumlahpengajuanditolak','jumlahpengembalianditerima','jumlahpengembalianditolak'));
     }
 
- 
+
     public function showpengajuan($id)
     {
         $peminjaman = Peminjamens::findOrFail($id);
@@ -119,29 +130,32 @@ class PeminjamanController extends Controller
         $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.peminjaman.showpengajuan', ['user' => $user], compact('peminjamannotif','peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
+        return view('admin.peminjaman.showpengajuan', ['user' => $user], compact('peminjamannotif', 'peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
-    
+
     public function showpengembalian($id)
     {
         $peminjaman = Peminjamens::findOrFail($id);
         $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
         $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
-        $peminjamannotif = Peminjamens::all();  
+        $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.peminjaman.showpengembalian', ['user' => $user], compact('peminjamannotif','peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
+        return view('admin.peminjaman.showpengembalian', ['user' => $user], compact('peminjamannotif', 'peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
- 
+
     public function edit(Peminjamens $peminjaman)
     {
-        $jumlahditerima = Peminjamens::where('status_pengajuan', 'pengajuan diterima')->count();
         $peminjamannotif = Peminjamens::all();
         $buku = Buku::all();
         $user = Auth::user();
-        return view('user.peminjaman.edit', compact('user','buku','peminjaman','peminjamannotif','jumlahditerima'));
+        $jumlahpengajuanditerima = Peminjamens::where('status_pengajuan', 'pengajuan diterima')->where('nama_peminjam', $user->name)->count();
+        $jumlahpengajuanditolak = Peminjamens::where('status_pengajuan', 'pengajuan ditolak')->where('nama_peminjam', $user->name)->count();
+        $jumlahpengembalianditerima = Peminjamens::where('status_pengajuan', 'pengembalian diterima')->where('nama_peminjam', $user->name)->count();
+        $jumlahpengembalianditolak = Peminjamens::where('status_pengajuan', 'pengembalian ditolak')->where('nama_peminjam', $user->name)->count();
+        return view('user.peminjaman.edit', compact('user', 'buku', 'peminjaman', 'peminjamannotif', 'jumlahpengajuanditerima','jumlahpengajuanditolak','jumlahpengembalianditerima','jumlahpengembalianditolak'));
     }
- 
-    public function update(Request $request, Peminjamens $peminjaman)   
+
+    public function update(Request $request, Peminjamens $peminjaman)
     {
 
         $peminjaman->status_pengajuan = $request->status_pengajuan;
@@ -155,10 +169,8 @@ class PeminjamanController extends Controller
                 $buku->save();
             }
             $peminjaman->status_pengajuan = 'pengajuan diterima';
-
         } elseif ($request->status_pengajuan === 'pengajuan ditolak') {
-            $peminjaman->status_pengajuan = 'pengajuan ditolak';  
-
+            $peminjaman->status_pengajuan = 'pengajuan ditolak';
         } elseif ($request->status_pengajuan === 'dikembalikan') {
             $buku = Buku::findOrFail($peminjaman->id_buku);
             if ($buku) {
@@ -166,15 +178,14 @@ class PeminjamanController extends Controller
                 $buku->save();
             }
             $peminjaman->status_pengajuan = 'dikembalikan';
-
-        }elseif ($request->status_pengajuan === 'pengembalian diterima') {
+        } elseif ($request->status_pengajuan === 'pengembalian diterima') {
             $buku = Buku::findOrFail($peminjaman->id_buku);
             if ($buku) {
                 $buku->jumlah_buku += $peminjaman->jumlah_pinjam;
                 $buku->save();
             }
             $peminjaman->status_pengajuan = 'pengembalian diterima';
-        }elseif ($request->status_pengajuan === 'sukses') {
+        } elseif ($request->status_pengajuan === 'sukses') {
             $buku = Buku::findOrFail($peminjaman->id_buku);
             if ($buku) {
                 $buku->jumlah_buku += $peminjaman->jumlah_pinjam;
@@ -192,7 +203,7 @@ class PeminjamanController extends Controller
             return redirect()->route('peminjaman.index')->with('success', 'Peminjaman Buku berhasil dikembalikan');
         }
     }
- 
+
     public function destroy($id)
     {
         //

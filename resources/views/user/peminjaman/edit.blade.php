@@ -47,15 +47,10 @@
                         </div>
                     </div>
 
-                    {{-- <div class="col-md-12">
-                        <label for="input13" class="form-label">Alasan Penolakan</label>
-                        <textarea class="form-control mb-3" type="text" name="alasan_pengembalian" readonly>{{ $peminjaman->alasan_pengembalian }}</textarea>
-                    </div> --}}
-
                     <div class="col-md-4x">
                         <label for="status" class="form-label">Status</label>
                         <select name="status_pengajuan" class="form-control" required>
-                            <option value="dikembalikan" {{ $peminjaman->status == 'Dikembalikan' ? 'selected' : '' }}>Dikembalikan</option>
+                            <option value="dikembalikan">Dikembalikan</option>
                         </select>
                     </div>
 

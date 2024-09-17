@@ -44,13 +44,13 @@
                     </div>
                     <div class="notify-list ps">
                         @foreach($peminjamannotif as $data)
-                        @if($data->status_pengajuan == 'ditahan')
+                        @if($data->status_pengajuan == 'menunggu pengajuan')
                         <div>
-                            <a class="dropdown-item border-bottom py-2" href="{{ route('indexpengembalian') }}">
+                            <a class="dropdown-item border-bottom py-2" href="{{ route('indexpengajuan') }}">
                                 <div class="d-flex align-items-center gap-3"> 
                                     <div class="">
-                                        <h5 class="notify-title">{{ $loop->index+1 }}. Pengajuan Baru</h5>
-                                        <p class="mb-0 notify-desc">{{ $data->nama_peminjam }} Pengajuan baru buku {{ $data->buku->judul }}.</p>
+                                        <h5 class="notify-title">Pengajuan Buku</h5>
+                                        <p class="mb-0 notify-desc">{{ $data->nama_peminjam }} Pengajuan buku {{ $data->buku->judul }}.</p>
                                         <p class="mb-0 notify-time">Hari Ini</p>
                                     </div>
                                     <div class="notify-close position-absolute end-0 me-3">
@@ -59,16 +59,13 @@
                                 </div>
                             </a>
                         </div>
-                        @endif
-                        @endforeach
-            
-                        @foreach($peminjamannotif as $data)
-                        @if($data->status_pengajuan == 'dikembalikan')
+                      
+                        @elseif($data->status_pengajuan == 'dikembalikan')
                         <div>
                             <a class="dropdown-item border-bottom py-2" href="{{ route('indexpengembalian') }}">
                                 <div class="d-flex align-items-center gap-3"> 
                                     <div class="">
-                                        <h5 class="notify-title">{{ $loop->index+1 }}. Pengembalian Baru</h5>
+                                        <h5 class="notify-title">Pengembalian Buru</h5>
                                         <p class="mb-0 notify-desc">{{ $data->nama_peminjam }} Mengembalikan buku {{ $data->buku->judul }}.</p>
                                         <p class="mb-0 notify-time">Hari Ini</p>
                                     </div>

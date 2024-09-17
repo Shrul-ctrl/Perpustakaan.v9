@@ -16,7 +16,7 @@ class BukuController extends Controller
 
     public function index()
     {
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'ditahan')->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
         $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
         $peminjamannotif = Peminjamens::all();
         $buku = buku::orderBy('id', 'asc')->get();
@@ -27,7 +27,7 @@ class BukuController extends Controller
 
     public function create()
     {
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'ditahan')->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
         $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
         $peminjamannotif = Peminjamens::all();
         $penulis = penuli::all();
@@ -76,7 +76,7 @@ class BukuController extends Controller
     public function show($id)
     {
         $peminjamannotif = Peminjamens::all();
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'ditahan')->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
         $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
         $buku = Buku::findOrFail($id);
         $user = Auth::user();
@@ -85,7 +85,7 @@ class BukuController extends Controller
 
     public function edit(buku $buku)
     {
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'ditahan')->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
         $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
         $peminjamannotif = Peminjamens::all();
         $penulis = penuli::all();

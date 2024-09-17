@@ -19,7 +19,7 @@ class DashboardController extends Controller
     public function index()
     {
         $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->count();
         $jumlahuser  = User::where('isAdmin', 0)->count();
         $jumlahpeminjamanbuku  = Peminjamens::count();
         $users = User::orderBy('id', 'desc')->get();

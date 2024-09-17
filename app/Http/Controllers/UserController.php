@@ -23,7 +23,7 @@ class UserController extends Controller
     public function index()
     {
         $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->count();
         $users = User::orderBy('id', 'desc')->get();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
@@ -36,7 +36,7 @@ class UserController extends Controller
     public function create()
     {
         $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->count();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
         return view('admin.user.create', compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian'));
@@ -88,7 +88,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->count();
         $peminjamannotif = Peminjamens::all();
         return view('admin.user.show', compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian'));
     }
@@ -100,7 +100,7 @@ class UserController extends Controller
     {
         $user = Auth::user();
         $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan','ditahan')->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->count();
         $peminjamannotif = Peminjamens::all();
         return view('admin.user.edit', compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian'));
     }

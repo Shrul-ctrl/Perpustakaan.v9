@@ -35,11 +35,17 @@
             <li>
                 <a href="{{ route('peminjaman.index') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">inventory_2</i>
-                        @if($jumlahditerima > 0)
+
+                        @php
+                        $hasilnotif = $jumlahpengajuanditerima + $jumlahpengajuanditolak + $jumlahpengembalianditerima + $jumlahpengembalianditolak
+                        @endphp
+
+                        @if($hasilnotif > 0)
                         <span class="badge bg-danger" style="font-size: 0.6rem; padding: 0.2em 0.4em;">
-                            {{ $jumlahditerima }}
+                            {{ $hasilnotif }}
                         </span>
                         @endif
+
                     </div>
                     <div class="menu-title">Peminjaman</div>
                 </a>

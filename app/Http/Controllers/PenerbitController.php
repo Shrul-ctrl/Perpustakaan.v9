@@ -14,7 +14,7 @@ class PenerbitController extends Controller
     public function index()
     {
         $penerbit = Penerbit::orderBy('id', 'desc')->get();
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'ditahan')->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
         $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
@@ -24,7 +24,7 @@ class PenerbitController extends Controller
     public function create()
     {
         $user = Auth::user();
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'ditahan')->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
         $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
         $peminjamannotif = Peminjamens::all();
         return view('admin.penerbit.create', compact('peminjamannotif', 'user', 'jumlahpengajuan', 'jumlahpengembalian'));
@@ -61,7 +61,7 @@ class PenerbitController extends Controller
     {
         $user = Auth::user();
         $peminjamannotif = Peminjamens::all();
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'ditahan')->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
         $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
         return view('admin.penerbit.edit', compact('peminjamannotif', 'user', 'penerbit', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
