@@ -13,8 +13,8 @@ class PenulisController extends Controller
     public function index()
     {
         $penulis = Penuli::orderBy('id', 'desc')->get();
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
-        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->where('notif', false)->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->where('notif', false)->count();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
         return view('admin.penulis.index', compact('user', 'peminjamannotif', 'penulis', 'jumlahpengajuan', 'jumlahpengembalian'));
@@ -22,8 +22,8 @@ class PenulisController extends Controller
 
     public function create()
     {
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
-        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->where('notif', false)->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->where('notif', false)->count();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
         return view('admin.penulis.create', compact('peminjamannotif', 'user', 'jumlahpengajuan', 'jumlahpengembalian'));
@@ -59,8 +59,8 @@ class PenulisController extends Controller
     {
         $user = Auth::user();
         $peminjamannotif = Peminjamens::all();
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
-        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->where('notif', false)->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->where('notif', false)->count();
         return view('admin.penulis.edit', compact('peminjamannotif', 'user', 'penuli', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
 

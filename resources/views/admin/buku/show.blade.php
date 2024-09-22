@@ -61,7 +61,7 @@
 
                 <div class="col-md-12">
                     <div class="d-md-flex d-grid align-items-center gap-3">
-                        <a href="{{route('buku.index')}}" class="btn btn-danger px-4">Kembali</a>
+                        <a href="{{route('buku.index')}}" class="btn btn-danger px-4 btn-sm">Kembali</a>
                     </div>
                 </div>
             </form>

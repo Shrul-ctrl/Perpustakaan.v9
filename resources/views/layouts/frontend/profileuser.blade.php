@@ -4,6 +4,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{asset('images/buku/smk.png')}}">
+
     <title>Perpustakaan</title>
     {{-- <img src="{{asset('images/buku/smk.png')}}" alt="" /> --}}
     <!--favicon-->
@@ -21,6 +23,7 @@
     <link href="{{asset('backend/assets/plugins/datatable/css/dataTables.bootstrap5.min.css')}}" rel="stylesheet" />
     <!--bootstrap css-->
     <link href="{{asset('backend/assets/css/bootstrap.min.css')}}" rel="stylesheet">
+    <link href="{{asset('backend/assets/css/style.css')}}" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Material+Icons+Outlined" rel="stylesheet">
     <!--main css-->
@@ -82,15 +85,24 @@
     </script>
     <script>
         $(document).ready(function() {
-            $('#example').DataTable();
+            $('#example').DataTable({
+                "ordering": false
+                , "lengthChange": false
+                , "info": false, 
+                "language": {
+                    "search": "Cari:"
+                }
+            });
         });
 
     </script>
+
+
     <script>
         $(document).ready(function() {
             var table = $('#example2').DataTable({
                 lengthChange: false
-                , buttons: [ 'excel', 'pdf', 'print']
+                , buttons: ['excel', 'pdf', 'print']
             });
 
             table.buttons().container()
@@ -99,8 +111,16 @@
 
     </script>
 
+    <script>
+        $(function() {
+            $('[data-bs-toggle="popover"]').popover();
+            $('[data-bs-toggle="tooltip"]').tooltip();
+        })
 
-    
+    </script>
+
+
+
     {{-- <script src="{{asset('backend/assets/js/dashboard2.js')}}"></script> --}}
     <script src="{{asset('backend/assets/js/main.js')}}"></script>
 

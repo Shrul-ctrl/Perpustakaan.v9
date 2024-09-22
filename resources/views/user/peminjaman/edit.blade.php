@@ -3,7 +3,7 @@
     <div class="col-12 col-xl-12">
         <div class="card">
             <div class="card-body p-4">
-                <h5 class="mb-4">Edit buku</h5>
+                <h5 class="mb-4">Kembalikan buku</h5>
                 <form class="row g-3" method="POST" action="{{ route('peminjaman.update', $peminjaman->id) }}" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
@@ -57,8 +57,8 @@
 
                     <div class="col-md-12">
                         <div class="d-md-flex d-grid align-items-center gap-3">
-                            <a href="{{route('buku.index')}}" class="btn btn-danger px-4">Batal</a>
-                            <button type="submit" class="btn btn-primary px-4">Submit</button>
+                            <a href="{{ url()->previous() }}" class="btn btn-danger px-4 btn-sm">Batal</a>
+                            <button type="submit" class="btn btn-primary px-4 btn-sm">Kirim</button>
                         </div>
                     </div>
                 </form>

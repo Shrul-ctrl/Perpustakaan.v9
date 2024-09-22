@@ -22,8 +22,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->where('notif', false)->count(); 
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->where('notif', false)->count();
         $users = User::orderBy('id', 'desc')->get();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
@@ -35,8 +35,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->where('notif', false)->count(); 
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->where('notif', false)->count();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
         return view('admin.user.create', compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian'));
@@ -87,8 +87,8 @@ class UserController extends Controller
     public function show(User $user)
     {
         $user = Auth::user();
-        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->where('notif', false)->count(); 
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->where('notif', false)->count();
         $peminjamannotif = Peminjamens::all();
         return view('admin.user.show', compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian'));
     }
@@ -99,8 +99,8 @@ class UserController extends Controller
     public function edit(User $user)
     {
         $user = Auth::user();
-        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->where('notif', false)->count(); 
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->where('notif', false)->count();
         $peminjamannotif = Peminjamens::all();
         return view('admin.user.edit', compact('peminjamannotif','user','jumlahpengajuan','jumlahpengembalian'));
     }

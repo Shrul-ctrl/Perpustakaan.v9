@@ -18,17 +18,20 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->count(); 
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->count();
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->where('notif', false)->count(); 
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->where('notif', false)->count();
+        $peminjamannotif = Peminjamens::all();
+        Peminjamens::where('notif', false)->update(['notif' => true]);  
+        // $peminjamannotif = Peminjamens::where('notif', false)->get();
         $jumlahuser  = User::where('isAdmin', 0)->count();
         $jumlahpeminjamanbuku  = Peminjamens::count();
         $users = User::orderBy('id', 'desc')->get();
-        $peminjamannotif = Peminjamens::all();
         $jumlahkategori = Kategori::count();
         $jumlahpenerbit = Penerbit::count();
         $jumlahpenulis = Penuli::count();
         $jumlahbuku = Buku::count();
         $jumlahkomentar = Komentar::count();
+        
         
         $user = Auth::user();
         

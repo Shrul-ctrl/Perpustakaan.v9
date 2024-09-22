@@ -32,22 +32,28 @@
                 </div>
 
                 <div class="col-md-4x">
-                    <label for="input13" class="form-label">penulis</label>
+                    <label for="input13" class="form-label">Penulis</label>
                     <div class="position-relative">
                         <select class="form-control mb-3" name="id_penulis"  value="{{$buku->penulis}}" required>
-                            @foreach ($penulis as $data)
-                            <option value="{{ $data->id }}">{{ $data->nama_penulis }}</option>
+                            <option disabled selected>Pilih Penulis</option>
+                            @foreach ($penulis as $data)    
+                            <option value="{{ $data->id }}" {{ $data->id == $buku->id_penulis ? 'selected' : '' }}>
+                                {{ $data->nama_penulis }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
                 </div>
 
                 <div class="col-md-4x">
-                    <label for="input13" class="form-label">penerbit</label>
+                    <label for="input13" class="form-label">Penerbit</label>
                     <div class="position-relative">
                         <select class="form-control mb-3" name="id_penerbit"  value="{{$buku->penerbit}}" required>
+                            <option disabled selected>Pilih Penerbit</option>
                             @foreach ($penerbit as $data)
-                            <option value="{{ $data->id }}">{{ $data->nama_penerbit }}</option>
+                            <option value="{{ $data->id }}" {{ $data->id == $buku->id_penerbit ? 'selected' : '' }}>
+                                {{ $data->nama_penerbit }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -57,8 +63,11 @@
                     <label for="input13" class="form-label">Kategori</label>
                     <div class="position-relative">
                         <select class="form-control mb-3" name="id_kategori"  value="{{$buku->kategori}}" required>
+                            <option disabled selected>Pilih Kategori</option>
                             @foreach ($kategori as $data)
-                            <option value="{{ $data->id }}">{{ $data->nama_kategori }}</option>
+                            <option value="{{ $data->id }}" {{ $data->id == $buku->id_kategori ? 'selected' : '' }}>
+                                {{ $data->nama_kategori }}
+                            </option>
                             @endforeach
                         </select>
                     </div>
@@ -67,21 +76,21 @@
                 <div class="col-md-4x">
                     <label for="input13" class="form-label">Tahun Terbit</label>
                     <div class="position-relative">
-                        <input class="form-control mb-3" type="date" name="tahun_terbit" value="{{$buku->tahun_terbit}}" required>
+                        <input class="form-control mb-3" type="text" name="tahun_terbit" value="{{$buku->tahun_terbit}}" required>
                     </div>
                 </div>
 
                 <div class="col-md-4x">
                     <label for="input13" class="form-label">Jumlah</label>
                     <div class="position-relative">
-                        <input class="form-control mb-3" type="number" name="jumlah_buku"  value="{{$buku->jumlah}}" required>
+                        <input class="form-control mb-3" type="number" name="jumlah_buku"  value="{{$buku->jumlah_buku}}" required>
                     </div>
                 </div>
 
                 <div class="col-md-12">
                     <div class="d-md-flex d-grid align-items-center gap-3">
-                        <a href="{{route('buku.index')}}" class="btn btn-danger px-4">Batal</a>
-                        <button type="submit" class="btn btn-primary px-4">Submit</button>
+                        <a href="{{route('buku.index')}}" class="btn btn-danger px-4 btn-sm">Batal</a>
+                        <button type="submit" class="btn btn-primary px-4 btn-sm">Kirim</button>
                     </div>
                 </div>
             </form>

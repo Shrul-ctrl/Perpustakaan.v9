@@ -9,14 +9,16 @@
             {{ session('success') }}
         </div>
         @endif
-        {{-- <a href="{{ route('peminjaman.create') }}" class="btn btn-grd btn-primary px-5 mb-2">Tambah Data Peminjaman</a> --}}
-        <div class="table-responsive">
-            <table class="table mb-0" id="example2">
+        {{-- <div class="d-flex mb-3"> --}}
+            {{-- <a href="{{ route('peminjaman.create') }}" class="btn btn-grd btn-primary px-5">Tambah Data <i class="material-icons-outlined" style="font-size: 18px; vertical-align: middle;">add</i></a> --}}
+        {{-- </div> --}}
+        <div id="example4_buttons" class="btn-group mb-2"></div>
+        <table class="table mb-0 table-striped" id="example4">
                 <thead class="table">
-                    <tr>
+                    <tr class="text-center">
                         <th scope="col">No</th>
-                        <th scope="col">Nama Buku</th>
-                        <th scope="col">Nama Peminjam</th>
+                        <th scope="col">Judul</th>
+                        <th scope="col">Nama</th>
                         <th scope="col">Jumlah</th>
                         <th scope="col">Tanggal Peminjaman</th>
                         <th scope="col">Batas Peminjaman</th>
@@ -28,16 +30,14 @@
                 <tbody>
                     @foreach ($peminjaman as $data)
                     <tr>
-                        <th scope="row">{{ $loop->index+1 }}</th>
+                        <th scope="row" class="text-center">{{ $loop->index+1 }}</th>
                         <td>{{ $data->buku->judul }}</td>
                         <td>{{ $data->nama_peminjam}}</td>
-                        <td>{{ $data->jumlah_pinjam }}</td>
-                        <td>{{ $data->tanggal_pinjam }}</td>
-                        <td>{{ $data->batas_pinjam }}</td>
-                        <td>{{ $data->tanggal_kembali }}</td>
-                        <td>
+                        <td class="text-center">{{ $data->jumlah_pinjam }}</td>
+                        <td style="text-align: right;">{{ $data->tanggal_pinjam }}</td>
+                        <td style="text-align: right;">{{ $data->batas_pinjam }}</td>
+                        <td style="text-align: right;">{{ $data->tanggal_kembali }}</td>
                             @include('include.fullstack.ifelsestatus')
-                        </td>
                     </tr>
                     @endforeach
                 </tbody>

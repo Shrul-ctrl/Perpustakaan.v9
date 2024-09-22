@@ -13,8 +13,9 @@ class KategoriController extends Controller
 
     public function index()
     {
-        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
+
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->where('notif', false)->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->where('notif', false)->count();
         $kategori = Kategori::orderBy('id', 'desc')->get();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
@@ -23,8 +24,9 @@ class KategoriController extends Controller
 
     public function create()
     {
-        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->count();
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->count();
+
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->where('notif', false)->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->where('notif', false)->count();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
         return view('admin.kategori.create', compact('peminjamannotif', 'user', 'jumlahpengajuan', 'jumlahpengembalian'));

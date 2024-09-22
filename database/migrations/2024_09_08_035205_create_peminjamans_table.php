@@ -24,6 +24,7 @@ return new class extends Migration
             $table->enum('status_pengajuan', ['menunggu pengajuan','pengajuan diterima', 'pengajuan ditolak','pengembalian diterima','pengembalian ditolak','dipinjam','dikembalikan','sukses'])->default('menunggu pengajuan');
             $table->string('alasan_pengembalian')->nullable();
             $table->string('alasan_pengajuan')->nullable();
+            $table->boolean('notif')->default(false);
             $table->timestamps();
         });
     }

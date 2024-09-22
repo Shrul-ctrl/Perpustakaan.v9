@@ -22,14 +22,14 @@
             <li>
                 <a href="{{ route('profile') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">account_circle</i></div>
-                    <div class="menu-title">Profile</div>
+                    <div class="menu-title">Profil</div>
                 </a>
             </li>
             <li class="menu-label">List</li>
             <li>
-                <a href=" ">
+                <a href="{{url('favorite')}}">
                     <div class="parent-icon"><i class="material-icons-outlined">favorite</i></div>
-                    <div class="menu-title">Favorite</div>
+                    <div class="menu-title">favorit</div>
                 </a>
             </li>
             <li>
@@ -60,7 +60,7 @@
             <li>
                 <a href="{{ route('historiuser') }}">
                     <div class="parent-icon"><i class="material-icons-outlined">history</i></div>
-                    <div class="menu-title">Histori</div>
+                    <div class="menu-title">Riwayat</div>
                 </a>
             </li>
         </ul>

@@ -13,7 +13,7 @@
                     </p>
                     <div class="row">
                         <div class="col-lg-4 col-md-12 pb-1">
-                            <img src="{{ asset('images/buku/' . $buku->foto) }}" alt="" class="card-img-top" class="card-img-top" width="50" height="450">
+                            <img src="{{ asset('images/buku/' . $buku->foto) }}" alt="" class="card-img-top" class="card-img-top" width="50" height="450" onerror="this.onerror=null; this.src='{{ asset('images/tidakadafoto.jfif') }}';">
                         </div>
                         <div class="des col-lg-8 col-md-6 pb-1">
                             <p>Judul : {{$buku->judul}}</p>
@@ -53,7 +53,7 @@
                         </div>
                         @foreach($komentars as $data)
                         <div class="d-flex mb-3">
-                            <img src="{{ asset('images/data/' . $data->fotoprofile) }}" width="60" height="60" class="rounded-circle mr-3" alt="" />
+                            <img src="{{ asset('images/data/' . $data->fotoprofile) }}" width="60" height="60" class="rounded-circle mr-3" alt="" onerror="this.onerror=null; this.src='{{ asset('images/tidakadafoto.jfif') }}';"/>
                             <div class="flex-grow-1 ms-2">
                                 <p class="mb-0">{{ $data->user->name }}</p>
                                 <p class="mb-0">{{ $data->tanggal_komentar}}</p>

@@ -16,6 +16,11 @@ class Peminjamens extends Model
         return $this->belongsTo(Buku::class, 'id_buku');
     }
 
+    // public function notif()
+    // {
+    //     return $this->belongsTo(Notif::class);
+    // }
+
     // public function user()
     // {
     //     return $this->belongsTo(User::class, 'id_user');

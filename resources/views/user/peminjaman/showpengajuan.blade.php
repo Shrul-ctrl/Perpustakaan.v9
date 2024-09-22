@@ -52,11 +52,11 @@
 
                     <div class="col-md-12">
                         <div class="d-md-flex d-grid align-items-center gap-3">
-                            <a href="{{route('peminjaman.index')}}" class="btn btn-primary px-4">kembali</a>
+                            <a href="{{route('peminjaman.index')}}" class="btn btn-primary px-4 btn-sm">kembali</a>
                             <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Hapus Pengajuan Penolakan Buku?')">Hapus</button>
+                                <button type="submit" class="btn btn-danger bts-sm" onclick="return confirm('Hapus Pengajuan Penolakan Buku?')">Hapus</button>
                             </form>
                         </div>
                     </div>

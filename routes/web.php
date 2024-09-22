@@ -35,18 +35,19 @@ Route::group(['prefix' => 'user'], function () {
     Route::get('show/{id}', [PerpusController::class, 'show']);
     Route::get('listbuku', [PerpusController::class, 'listbuku'])->name('listbuku');
 
-    Route::group([ 'middleware' => ['auth']], function () {
+    Route::group(['middleware' => ['auth']], function () {
         Route::get('', [PerpusController::class, 'dashboard'])->name('dashboarduser');
         Route::get('kategori/{id}', [PerpusController::class, 'listbuku'])->name('buku.filter');
         Route::get('profile', [PerpusController::class, 'profile'])->name('profile');
         Route::get('profilelistbuku', [PerpusController::class, 'profilelistbuku'])->name('profilelistbuku');
+        Route::get('profilelistbuku/{id}', [PerpusController::class, 'profilelistbuku'])->name('profilelistbuku.filter');
         Route::get('historiuser', [PerpusController::class, 'historiuser'])->name('historiuser');
         Route::resource('peminjaman', PeminjamanController::class);
         Route::get('pengajuan/show/{id}', [PeminjamanController::class, 'showpengajuanuser'])->name('showpengajuanuser');
         Route::get('pengembalian/show/{id}', [PeminjamanController::class, 'showpengembalianuser'])->name('showpengembalianuser');
         Route::resource('komentar', KomentarController::class);
         Route::resource('kontak', KontakController::class);
-    });
+     });
 });
 
 

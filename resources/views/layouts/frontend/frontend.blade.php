@@ -2,6 +2,8 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
+  <link rel="icon" type="image/png" href="{{asset('images/buku/smk.png')}}">
+
         <title>SMA ASSALAAM</title>
 
         <meta content="width=device-width, initial-scale=1.0" name="viewport" />

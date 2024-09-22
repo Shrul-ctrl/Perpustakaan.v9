@@ -13,61 +13,55 @@
         <div class="table-responsive">
             <table class="table mb-0" id="example">
                 <thead class="table">
-                    <tr>
+                    <tr  class="text-center">
                         <th scope="col">No</th>
-                        <th scope="col">Nama Buku</th>
-                        <th scope="col">Nama Peminjam</th>
+                        <th scope="col">Judul</th>
+                        {{-- <th scope="col">Nama Peminjam</th> --}}
                         <th scope="col">Jumlah</th>
                         <th scope="col">Tanggal Peminjaman</th>
                         <th scope="col">Batas Peminjaman</th>
                         <th scope="col">Tanggal Pengembalian</th>
                         <th scope="col">Status</th>
-                        {{-- @if ($peminjamanditerima  ) --}}
-                        <th scope="col">Action</th>
-                        {{-- @elseif ($peminjamanditolak === 'ditolak')
-                        <th scope="col">Action</th> --}}
-                        {{-- @endif --}}
+                        <th scope="col">Aksi</th>                        
                     </tr>
                 </thead>
                 <tbody>
                     @foreach ($peminjaman as $data)
                     {{-- @if ($data->status_pengajuan === 'diterima') --}}
                     <tr>
-                        <th scope="row">{{ $loop->index+1 }}</th>
+                        <th scope="row"  class="text-center">{{ $loop->index+1 }}</th>
                         <td>{{ $data->buku->judul }}</td>
-                        <td>{{ $data->nama_peminjam}}</td>
-                        <td>{{ $data->jumlah_pinjam }}</td>
-                        <td>{{ $data->tanggal_pinjam }}</td>
-                        <td>{{ $data->batas_pinjam }}</td>
-                        <td>{{ $data->tanggal_kembali }}</td>
-                        <td>
+                        {{-- <td>{{ $data->nama_peminjam}}</td> --}}
+                        <td class="text-center">{{ $data->jumlah_pinjam }}</td>
+                        <td style="text-align: right">{{ $data->tanggal_pinjam }}</td>
+                        <td style="text-align: right">{{ $data->batas_pinjam }}</td>
+                        <td style="text-align: right">{{ $data->tanggal_kembali }}</td>
                             @include('include.fullstack.ifelsestatus')
-                        </td>
 
                         <td>
                             @if($data->status_pengajuan === 'menunggu pengajuan')
                             <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('Batal Peminjaman Buku?')">Batal</button>
+                                <button type="submit" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="left" title="Hapus Data" onclick="return confirm('Batal Pinjam Buku?')"><i class="material-icons-outlined" style="font-size: 18px;">delete</i></button>
                             </form>
 
                             @elseif($data->status_pengajuan === 'pengajuan diterima')
-                            <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-warning text-light btn-sm" data-bs-toggle="tooltip" data-bs-placement="left" title="Kembalikan Buku"> <i class="material-icons-outlined" style="font-size: 18px;">edit</i></a>
 
                             @elseif($data->status_pengajuan === 'pengajuan ditolak')
-                            <a href="{{ route('showpengajuanuser', $data->id) }}" class="btn btn-warning">Detail</a>
+                            <a href="{{ route('showpengajuanuser', $data->id) }}" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="left" title="Lihat Alasan Ditolak"> <i class="material-icons-outlined" style="font-size: 18px;">visibility</i></a>
 
 
                             @elseif($data->status_pengajuan === 'pengembalian diterima')
-                            <form class="row g-3" enctype="multipart/form-data" action="{{ route('peminjaman.update', $data->id) }}" method="POST">
+                            <form enctype="multipart/form-data" action="{{ route('peminjaman.update', $data->id) }}" method="POST">
                                 @csrf
                                 @method('PATCH')
-                                <button type="submit" name="status_pengajuan" value="sukses" class="btn btn-danger btn-sm">Hapus</button>
+                                <button type="submit" name="status_pengajuan" value="sukses" class="btn btn-danger btn-sm" data-bs-toggle="tooltip" data-bs-placement="left" title="Hapus Data" onclick="return confirm('Apakah anda yakin??')"><i class="material-icons-outlined" style="font-size: 18px;">delete</i></button>
                             </form>
                             
                             @elseif($data->status_pengajuan === 'pengembalian ditolak')
-                            <a href="{{ route('showpengembalianuser', $data->id) }}" class="btn btn-warning">Detail</a>
+                            <a href="{{ route('showpengembalianuser', $data->id) }}" class="btn btn-primary btn-sm" data-bs-toggle="tooltip" data-bs-placement="left" title="Lihat Alasan Ditolak"> <i class="material-icons-outlined" style="font-size: 18px;">visibility</i></a>
 
                             </form>
                             @endif

@@ -64,7 +64,7 @@
             <div class="card-body">
                 <div class="">
                     <div class="d-flex align-items-center gap-2 mb-2">
-                        <h5 class="mb-0">Histori</h5>
+                        <h5 class="mb-0">Riwayat</h5>
                     </div>
                     <div class="d-flex align-items-center justify-content-between">
                         <div class="">
@@ -95,20 +95,20 @@
                         <thead class="table">
                             <tr>
                                 <th scope="col">No</th>
-                                <th scope="col">Nama Buku</th>
+                                <th scope="col">Judul</th>
                                 <th scope="col">Jumlah</th>
-                                <th scope="col">Tanggal Peminjaman</th>
+                                {{-- <th scope="col">Tanggal Peminjaman</th> --}}
                                 <th scope="col">Batas Peminjaman</th>
                                 <th scope="col">Status</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($peminjaman as $data)
+                            @foreach ($peminjamanuser as $data)
                             <tr>
-                                <th scope="row">{{ $loop->index+1 }}</th>
+                                <th scope="row" class="text-center">{{ $loop->index+1 }}</th>
                                 <td>{{ $data->buku->judul }}</td>
                                 <td>{{ $data->jumlah_pinjam }}</td>
-                                <td>{{ $data->tanggal_pinjam }}</td>
+                                {{-- <td>{{ $data->tanggal_pinjam }}</td> --}}
                                 <td>{{ $data->batas_pinjam }}</td>
                                 <td>
                                     @include('include.fullstack.ifelsestatus')
@@ -127,6 +127,40 @@
         <div class="card rounded-4 w-100 bg ">
             <div class="card-body">
                 <div class="col">
+                    <h6 class="mb-0 text-uppercase">With Crossfade</h6>
+                    <hr>
+                    <div class="card">
+                        <div class="card-body">`
+                            <div id="carouselExampleFade" class="carousel slide carousel-fade" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    @php
+                                    $limitedbuku = $buku->take(3);
+                                    @endphp
+                                    @foreach ($limitedbuku as $index => $data)
+                                    <div class="carousel-item {{ $index === 0 ? 'active' : '' }}">
+                                        <img src="{{ asset('images/buku/' . ($data->foto ?? 'tidakadafoto.jfif')) }}" alt="" class="card-img-top" width="20" height="450" style="filter: brightness(70%); object-fit: cover;" onerror="this.onerror=null; this.src='{{ asset('images/tidakadafoto.jfif') }}';">
+                                        <div class="carousel-caption d-none d-md-block">
+                                            <h5 class="text-light">{{ $data->judul }}</h5>
+                                            <p>{{ $data->kategori->nama_kategori }}</p>
+                                            <a href="{{ url('user/show', $data->id) }}" type="button" class="btn btn-primary">Detail</a>
+                                        </div>
+                                    </div>
+                                    @endforeach
+                                </div>
+                                <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                {{-- <div class="col">
                     <h6 class="mb-0 text-uppercase">Baca Buku Terbaru</h6>
                     <hr>
                     <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="carousel">
@@ -155,7 +189,7 @@
                             <span class="visually-hidden">Next</span>
                         </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
     </div>

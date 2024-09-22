@@ -119,8 +119,8 @@
             <div class="col-lg-3 mb-5">
                 <div class="card border-0 bg-light shadow-sm pb-2">
                     <a href="{{ url('show' , $data->id) }}">
-                        <img src="{{ asset('images/buku/' . $data->foto) }}" alt="" class="card-img-top" alt="..." width="50" height="350">
-                    </a>
+                        <img src="{{ asset('images/buku/' . $data->foto) }}" alt="" class="card-img-top" alt="..." width="50" height="350" onerror="this.onerror=null; this.src='{{ asset('images/tidakadafoto.jfif') }}';">
+                    </a>                                                                                                                   
                     <div class="card-body text-center">
                         <h4 class="card-title">{{$data->judul}}</h4>
                         <p class="card-text">
@@ -144,7 +144,7 @@
 </div>
 <!-- Class End -->
 
-<section id="hubungi_kami" class="pt-5">
+{{-- <section id="hubungi_kami" class="pt-5">
     <div class="container-fluid py-5 mt-5">
         <div class="container">
             <div class="text-center pb-2">
@@ -214,7 +214,7 @@
             </div>
         </div>
     </div>
-</section>
+</section> --}}
 
 
 
