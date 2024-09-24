@@ -36,7 +36,22 @@ class DashboardController extends Controller
 
 
         $user = Auth::user();
+        
+        $peminjamanaperbulan = Peminjamens::selectRaw('MONTH(created_at) as month, COUNT(*) as total')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->pluck('total', 'month')->toArray();
 
-        return view('admin.dashboard', ['chart' => $chartIntance], compact('jumlahkomentar', 'peminjamannotif', 'users', 'user', 'jumlahuser', 'jumlahbuku', 'jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori', 'jumlahpengajuan', 'jumlahpengembalian', 'jumlahpeminjamanbuku'));
+        $dataPinjam = [];
+        for ($i = 1; $i <= 12; $i++) {
+            $dataPinjam[$i] = $peminjamanaperbulan[$i] ?? 0;
+        }
+
+        $user = Auth::user();
+
+        return view('admin.dashboard', [
+            'chart' => $chartIntance,
+            'dataPinjam' => array_values($dataPinjam), 
+        ] + compact('peminjamannotif', 'jumlahkomentar', 'users', 'user', 'jumlahuser', 'jumlahbuku', 'jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori', 'jumlahpengajuan', 'jumlahpengembalian', 'jumlahpeminjamanbuku'));
     }
 }
