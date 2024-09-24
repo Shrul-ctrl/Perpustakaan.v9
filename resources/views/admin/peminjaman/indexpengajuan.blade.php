@@ -1,6 +1,6 @@
 @extends('layouts.backend.backend')
 @section('content')
-<h3 class="mb-0 text-uppercase pb-3">PENGAJUAN BUKU</h3>
+<h4 class="mb-0 text-uppercase pb-3">Data Peminjaman Buku yang Menunggu Persetujuan Dipinjam</h4>
 <hr>
 <div class="card">
     <div class="card-body">
@@ -32,7 +32,7 @@
                         <td>{{ $data->buku->judul }}</td>
                         <td>{{ $data->nama_peminjam}}</td>
                         <td class="text-center">{{ $data->jumlah_pinjam }}</td>
-                        <td style="text-align: right;">{{ $data->tanggal_pinjam }}</td>
+                        <td class="text-center">{{ $data->tanggal_pinjam }}</td>
                         {{-- <td style="text-align: right;">{{ $data->batas_pinjam }}</td> --}}
                         {{-- <td style="text-align: right;">{{ $data->tanggal_kembali }}</td> --}}
                             @include('include.fullstack.ifelsestatus')

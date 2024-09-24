@@ -489,4 +489,5 @@ $(function () {
 
     var chart = new ApexCharts(document.querySelector("#chart7"), options);
     chart.render();
+    
 });

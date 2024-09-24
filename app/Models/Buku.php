@@ -26,10 +26,10 @@ class Buku extends Model
         return $this->belongsTo(Kategori::class, 'id_kategori');
     }
 
-    // public function deleteImage()
-    // {
-    //     if ($this->error && file_exists(public_path('foto/buku' . $this->cover))) {
-    //         return unlink(public_path('foto/buku' . $this->cover));
-    //     }
-    // }
+    public function deleteImage()
+    {
+        if ($this->error && file_exists(public_path('foto/buku' . $this->cover))) {
+            return unlink(public_path('foto/buku' . $this->cover));
+        }
+    }
 }

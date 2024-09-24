@@ -1,4 +1,4 @@
-<td >
+<td>
 @if($data->status_pengajuan === 'menunggu pengajuan')
 <p class="dash-lable mb-0 bg-primary bg-opacity-10 text-primary rounded-2 d-flex">Menunggu Persetujuan</p>
 @elseif($data->status_pengajuan === 'pengajuan diterima')

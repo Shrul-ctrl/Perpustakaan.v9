@@ -12,7 +12,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\PerpusController;
 use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\PengembalianController;
-
+use App\Http\Controllers\UlasanController;
 use App\Http\Middleware\IsAdmin;
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], function () {
@@ -27,6 +27,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth', IsAdmin::class]], fu
     Route::get('pengajuan', [PeminjamanController::class, 'indexpengajuan'])->name('indexpengajuan');
     Route::get('peminjaman', [PeminjamanController::class, 'indexpeminjaman'])->name('indexpeminjaman');
     Route::get('pengembalian', [PeminjamanController::class, 'indexpengembalian'])->name('indexpengembalian');
+    Route::post('import', [BukuController::class, 'import'])->name('user.import');
 });
 
 Route::get('', [PerpusController::class, 'index'])->name(name: 'AssalaamPerpustakaan');
@@ -43,11 +44,18 @@ Route::group(['prefix' => 'user'], function () {
         Route::get('profilelistbuku/{id}', [PerpusController::class, 'profilelistbuku'])->name('profilelistbuku.filter');
         Route::get('historiuser', [PerpusController::class, 'historiuser'])->name('historiuser');
         Route::resource('peminjaman', PeminjamanController::class);
+        Route::get('peminjaman/create/{id}', [PeminjamanController::class, 'create'])->name('peminjaman.create');
         Route::get('pengajuan/show/{id}', [PeminjamanController::class, 'showpengajuanuser'])->name('showpengajuanuser');
         Route::get('pengembalian/show/{id}', [PeminjamanController::class, 'showpengembalianuser'])->name('showpengembalianuser');
         Route::resource('komentar', KomentarController::class);
         Route::resource('kontak', KontakController::class);
-     });
+        Route::get('ulasan', [UlasanController::class, 'index'])->name('ulasan');
+        
+
+        // Route::get('ulasan', function () {
+        //     return view('user.ulasan');
+        // });
+    });
 });
 
 

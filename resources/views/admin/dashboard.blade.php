@@ -1,4 +1,8 @@
 @extends('layouts.backend.backend')
+@section('js')
+    <script src="{{ $chart->cdn() }}"></script>
+    {{ $chart->script() }}    
+@endsection
 @section('content')
 <div class="row">
 
@@ -85,7 +89,7 @@
             <div class="card-body">
                 <div class="d-flex align-items-start justify-content-between mb-3">
                     <div class="">
-                        <h5 class="mb-0">Daftar User</h5>
+                        <h5 class="mb-0">Daftar Penugguna</h5>
                     </div>
                     <div class="dropdown">
                         <a href="javascript:;" class="dropdown-toggle-nocaret options dropdown-toggle" data-bs-toggle="dropdown">
@@ -97,7 +101,7 @@
                         <thead>
                             <tr>
                                 <th>No</th>
-                                <th>Nama kasir</th>
+                                <th>Nama Pengguna</th>
                                 <th>email</th>
                             </tr>
                         </thead>
@@ -120,37 +124,36 @@
 
     <div class="col-12 col-xl-6">
         <div class="card rounded-4">
-          <div class="card-header py-3">
-            <div class="d-flex align-items-center justify-content-between">
-                <div class="">
-                    <h5 class="mb-0">Jumlah Buku</h5>
+            <div class="card-header py-3">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="">
+                        <h5 class="mb-0">Chart Tabel</h5>
+                    </div>
                 </div>
             </div>
-          </div>
-          <div class="card-body">
-            <div id="chart5"></div>
-          </div>
+            <div class="card-body">
+                {{-- <div id="chart4"></div> --}}
+                {!! $chart->container() !!}
+            </div>
         </div>
-      </div>
+    </div>
 
-      <div class="col-12 col-xl-12">
+    <div class="col-12 col-xl-12">
         <div class="card rounded-4">
-          <div class="card-header py-3">
-            <div class="d-flex align-items-center justify-content-between">
-                <div class="">
-                    <h5 class="mb-0">Daftar Pinjaman Buku</h5>
+            <div class="card-header py-3">
+                <div class="d-flex align-items-center justify-content-between">
+                    <div class="">
+                        <h5 class="mb-0">Daftar Pinjaman Buku</h5>
+                    </div>
                 </div>
             </div>
-          </div>
-          <div class="card-body">
-            <div id="chart1"></div>
-          </div>
+            <div class="card-body">
+                <div id="chartpeminjaman"></div>
+            </div>
         </div>
-      </div>
-
-      
+    </div>
 </div>
-
-
-
 @endsection
+
+
+

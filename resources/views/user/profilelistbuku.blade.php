@@ -37,7 +37,7 @@
                     @foreach ($buku as $data )
                     <div class="col-lg-3 mb-5">
                         <div class="card border-0 bg-light shadow-sm pb-2">
-                            <a href="{{ url('show' , $data->id) }}">
+                            <a href="{{ route('peminjaman.create' , $data->id) }}">
                                 <img src="{{ asset('images/buku/' . $data->foto) }}" alt="" class="card-img-top" alt="..." width="50" height="350" onerror="this.onerror=null; this.src='{{ asset('images/tidakadafoto.jfif') }}';">
                             </a>
                             <div class="card-body text-center">
@@ -47,8 +47,7 @@
                                 </p>
                             </div>
                             <div class="d-flex justify-content-center gap-1">
-                                {{-- <a href="" type="button" class="btn btn-primary px-4 float-end mb-4 mr-5" data-bs-toggle="modal" data-bs-target="#ScrollableModal">Kembali</a> --}}
-                                <a href="{{route('peminjaman.create')}}" type="button" class="btn btn-primary btn-sm">Pinjam</a>
+                                <a href="{{ route('peminjaman.create', $data->id) }}" type="button" class="btn btn-primary btn-sm">Pinjam</a>
                                 <a href="{{ url('user/show', $data->id) }}#komentar" type="button" class="btn btn-success btn-sm">Ulas</a>
                                 <a href="{{ url('user/show', $data->id) }}" type="button" class="btn btn-warning btn-sm">Detail</a>
                             </div>

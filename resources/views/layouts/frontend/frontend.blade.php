@@ -35,7 +35,7 @@
         <!--main css-->
     </head>
 
-<body>
+<body style="overflow-x: hidden">
     <!-- Navbar Start -->
     @include('include.frontend.header')
     <!-- Navbar End -->

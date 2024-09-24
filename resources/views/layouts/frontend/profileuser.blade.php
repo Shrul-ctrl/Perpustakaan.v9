@@ -88,9 +88,33 @@
             $('#example').DataTable({
                 "ordering": false
                 , "lengthChange": false
-                , "info": false, 
-                "language": {
+                , "info": false
+                , "language": {
                     "search": "Cari:"
+                }
+            });
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#example1').DataTable({
+                "ordering": true
+                , "lengthChange": true
+                , "info": true
+                , "language": {
+                    "search": "Cari:"
+                    , "lengthMenu": "Tampilkan _MENU_ entri"
+                    , "info": "Menampilkan _START_ hingga _END_ dari _TOTAL_ entri"
+                    , "infoEmpty": "Menampilkan 0 hingga 0 dari 0 entri"
+                    , "infoFiltered": "(disaring dari _MAX_ total entri)"
+                    , "paginate": {
+                        "first": "Pertama"
+                        , "last": "Terakhir"
+                        , "next": "Berikutnya"
+                        , "previous": "Sebelumnya"
+                    }
                 }
             });
         });

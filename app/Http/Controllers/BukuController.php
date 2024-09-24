@@ -9,7 +9,8 @@ use App\Models\penerbit;
 use App\Models\kategori;
 use App\Models\Peminjamens;
 use Illuminate\Support\Facades\Auth;
-
+use Maatwebsite\Excel\Facades\Excel;
+use App\Imports\UsersImport;
 
 class BukuController extends Controller
 {
@@ -122,5 +123,18 @@ class BukuController extends Controller
         $buku = buku::FindOrFail($id);
         $buku->delete();
         return redirect()->route('buku.index')->with('success', 'Data berhasil dihapus');
+    }
+
+    function import(Request $request)
+    {
+        $request->validate([
+            'file' => 'required|mimes:xls,xlsx'
+        ]);
+
+        $file = $request->file('file');
+
+        // Excel::import(new UsersImport, $file);
+
+        return back()->with('success', 'All good!');
     }
 }

@@ -10,7 +10,7 @@
             {{ session('success') }}
         </div>
         @endif
-        {{-- <a href="{{ route('user.create') }}" class="btn btn-grd btn-primary px-5 mb-2">Tambah Data <i class="material-icons-outlined" style="font-size: 18px; vertical-align: middle;">add</i></a> --}}
+        <a href="{{ route('user.create') }}" class="btn btn-grd btn-primary px-5 mb-2">Tambah Data <i class="material-icons-outlined" style="font-size: 18px; vertical-align: middle;">add</i></a>
         <table class="table" id="example">
             <thead class="table">
                 <tr class="text-center">

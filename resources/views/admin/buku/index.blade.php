@@ -10,12 +10,27 @@
         </div>
         @endif
   
+        <div class="col-12 mt-5 mb-3">
+            <form action="/import" method="POST" enctype="multipart/form-data">
+                @csrf
+                @method('POST')
+                <div class="row">
+                    <div class="col">
+                        <input type="file" name="file" id="file" class="form-control" required>
+                    </div>
+                    <div class="col">
+                        <button class="btn btn-success">Import User Data</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
         <div class="d-flex mb-3">
             <a href="{{ route('buku.create') }}" class="btn btn-grd btn-primary px-5">Tambah Data <i class="material-icons-outlined" style="font-size: 18px; vertical-align: middle;">add</i></a>
             <div id="example2_buttons" class="btn-group mx-2"></div>
         </div>
         <table class="table mb-0 table-striped" id="example2">
-            <thead>
+            <thead> 
                 <tr class="text-center">
                     <th scope="col">No</th>
                     <th scope="col" style="width: 100px;">Judul</th>

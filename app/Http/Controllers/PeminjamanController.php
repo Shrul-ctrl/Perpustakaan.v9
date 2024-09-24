@@ -17,21 +17,31 @@ class PeminjamanController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-
+    public function index(Request $request)
+    {   
         $user = Auth::user();
-        $peminjaman = Peminjamens::where('nama_peminjam', $user->name)->whereIn('status_pengajuan', ['menunggu pengajuan', 'pengajuan diterima', 'pengajuan ditolak', 'pengembalian diterima', 'pengembalian ditolak'])->orderBy('id', 'desc')->get();
+    
+        $query = Peminjamens::where('nama_peminjam', $user->name)
+            ->whereIn('status_pengajuan', ['menunggu pengajuan', 'pengajuan diterima', 'pengajuan ditolak', 'pengembalian diterima', 'pengembalian ditolak']);
+    
+        if ($request->filled('status_pengajuan')) {
+            $query->where('status_pengajuan', $request->status_pengajuan);
+        }
+    
+        $peminjaman = $query->orderBy('id', 'desc')->get();
         $peminjamanditerima = Peminjamens::where('status_pengajuan', 'pengajuan diterima')->orderBy('id', 'desc')->get();
-        $jumlahpengajuanditerima = Peminjamens::where('status_pengajuan', 'pengajuan diterima')->where('nama_peminjam', $user->name)->count();
-        $jumlahpengajuanditolak = Peminjamens::where('status_pengajuan', 'pengajuan ditolak')->where('nama_peminjam', $user->name)->count();
-        $jumlahpengembalianditerima = Peminjamens::where('status_pengajuan', 'pengembalian diterima')->where('nama_peminjam', $user->name)->count();
-        $jumlahpengembalianditolak = Peminjamens::where('status_pengajuan', 'pengembalian ditolak')->where('nama_peminjam', $user->name)->count();
-
+    
+        $jumlahpengajuanditerima = Peminjamens::where('status_pengajuan', 'pengajuan diterima')->where('nama_peminjam', $user->name)->where('notif', false)->count();
+        $jumlahpengajuanditolak = Peminjamens::where('status_pengajuan', 'pengajuan ditolak')->where('nama_peminjam', $user->name)->where('notif', false)->count();
+        $jumlahpengembalianditerima = Peminjamens::where('status_pengajuan', 'pengembalian diterima')->where('nama_peminjam', $user->name)->where('notif', false)->count();
+        $jumlahpengembalianditolak = Peminjamens::where('status_pengajuan', 'pengembalian ditolak')->where('nama_peminjam', $user->name)->where('notif', false)->count();
         $peminjamannotif = Peminjamens::where('nama_peminjam', $user->name)->whereIn('status_pengajuan', ['pengajuan diterima', 'pengajuan ditolak', 'pengembalian diterima', 'pengembalian ditolak'])->orderBy('id', 'desc')->get();
-
+        
+        Peminjamens::where('notif', false)->update(['notif' => true]);
+    
         return view('user.peminjaman.index', compact('user', 'peminjamannotif', 'peminjaman', 'peminjamanditerima', 'jumlahpengajuanditerima', 'jumlahpengajuanditolak', 'jumlahpengembalianditerima', 'jumlahpengembalianditolak'));
     }
+    
 
     public function indexpengajuan()
     {
@@ -60,17 +70,18 @@ class PeminjamanController extends Controller
         $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->where('notif', false)->count();
         $peminjamannotif = Peminjamens::all();
         $user = Auth::user();
-        return view('admin.peminjaman.indexpengembalian', ['user' => $user], compact('peminjamannotif', 'peminjamannotif', 'peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
+        return view('admin.peminjaman.indexpengembalian', compact('user', 'peminjamannotif', 'peminjamannotif', 'peminjaman', 'jumlahpengajuan', 'jumlahpengembalian'));
     }
 
-    public function create()
+    public function create($id)
     {
-        $buku = Buku::all();
+        $buku = Buku::findOrFail($id);
         $batastanggal = Carbon::now()->addWeek()->format('Y-m-d');
         $sekarang = now()->format('Y-m-d');
         $user = Auth::user();
-        return view('user.peminjaman.create', ['user' => $user], compact('buku', 'sekarang', 'batastanggal'));
+        return view('user.peminjaman.create', compact('buku', 'batastanggal', 'sekarang', 'user'));
     }
+
 
     public function store(Request $request)
     {
@@ -169,8 +180,10 @@ class PeminjamanController extends Controller
                 $buku->jumlah_buku -= $peminjaman->jumlah_pinjam;
                 $buku->save();
             }
+            $peminjaman->notif = false;
             $peminjaman->status_pengajuan = 'pengajuan diterima';
         } elseif ($request->status_pengajuan === 'pengajuan ditolak') {
+            $peminjaman->notif = false;
             $peminjaman->status_pengajuan = 'pengajuan ditolak';
         } elseif ($request->status_pengajuan === 'dikembalikan') {
             $buku = Buku::findOrFail($peminjaman->id_buku);
@@ -185,7 +198,16 @@ class PeminjamanController extends Controller
                 $buku->jumlah_buku += $peminjaman->jumlah_pinjam;
                 $buku->save();
             }
+            $peminjaman->notif = false;
             $peminjaman->status_pengajuan = 'pengembalian diterima';
+        } elseif ($request->status_pengajuan === 'pengembalian ditolak') {
+            $buku = Buku::findOrFail($peminjaman->id_buku);
+            if ($buku) {
+                $buku->jumlah_buku += $peminjaman->jumlah_pinjam;
+                $buku->save();
+            }
+            $peminjaman->notif = false;
+            $peminjaman->status_pengajuan = 'pengembalian ditolak';
         } elseif ($request->status_pengajuan === 'sukses') {
             $buku = Buku::findOrFail($peminjaman->id_buku);
             if ($buku) {

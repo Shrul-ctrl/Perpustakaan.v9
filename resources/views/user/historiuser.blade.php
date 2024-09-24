@@ -29,7 +29,7 @@
                                 </div>
                                 <div class="d-flex justify-content-center gap-1">
                                     {{-- <a href="{{ route('peminjaman.create') }}" type="button" class="btn btn-primary" style="font-size: 12px; padding: 4px 8px;">Pinjam Lagi</a> --}}
-                                    <a href="{{ url('show', $data->id) }}" type="button" class="btn btn-success" style="font-size: 12px; padding: 4px 8px;">Ulas</a>
+                                    <a href="{{ route('ulasan') }}" type="button" class="btn btn-success" style="font-size: 12px; padding: 4px 8px;">Ulas</a>
                                     <a type="button" class="btn btn-primary" style="font-size: 12px; padding: 4px 8px;">Detail peminjaman</a>
                                 </div>
                             </div>

@@ -10,18 +10,20 @@ use App\Models\penerbit;
 use App\Models\user;
 use App\Models\Peminjamens;
 use App\Models\Komentar;
-use App\chart\MonthlyUsersChart;
+use App\Charts\BukuChart;
 use Illuminate\Support\Facades\Auth;
 
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(BukuChart $chart)
     {
-        $jumlahpengembalian = Peminjamens::where('status_pengajuan','dikembalikan')->where('notif', false)->count(); 
-        $jumlahpengajuan = Peminjamens::where('status_pengajuan','menunggu pengajuan')->where('notif', false)->count();
+        $chartIntance = $chart->build();
+
+        $jumlahpengembalian = Peminjamens::where('status_pengajuan', 'dikembalikan')->where('notif', false)->count();
+        $jumlahpengajuan = Peminjamens::where('status_pengajuan', 'menunggu pengajuan')->where('notif', false)->count();
         $peminjamannotif = Peminjamens::all();
-        Peminjamens::where('notif', false)->update(['notif' => true]);  
+        Peminjamens::where('notif', false)->update(['notif' => true]);
         // $peminjamannotif = Peminjamens::where('notif', false)->get();
         $jumlahuser  = User::where('isAdmin', 0)->count();
         $jumlahpeminjamanbuku  = Peminjamens::count();
@@ -31,11 +33,10 @@ class DashboardController extends Controller
         $jumlahpenulis = Penuli::count();
         $jumlahbuku = Buku::count();
         $jumlahkomentar = Komentar::count();
-        
-        
+
+
         $user = Auth::user();
-        
-        return view('admin.dashboard',compact('jumlahkomentar','peminjamannotif','users','user','jumlahuser','jumlahbuku','jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori','jumlahpengajuan','jumlahpengembalian','jumlahpeminjamanbuku'));
+
+        return view('admin.dashboard', ['chart' => $chartIntance], compact('jumlahkomentar', 'peminjamannotif', 'users', 'user', 'jumlahuser', 'jumlahbuku', 'jumlahpenerbit', 'jumlahpenulis', 'jumlahkategori', 'jumlahpengajuan', 'jumlahpengembalian', 'jumlahpeminjamanbuku'));
     }
-    
 }

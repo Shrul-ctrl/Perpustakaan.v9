@@ -81,7 +81,7 @@
     <script src="{{asset('backend/assets/plugins/apexchart/apex-custom-chart.js')}}"></script>
     <script src="{{asset('backend/assets/plugins/simplebar/js/simplebar.min.js')}}"></script>
     <script src="{{asset('backend/assets/plugins/peity/jquery.peity.min.js')}}"></script>
-    <script src="{{asset('backend/assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>            
+    <script src="{{asset('backend/assets/plugins/datatable/js/jquery.dataTables.min.js')}}"></script>
     <script>
         $(".data-attributes span").peity("donut")
 
@@ -141,7 +141,7 @@
                     // }
                     {
                         extend: 'print'
-                        , text: 'PDF'
+                        , text: 'Expor PDF'
                         , title: 'Data Buku Perpustakaan '
                         , exportOptions: {
                             columns: [0, 1, 2, 3, 4, 5, 6]
@@ -149,7 +149,7 @@
                     }
                     , {
                         extend: 'excelHtml5'
-                        , text: 'Excel'
+                        , text: 'Expor Excel'
                         , title: 'Data Buku Perpustakaan '
                         , exportOptions: {
                             columns: ':not(:last-child)'
@@ -235,11 +235,12 @@
                 }
                 , buttons: [{
                         extend: 'print'
-                        , text: 'PDF'
+                        , text: 'Expor PDF'
                         , title: 'Data Example'
                     }
                     , {
                         extend: 'excelHtml5'
+                        , text: 'Expor Excel'
                         , title: 'Data Example'
                     }
                 ]
@@ -251,6 +252,7 @@
         });
 
     </script>
+
     <script>
         $(function() {
             $('[data-bs-toggle="popover"]').popover();
@@ -258,6 +260,91 @@
         })
 
     </script>
+
+    <script>
+        var options = {
+            series: [{
+                    name: "Peminjaman"
+                    , data: [44, 55, 57, 56, 61, 58, 63, 60, 66]
+                , }
+                , {
+                    name: "Customers"
+                    , data: [76, 85, 101, 98, 87, 105, 91, 114, 94]
+                , }
+                , {
+                    name: "Store Visitores"
+                    , data: [35, 41, 36, 26, 45, 48, 52, 53, 41]
+                , }
+            , ]
+            , chart: {
+                foreColor: "#9ba7b2"
+                , height: 380
+                , type: "bar"
+                , zoom: {
+                    enabled: false
+                , }
+                , toolbar: {
+                    show: !1
+                , }
+            , }
+            , fill: {
+                type: "gradient"
+                , gradient: {
+                    shade: "dark"
+                    , gradientToColors: ["#ffd200", "#00c6fb", "#7928ca"]
+                    , shadeIntensity: 1
+                    , type: "vertical",
+                    //opacityFrom: 0.8,
+                    //opacityTo: 0.1,
+                    stops: [0, 100, 100, 100]
+                , }
+            , }
+            , colors: ["#ff6a00", "#005bea", "#ff0080"]
+            , plotOptions: {
+                bar: {
+                    horizontal: false
+                    , borderRadius: 4
+                    , borderRadiusApplication: "around"
+                    , borderRadiusWhenStacked: "last"
+                    , columnWidth: "45%"
+                , }
+            , }
+            , dataLabels: {
+                enabled: false
+            , }
+            , stroke: {
+                show: !0
+                , width: 4
+                , colors: ["transparent"]
+            , }
+            , grid: {
+                show: true
+                , borderColor: "rgba(0, 0, 0, 0.15)"
+                , strokeDashArray: 4
+            , }
+            , tooltip: {
+                theme: "dark"
+            , }
+            , xaxis: {
+                categories: [
+                    "Jan"
+                    , "Feb"
+                    , "Mar"
+                    , "Apr"
+                    , "May"
+                    , "Jun"
+                    , "Jul"
+                    , "Aug"
+                    , "Sep"
+                , ]
+            , }
+        , };
+
+        var chart = new ApexCharts(document.querySelector("#chartpeminjaman"), options);
+        chart.render();
+
+    </script>
+
 
     {{-- <script src="{{asset('backend/assets/js/dashboard2.js')}}"></script> --}}
     <script src="{{asset('backend/assets/js/main.js')}}"></script>

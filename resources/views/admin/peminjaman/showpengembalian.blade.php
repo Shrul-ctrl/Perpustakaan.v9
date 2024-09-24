@@ -60,7 +60,7 @@
         <div class="d-md-flex d-grid align-items-center gap-3">
             <input type="hidden" name="redirect_to" value="showpengembalian">
             <button type="submit" name="status_pengajuan" value="pengembalian diterima" class="btn btn-success btn-sm">Terima</button>
-            <button type="submit" name="status_pengajuan" value="Pengembalian ditolak" class="btn btn-danger btn-sm">Tolak</button>
+            <button type="submit" name="status_pengajuan" value="pengembalian ditolak" class="btn btn-danger btn-sm">Tolak</button>
         </div>
     </div>
 </form>

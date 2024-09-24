@@ -61,25 +61,21 @@
                                 <input class="form-control mb-3" type="date" name="batas_pinjam" value="{{ $batastanggal }}" required readonly>
                             </div>
 
-                            <div class="col-md-6">
+                            {{-- <div class="col-md-6">
                                 <label for="input19" class="form-label">Status</label>
-                                <select id="input19" name="status" class="form-select" required>
-                                    <option selected>Pinjam</option>
-                                </select>
-                            </div>
+                                <input class="form-control mb-3" type="text" name="status_pengajuan" value="menunggu_pengajuan" required readonly>
+                            </div> --}}
 
                             <div class="col-md-6">
                                 <label for="input13" class="form-label">Nama Buku</label>
-                                <select class="form-control mb-3" name="id_buku" placeholder="Buku" required>
-                                    @foreach ($buku as $data)
-                                    <option value="{{ $data->id }}">{{ $data->judul }} </option>
-                                    @endforeach
-                                </select>
+                                <input type="text" class="form-control mb-3" value="{{ $buku->judul }}" readonly>
+                                <input type="hidden" name="id_buku" value="{{ $buku->id }}">
                             </div>
+                            
 
                             <div class="col-md-6">
-                                <label for="input13" class="form-label">Jumlah</label>
-                                <input class="form-control mb-3" type="number" name="jumlah_pinjam" placeholder="Jumlah" required>
+                                <label for="input13" class="form-label">Jumlah Pinjam</label>
+                                <input class="form-control mb-3" type="number" name="jumlah_pinjam" min="1" value="1" required>
                             </div>
 
                             <div class="col-md-6">
@@ -90,7 +86,7 @@
                             <div class="col-md-12">
                                 <div class="d-md-flex d-grid align-items-center gap-3">
                                     <a href="{{ url()->previous() }}" class="btn btn-danger px-4">Kembali</a>
-                                    <button type="submit" class="btn btn-success px-4">Simpan</button>
+                                    <button type="submit" class="btn btn-success px-4">Pinjam</button>
                                 </div>
                             </div>
                         </form>
