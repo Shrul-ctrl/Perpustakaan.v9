@@ -1,4 +1,5 @@
 @extends('layouts.backend.backend')
+<title>Perpustakaan - Peminajaman Buku</title>
 @section('content')
 <h4 class="mb-0 text-uppercase pb-3">Rekap Peminjaman Buku</h4>
 <hr>

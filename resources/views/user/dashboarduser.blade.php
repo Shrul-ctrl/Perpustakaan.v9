@@ -1,4 +1,5 @@
 @extends('layouts.frontend.profileuser')
+<title>Perpustakaan - Dashboard</title>
 @section('content')
 
 <div class="row">

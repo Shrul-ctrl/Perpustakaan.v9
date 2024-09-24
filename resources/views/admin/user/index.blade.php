@@ -1,5 +1,5 @@
 @extends('layouts.backend.backend')
-
+<title>Perpustakaan - Daftar User</title>
 @section('content')
 <h3 class="mb-0 text-uppercase pb-3">DAFTAR USER</h3>
 <hr>

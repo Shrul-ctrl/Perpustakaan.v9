@@ -1,4 +1,5 @@
 @extends('layouts.backend.backend')
+<title>Perpustakaan - Pengembalian Buku</title>
 @section('content')
 <h4 class="mb-0 text-uppercase pb-3">Data Peminjaman Buku yang Menunggu Persetujuan Dikembaliakan</h4>
 <hr>

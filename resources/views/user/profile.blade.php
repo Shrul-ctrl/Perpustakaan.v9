@@ -1,4 +1,5 @@
 @extends('layouts.frontend.profileuser')
+<title>Perpustakaan - Profil</title>
 @section('content')
 <div class="container">
     <div class="row justify-content-center">

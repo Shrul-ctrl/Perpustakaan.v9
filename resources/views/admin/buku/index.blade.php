@@ -1,4 +1,5 @@
 @extends('layouts.backend.backend')
+<title>Perpustakaan - Tabel Buku</title>
 @section('content')
 <h3 class="mb-0 text-uppercase pb-3">TABEL BUKU</h3>
 <hr>

@@ -1,4 +1,5 @@
 @extends('layouts.frontend.profileuser')
+<title>Perpustakaan - Riwayat Buku</title>
 @section('content')
 <h3 class="mb-0 text-uppercase pb-3">RIWAYAT PEMINJAMAN BUKU</h3>
 <hr>

@@ -1,4 +1,4 @@
-<aside class="sidebar-wrapper" data-simplebar="true">
+<aside class="sidebar-wrapper" data-simplebar="true" style="overflow-y: hidden;overflow-x: hidden">
     <div class="sidebar-header mt-3">
         <div class="logo-icon">
             <img src="{{asset('images/buku/smk.png')}}" alt="" width="50" />

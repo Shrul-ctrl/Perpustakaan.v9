@@ -1,4 +1,5 @@
 @extends('layouts.frontend.frontend')
+<title>Perpustakaan - Daftar Buku</title>
 @section('content')
 
 <!-- Header Start -->

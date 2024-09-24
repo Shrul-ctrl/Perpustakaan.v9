@@ -1,4 +1,5 @@
 @extends('layouts.backend.backend')
+<title>Perpustakaan - Tabel Penulis</title>
 @section('content')
 <h3 class="mb-0 text-uppercase pb-3">TABEL PENULIS</h3>
 <hr>
